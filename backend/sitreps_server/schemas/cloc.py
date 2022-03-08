@@ -18,3 +18,7 @@ class CLOC(CLOCBase):
 
 class CLOCCreate(CLOCBase):
     pass
+
+
+class CLOCUpdate(CLOCBase):
+    pass

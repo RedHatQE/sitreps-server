@@ -17,3 +17,7 @@ class Project(ProjectBase):
 
 class ProjectCreate(ProjectBase):
     pass
+
+
+class ProjectUpdate(ProjectBase):
+    pass

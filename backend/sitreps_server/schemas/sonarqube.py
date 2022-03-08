@@ -21,3 +21,7 @@ class SonarQube(SonarQubeBase):
 
 class SonarQubeCreate(SonarQubeBase):
     pass
+
+
+class SonarQubeUpdate(SonarQubeBase):
+    pass

@@ -20,3 +20,7 @@ class UnitTest(UnitTestBase):
 
 class UnitTestCreate(UnitTestBase):
     pass
+
+
+class UnitTestUpdate(UnitTestBase):
+    pass

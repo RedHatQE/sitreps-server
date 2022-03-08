@@ -29,3 +29,7 @@ class Jira(JiraBase):
 
 class JiraCreate(JiraBase):
     pass
+
+
+class JiraUpdate(JiraBase):
+    pass

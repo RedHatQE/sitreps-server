@@ -15,3 +15,7 @@ class ProjectGroup(ProjectGroupBase):
 
 class ProjectGroupCreate(ProjectGroupBase):
     pass
+
+
+class ProjectGroupUpdate(ProjectGroupBase):
+    pass

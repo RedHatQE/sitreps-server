@@ -2,8 +2,18 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
-SQLALCHEMY_DATABASE_URL = "postgresql://sitreps:sitreps@localhost:5432/sitreps"
+from ..core.config import settings
+
+
+def get_db_url():
+    user = settings.POSTGRES_USER
+    password = settings.POSTGRES_PASSWORD
+    server = settings.POSTGRES_SERVER
+    db = settings.POSTGRES_DB
+    return f"postgresql://{user}:{password}@{server}/{db}"
+
+
+SQLALCHEMY_DATABASE_URL = get_db_url()
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

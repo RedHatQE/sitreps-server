@@ -18,3 +18,7 @@ class CodeCoverage(CodeCoverageBase):
 
 class CodeCoverageCreate(CodeCoverageBase):
     pass
+
+
+class CodeCoverageUpdate(CodeCoverageBase):
+    pass

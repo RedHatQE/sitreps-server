@@ -48,3 +48,7 @@ class IntegrationTestCreate(IntegrationTestBase):
 
 class IntegrationTest(IntegrationTestBase):
     pass
+
+
+class IntegrationTestUpdate(IntegrationTestBase):
+    pass

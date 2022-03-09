@@ -6,6 +6,8 @@ from ..core.config import settings
 
 
 def get_db_url():
+    if settings.DATABASE_URL:
+        return settings.DATABASE_URL
     user = settings.POSTGRES_USER
     password = settings.POSTGRES_PASSWORD
     server = settings.POSTGRES_SERVER

@@ -5,7 +5,6 @@ from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import status
 from sitreps_server import crud
-from sitreps_server import models
 from sitreps_server import schemas
 from sqlalchemy.orm import Session
 

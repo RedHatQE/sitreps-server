@@ -22,6 +22,7 @@ class GlobalConfig(BaseSettings):
     POSTGRES_DB: str = "sitreps"
     POSTGRES_USER: str = "admin"
     POSTGRES_PASSWORD: str = "admin"
+    DATABASE_URL: str = ""
 
     class Config:
         case_sensitive = True

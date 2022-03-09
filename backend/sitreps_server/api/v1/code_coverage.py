@@ -2,7 +2,6 @@ from typing import Any
 
 from fastapi import APIRouter
 from fastapi import Depends
-from fastapi import HTTPException
 from fastapi import status
 from sitreps_server import crud
 from sitreps_server import schemas
@@ -35,11 +34,5 @@ def create_code_coverage(
     """
     Create new item.
     """
-    item = crud.code_coverage.get_with_name(db, name=item_in.name)
-    if item:
-        raise HTTPException(
-            status_code=status.HTTP_226_IM_USED,
-            detail=f"'{item_in.name}' already available.",
-        )
     item = crud.code_coverage.create(db=db, obj_in=item_in)
     return item

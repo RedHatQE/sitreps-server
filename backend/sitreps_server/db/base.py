@@ -8,10 +8,10 @@ from ..core.config import settings
 def get_db_url():
     if settings.DATABASE_URL:
         return settings.DATABASE_URL
-    user = settings.POSTGRES_USER
-    password = settings.POSTGRES_PASSWORD
-    server = settings.POSTGRES_SERVER
-    db = settings.POSTGRES_DB
+    user = settings.POSTGRESQL_USER
+    password = settings.POSTGRESQL_PASSWORD
+    server = settings.POSTGRESQL_SERVER
+    db = settings.POSTGRESQL_DATABASE
     return f"postgresql://{user}:{password}@{server}/{db}"
 
 

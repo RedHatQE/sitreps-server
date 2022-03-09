@@ -1,8 +1,5 @@
-from typing import Any
-
 from fastapi import APIRouter
 from fastapi import Depends
-from fastapi import HTTPException
 from fastapi import status
 from sitreps_server import crud
 from sitreps_server import models

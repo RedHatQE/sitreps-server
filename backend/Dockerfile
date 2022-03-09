@@ -1,5 +1,6 @@
-FROM python:3.8-slim
+FROM registry.access.redhat.com/ubi8/python-38
 
+USER 0
 WORKDIR /sitreps/
 
 COPY requirements.txt requirements.txt
@@ -8,5 +9,7 @@ RUN pip install -r requirements.txt
 COPY ./sitreps_server /sitreps/sitreps_server/
 EXPOSE 8000
 EXPOSE 5432
+
+USER 1001
 
 CMD ["uvicorn", "sitreps_server.main:app", "--host","0.0.0.0", "--port","8000"]

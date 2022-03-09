@@ -17,11 +17,11 @@ class GlobalConfig(BaseSettings):
     API_V1_STR: str = "/api/v1"
     PROJECT_NAME: str = "sitreps"
 
-    POSTGRES_SERVER: str = "localhost"
-    POSTGRES_PORT: int = 5432
-    POSTGRES_DB: str = "sitreps"
-    POSTGRES_USER: str = "admin"
-    POSTGRES_PASSWORD: str = "admin"
+    POSTGRESQL_SERVER: str = "localhost"
+    POSTGRESQL_PORT: int = 5432
+    POSTGRESQL_DATABASE: str = "sitreps"
+    POSTGRESQL_USER: str = "admin"
+    POSTGRESQL_PASSWORD: str = "admin"
     DATABASE_URL: str = ""
 
     class Config:

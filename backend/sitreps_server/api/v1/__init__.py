@@ -4,12 +4,14 @@ from .cloc import router as cloc_router
 from .code_coverage import router as cov_router
 from .integration_test import router as test_router
 from .jira import router as jira_router
+from .main import router as main_router
 from .project import router as proj_router
 from .project_groups import router as pg_router
 from .sonarqube import router as sonar_router
 from .unittests import router as unittest_router
 
 api_router = APIRouter()
+api_router.include_router(main_router)  # default
 api_router.include_router(pg_router, prefix="/projectgroups", tags=["Project Groups"])
 api_router.include_router(proj_router, prefix="/projects", tags=["Projects"])
 api_router.include_router(cloc_router, prefix="/cloc", tags=["Count Line of Code"])

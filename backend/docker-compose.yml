@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/pgdata
+    expose:
+      - 5432
+    env_file:
+      - '.env'
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    ports:
+      - 3001:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+  backend:
+    build: .
+    image: digitronik/sitreps-backend
+    ports:
+      - 8008:8000
+    env_file:
+      - '.env'
+    depends_on:
+      - db
+      - grafana
+
+volumes:
+  postgres_data:
+  grafana_data:

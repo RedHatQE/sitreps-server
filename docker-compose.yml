@@ -15,7 +15,7 @@ services:
     image: registry.redhat.io/rhel8/grafana:7-32
     restart: unless-stopped
     ports:
-      - 3000:3000
+      - 3001:3000
     volumes:
       - grafana_data:/var/lib/grafana
 

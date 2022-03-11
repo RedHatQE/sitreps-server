@@ -1,0 +1,1826 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2,
+  "iteration": 1646983161917,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "Q4IiE7Ynk"
+      },
+      "description": "All test cases including parallelization. ",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 40,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  \"all\",\n  automated,\n  manual\nFROM tests\nWHERE\n  $__timeFilter(\"time\") AND\n  project_id = '$project_id' AND\n  \"unique\" = False\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "\"all\""
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "automated"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "manual"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "tests",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int4",
+              "name": "",
+              "params": [
+                "project_id",
+                "=",
+                "'$project_id'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "bool",
+              "name": "",
+              "params": [
+                "\"unique\"",
+                "=",
+                "False"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Total Tests",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "Q4IiE7Ynk"
+      },
+      "description": "All test cases without parallelization. ",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "id": 41,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  \"all\",\n  automated,\n  manual\nFROM tests\nWHERE\n  $__timeFilter(\"time\") AND\n  project_id = '$project_id' AND\n  \"unique\" = True\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "\"all\""
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "automated"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "manual"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "tests",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int4",
+              "name": "",
+              "params": [
+                "project_id",
+                "=",
+                "'$project_id'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "bool",
+              "name": "",
+              "params": [
+                "\"unique\"",
+                "=",
+                "True"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Total Unique Tests",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "Q4IiE7Ynk"
+      },
+      "description": "All test cases without parallelization. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "missing_assignee"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Assignee"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "missing_casecomponent"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CaseComponent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "missing_caseimportance"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "CaseImportance"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "missing_interfacetype"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "InterfaceType"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "missing_requirements"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Requirements"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "id": 42,
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  missing_assignee,\n  missing_casecomponent,\n  missing_caseimportance,\n  missing_interfacetype,\n  missing_requirements\nFROM tests\nWHERE\n  $__timeFilter(\"time\") AND\n  project_id = '$project_id' AND\n  \"unique\" = False\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "missing_assignee"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "missing_casecomponent"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "missing_caseimportance"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "missing_interfacetype"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "missing_requirements"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "tests",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int4",
+              "name": "",
+              "params": [
+                "project_id",
+                "=",
+                "'$project_id'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "bool",
+              "name": "",
+              "params": [
+                "\"unique\"",
+                "=",
+                "False"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Missing Metadata Test Count",
+      "type": "bargauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 29,
+      "panels": [],
+      "title": "CLOC: $project",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "Q4IiE7Ynk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 6
+      },
+      "id": 17,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  repo_name,\n  cloc\nFROM cloc\nWHERE\n  $__timeFilter(\"time\") AND\n  project_id = '$project_id'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "repo_name"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "cloc"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "cloc",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int4",
+              "name": "",
+              "params": [
+                "project_id",
+                "=",
+                "'$project_id'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Count Line of Code",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "Q4IiE7Ynk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 16,
+        "x": 6,
+        "y": 6
+      },
+      "id": 30,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  repo_name,\n  cloc\nFROM cloc\nWHERE\n  $__timeFilter(\"time\") AND\n  project_id = '$project_id'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "repo_name"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "cloc"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "cloc",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int4",
+              "name": "",
+              "params": [
+                "project_id",
+                "=",
+                "'$project_id'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Count Line of Code",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 5,
+      "panels": [],
+      "title": "Jira: $project",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "Q4IiE7Ynk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 0,
+        "y": 12
+      },
+      "id": 2,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": false
+      },
+      "pluginVersion": "8.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  todo,\n  in_progress,\n  code_review,\n  on_qa,\n  blocked,\n  unresolved\nFROM jira\nWHERE\n  project_id = '$project_id'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "todo"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "in_progress"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "code_review"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "on_qa"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "blocked"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unresolved"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "jira",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "datatype": "int4",
+              "name": "",
+              "params": [
+                "project_id",
+                "=",
+                "'$project_id'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Jira Status: $project",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "Q4IiE7Ynk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 20,
+        "x": 4,
+        "y": 12
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  todo,\n  in_progress,\n  code_review,\n  on_qa,\n  blocked,\n  unresolved,\n  resolved,\n  todo_older_than_60d,\n  resolved_last_month,\n  created_last_month\nFROM jira\nWHERE\n  project_id = '$project_id'\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "todo"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "in_progress"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "code_review"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "on_qa"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "blocked"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unresolved"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "resolved"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "todo_older_than_60d"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "resolved_last_month"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "created_last_month"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "jira",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "datatype": "int4",
+              "name": "",
+              "params": [
+                "project_id",
+                "=",
+                "'$project_id'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Jira Metrics: $project",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 12,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "description": "patchman-ui repository sonarqube status",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "orange",
+                    "value": 70
+                  },
+                  {
+                    "color": "red",
+                    "value": 85
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 4,
+            "x": 0,
+            "y": 20
+          },
+          "id": 8,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.4.3",
+          "repeat": "sonarqube_repos",
+          "repeatDirection": "v",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "Q4IiE7Ynk"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  \"time\" AS \"time\",\n  security_hotspots,\n  vulnerabilities,\n  bugs,\n  code_smells\nFROM sonarqube\nWHERE\n  $__timeFilter(\"time\") AND\n  project_id = '$project_id' AND\n  repo_name = '${sonarqube_repos:raw}'\nORDER BY 1",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "security_hotspots"
+                    ],
+                    "type": "column"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "vulnerabilities"
+                    ],
+                    "type": "column"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "bugs"
+                    ],
+                    "type": "column"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "code_smells"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "sonarqube",
+              "timeColumn": "\"time\"",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                },
+                {
+                  "datatype": "int4",
+                  "name": "",
+                  "params": [
+                    "project_id",
+                    "=",
+                    "'$project_id'"
+                  ],
+                  "type": "expression"
+                },
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "repo_name",
+                    "=",
+                    "'${sonarqube_repos:raw}'"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "$project : $sonarqube_repos",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "description": "patchman-ui repository sonarqube status",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 20,
+            "x": 4,
+            "y": 20
+          },
+          "id": 13,
+          "maxPerRow": 2,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.4.2",
+          "repeat": "sonarqube_repos",
+          "repeatDirection": "v",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "Q4IiE7Ynk"
+              },
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  \"time\" AS \"time\",\n  security_hotspots,\n  vulnerabilities,\n  bugs,\n  code_smells\nFROM sonarqube\nWHERE\n  $__timeFilter(\"time\") AND\n  project_id = '$project_id' AND\n  repo_name = '${sonarqube_repos:raw}'\nORDER BY 1",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "security_hotspots"
+                    ],
+                    "type": "column"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "vulnerabilities"
+                    ],
+                    "type": "column"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "bugs"
+                    ],
+                    "type": "column"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "code_smells"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "sonarqube",
+              "timeColumn": "\"time\"",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                },
+                {
+                  "datatype": "int4",
+                  "name": "",
+                  "params": [
+                    "project_id",
+                    "=",
+                    "'$project_id'"
+                  ],
+                  "type": "expression"
+                },
+                {
+                  "datatype": "varchar",
+                  "name": "",
+                  "params": [
+                    "repo_name",
+                    "=",
+                    "'${sonarqube_repos:raw}'"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            }
+          ],
+          "title": "sonarqube: $sonarqube_repos",
+          "type": "timeseries"
+        }
+      ],
+      "title": "SonarQube: $project",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 24,
+      "panels": [],
+      "title": "Unit Tests: $project",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "Q4IiE7Ynk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 21
+      },
+      "id": 19,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.4.3",
+      "repeat": "unittest_repos",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  gh_action + jenkins + travis as \"total\"\nFROM unittests\nWHERE\n  $__timeFilter(\"time\") AND\n  project_id = '$project_id' AND\n  repo_name = '${unittest_repos:raw}'\n  ORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "gh_action"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "jenkins"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "travis"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "unittests",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int4",
+              "name": "",
+              "params": [
+                "project_id",
+                "=",
+                "'$project_id'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "repo_name",
+                "=",
+                "'${sonarqube_repos:raw}'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Unit Test Count: $project - $unittest_repos",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "Q4IiE7Ynk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 20,
+        "x": 4,
+        "y": 21
+      },
+      "id": 34,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.4.2",
+      "repeat": "unittest_repos",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "Q4IiE7Ynk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  gh_action, jenkins, travis\nFROM unittests\nWHERE\n  $__timeFilter(\"time\") AND\n  project_id = '$project_id' AND\n  repo_name = '${unittest_repos:raw}'\n  ORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "gh_action"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "jenkins"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "travis"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "unittests",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int4",
+              "name": "",
+              "params": [
+                "project_id",
+                "=",
+                "'$project_id'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "varchar",
+              "name": "",
+              "params": [
+                "repo_name",
+                "=",
+                "'${sonarqube_repos:raw}'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "title": "Unit Test Count: $project - $unittest_repos",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Insights",
+          "value": "Insights"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "Q4IiE7Ynk"
+        },
+        "definition": "select title from groups",
+        "description": "Select Projects Group",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Projects Group",
+        "multi": false,
+        "name": "group",
+        "options": [],
+        "query": "select title from groups",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "1",
+          "value": "1"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "Q4IiE7Ynk"
+        },
+        "definition": "select id from groups where title='$group'",
+        "description": "group id",
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "group_id",
+        "options": [],
+        "query": "select id from groups where title='$group'",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "Drift",
+          "value": "Drift"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "Q4IiE7Ynk"
+        },
+        "definition": "select title from projects where group_id='$group_id'",
+        "description": "Select Projects",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Projects",
+        "multi": false,
+        "name": "project",
+        "options": [],
+        "query": "select title from projects where group_id='$group_id'",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "11",
+          "value": "11"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "Q4IiE7Ynk"
+        },
+        "definition": "select id from projects where title = '$project'",
+        "description": "project_id",
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "project_id",
+        "options": [],
+        "query": "select id from projects where title = '$project'",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 3,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "Q4IiE7Ynk"
+        },
+        "definition": "select distinct repo_name from sonarqube where project_id='$project_id'",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "sonarqube_repos",
+        "options": [],
+        "query": "select distinct repo_name from sonarqube where project_id='$project_id'",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "Q4IiE7Ynk"
+        },
+        "definition": "select distinct repo_name from unittests where project_id='$project_id'",
+        "hide": 2,
+        "includeAll": true,
+        "multi": false,
+        "name": "unittest_repos",
+        "options": [],
+        "query": "select distinct repo_name from unittests where project_id='$project_id'",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "hide": 0,
+        "includeAll": true,
+        "multi": false,
+        "name": "unique",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "True",
+            "value": "True"
+          },
+          {
+            "selected": false,
+            "text": "False",
+            "value": "False"
+          }
+        ],
+        "query": "True,False",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Sitreps",
+  "uid": "WSOLP7Lnk",
+  "version": 43,
+  "weekStart": "monday"
+}

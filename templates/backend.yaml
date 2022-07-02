@@ -1,0 +1,156 @@
+# Template for sitreps stage server
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: sitreps-backend-template
+# ===============================================
+# Backend
+# ===============================================
+objects:
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: sitreps-backend
+    namespace: ${NAMESPACE}
+  spec:
+    replicas: 1
+    selector:
+      deploymentConfig: sitreps-backend
+    strategy:
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          app: ${APP_NAME}
+          deploymentConfig: sitreps-backend
+      spec:
+        containers:
+        - env:
+          - name: POSTGRESQL_SERVER
+            value: postgresql.${NAMESPACE}.svc
+          - name: POSTGRESQL_PORT
+            value: "5432"
+          - name: POSTGRESQL_USER
+            valueFrom:
+              secretKeyRef:
+                key: database-user
+                name: postgresql
+          - name: POSTGRESQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: database-password
+                name: postgresql
+          - name: POSTGRESQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                key: database-name
+                name: postgresql
+          image: sitreps-backend
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/v1/
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 20
+          name: sitreps-backend
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/v1/
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 20
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - sitreps-backend
+        from:
+          kind: ImageStreamTag
+          name: sitreps-backend:main
+          namespace: ${NAMESPACE}
+      type: ImageChange
+    - type: ConfigChange
+# -----------------------------------------------
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: sitreps-backend
+    annotations:
+      description: "The api of sitreps server"
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: quay.io/digitronik/sitreps-backend:main
+      generation: 3
+      importPolicy:
+        scheduled: true
+      name: main
+      referencePolicy:
+        type: Source
+# -----------------------------------------------
+- kind: Service
+  apiVersion: v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: sitreps-backend
+    namespace: ${NAMESPACE}
+  spec:
+    ports:
+    - port: 8000
+      targetPort: 8000
+    selector:
+      deploymentConfig: sitreps-backend
+# -----------------------------------------------
+- kind: Route
+  apiVersion: v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: sitreps-backend
+    namespace: ${NAMESPACE}
+    annotations:
+      description: "A route to the backend"
+  spec:
+    to:
+      kind: Service
+      name: sitreps-backend
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+# ------------------------------------------------
+# ===============================================
+# Parameters
+# ===============================================
+parameters:
+- name: APP_NAME
+  displayName: App Name
+  description: The name of the application
+  value: sitreps-server
+- name: NAMESPACE
+  displayName: Namespace
+  description: The namespace for all of the images, applications, etc.
+  value: vmugicag

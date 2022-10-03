@@ -23,3 +23,9 @@ from .sonarqube import SonarQubeUpdate  # noqa: F401
 from .unittest import UnitTest  # noqa: F401
 from .unittest import UnitTestCreate  # noqa: F401
 from .unittest import UnitTestUpdate  # noqa: F401
+from .repository import Repository  # noqa: F401
+from .repository import RepositoryCreate  # noqa: F401
+from .repository import RepositoryUpdate  # noqa: F401
+from .metadata import Metadata  # noqa: F401
+from .metadata import MetadataCreate    # noqa: F401
+from .metadata import MetadataUpdate    # noqa: F401

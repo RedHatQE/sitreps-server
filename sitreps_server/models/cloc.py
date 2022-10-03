@@ -5,8 +5,8 @@ from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
-from sqlalchemy import String
-
+from sqlalchemy_json import mutable_json_type
+from ..db.types import PortableJSON
 
 class CLOC(Base):
     """Count Line of Code."""
@@ -16,7 +16,7 @@ class CLOC(Base):
     time = Column(
         DateTime, default=datetime.utcnow, primary_key=True, index=True
     )  # time for time series data.
-    repo_name = Column(String, index=True)  # If multiple then repo name like frontend/backend/tests
     cloc = Column(Integer, index=True)
+    cloc_meta = Column(mutable_json_type(dbtype=PortableJSON()))
 
-    project_id = Column(Integer, ForeignKey("projects.id"), index=True)
+    repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)

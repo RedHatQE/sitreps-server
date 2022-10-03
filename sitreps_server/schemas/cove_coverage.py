@@ -6,10 +6,9 @@ from pydantic import BaseModel
 
 class CodeCoverageBase(BaseModel):
     time: Optional[datetime]
-    repo_name: Optional[str]  # If multiple repos like backend/frontend
     coverage: float
-    # project: instance of Project for relationship
-    project_id: Optional[int]
+    # repository: instance of Repository for relationship
+    repository_id: Optional[int]
 
 
 class CodeCoverage(CodeCoverageBase):

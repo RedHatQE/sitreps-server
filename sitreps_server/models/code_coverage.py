@@ -17,7 +17,6 @@ class CodeCoverage(Base):
     time = Column(
         DateTime, default=datetime.utcnow, primary_key=True, index=True
     )  # time for time series data.
-    repo_name = Column(String, index=True)  # If multiple then repo name like frontend/backend/tests
     coverage = Column(Float, index=True)
 
-    project_id = Column(Integer, ForeignKey("projects.id"), index=True)
+    repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)

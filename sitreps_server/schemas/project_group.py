@@ -6,7 +6,6 @@ from pydantic import BaseModel
 class ProjectGroupBase(BaseModel):
     name: str
     title: Optional[str] = None
-    description: Optional[str] = None
 
 
 class ProjectGroup(ProjectGroupBase):

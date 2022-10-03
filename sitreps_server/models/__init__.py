@@ -6,3 +6,5 @@ from .project import Project  # noqa: F401
 from .project_group import ProjectGroup  # noqa: F401
 from .sonarqube import SonarQube  # noqa: F401
 from .unittests import UnitTest  # noqa: F401
+from .repository import Repository  # noqa: F401
+from .metadata import Metadata  # noqa: F401

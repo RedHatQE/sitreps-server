@@ -12,7 +12,6 @@ class ProjectGroup(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
-    title = Column(String, index=True)
-    description = Column(String, index=True)
+    title = Column(String)
 
     projects = relationship("Project", backref="group")

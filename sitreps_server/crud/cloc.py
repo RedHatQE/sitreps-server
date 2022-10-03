@@ -13,5 +13,4 @@ from sitreps_server.schemas import CLOCCreate, CLOCUpdate
 class CRUDItem(CRUDBase[CLOC, CLOCCreate, CLOCUpdate]):
     pass
 
-
 cloc = CRUDItem(CLOC)

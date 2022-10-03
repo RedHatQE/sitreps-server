@@ -1,26 +1,25 @@
 from datetime import datetime
+from optparse import Option
 from typing import Optional
 
 from pydantic import BaseModel
 
 
-class SonarQubeBase(BaseModel):
+class MetadataBase(BaseModel):
     time: Optional[datetime]
-    vulnerabilities: int
-    code_smells: int
-    security_hotspots: int
-    bugs: int
+    
     # repository: instance of Repository for relationship
     repository_id: Optional[int]
+    meta: Optional[list]
 
 
-class SonarQube(SonarQubeBase):
+class MetadataCreate(MetadataBase):
     pass
 
 
-class SonarQubeCreate(SonarQubeBase):
+class Metadata(MetadataBase):
     pass
 
 
-class SonarQubeUpdate(SonarQubeBase):
+class MetadataUpdate(MetadataBase):
     pass

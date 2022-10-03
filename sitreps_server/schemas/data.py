@@ -11,14 +11,21 @@ from .project import ProjectCreate
 from .project_group import ProjectGroupCreate
 from .sonarqube import SonarQubeCreate
 from .unittest import UnitTestCreate
+from .repository import RepositoryCreate
+from .metadata import MetadataCreate
+
+class RepoData(BaseModel):
+    repository: Optional[RepositoryCreate]
+    integrationtests: Optional[IntegrationTestCreate]
+    metadata: Optional[MetadataCreate]
+    sonarqube: Optional[SonarQubeCreate]
+    cloc: Optional[CLOCCreate]
+    codecoverage: Optional[CodeCoverageCreate]
+    unittests: Optional[UnitTestCreate]
 
 
 class Data(BaseModel):
     project_group: ProjectGroupCreate
     project: ProjectCreate
+    repos: List[RepoData]
     jira: Optional[JiraCreate]
-    sonarqube: Optional[List[SonarQubeCreate]]
-    cloc: Optional[List[CLOCCreate]]
-    codecoverage: Optional[List[CodeCoverageCreate]]
-    unittests: Optional[List[UnitTestCreate]]
-    integrationtests: Optional[List[IntegrationTestCreate]]

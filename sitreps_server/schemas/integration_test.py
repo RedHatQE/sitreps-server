@@ -6,40 +6,40 @@ from pydantic import BaseModel
 
 class IntegrationTestBase(BaseModel):
     time: Optional[datetime]
-    project_id: Optional[int]
-    unique: bool
+    
+    # repository: instance of Repository for relationship
+    repository_id: Optional[int]
 
-    all: Optional[int]
+    total_tests: Optional[int]
+    customer_scenario: Optional[int]
+    component: Optional[str]
+    # Automatin status
     automated: Optional[int]
-    manual: Optional[int]
-
-    ui: Optional[int]
-    non_ui: Optional[int]
-
-    automated_ui: Optional[int]
-    automated_non_ui: Optional[int]
-    automated_other: Optional[int]  # automated - automated_ui - automated_non_ui
-
-    manual_ui: Optional[int]
-    manual_non_ui: Optional[int]
-    manual_other: Optional[int]
-
+    not_automated: Optional[int]
+    manual_only: Optional[int]
     # Test importance
     critical: Optional[int]
     high: Optional[int]
     medium: Optional[int]
     low: Optional[int]
-
-    # Missing metadata (like test missing assignee)
-    missing_interfacetype: Optional[int]
+    # Interface
+    ui: Optional[int]
+    non_ui: Optional[int]
+    # Negative tests
+    negative: Optional[int]
+    # Type
+    functional: Optional[int]
+    non_functional: Optional[int]
+    # Missing meta
     missing_assignee: Optional[int]
-    missing_caseimportance: Optional[int]
-    missing_casecomponent: Optional[int]
+    missing_automation_status: Optional[int]
+    missing_component: Optional[int]
+    missing_importance: Optional[int]
+    missing_interface_type: Optional[int]
     missing_requirements: Optional[int]
-
-    assignees: Optional[dict]  # {<name>: <number of tests>, ...}
+    missing_type: Optional[int]
+    assignees: Optional[dict]
     requirements: Optional[dict]  # {<requirment>: <number of link tests>, ...}
-    components: Optional[dict]
 
 
 class IntegrationTestCreate(IntegrationTestBase):

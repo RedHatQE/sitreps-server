@@ -1,9 +1,9 @@
 FROM registry.access.redhat.com/ubi8/python-38
 
 USER 0
-WORKDIR /sitreps/
+WORKDIR /sitreps
 
-VOLUME ["/sitreps"]
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 EXPOSE 8000

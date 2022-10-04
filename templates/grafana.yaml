@@ -15,7 +15,7 @@ objects:
     name: grafana
     namespace: ${NAMESPACE}
   spec:
-    replicas: 1
+    replicas: 2
     selector:
       deploymentConfig: grafana
     strategy:
@@ -29,7 +29,9 @@ objects:
       spec:
         containers:
         - env:
-          image: registry.redhat.io/rhel8/grafana:7-32
+          - name: GF_INSTALL_PLUGINS
+            value: ${GF_INSTALL_PLUGINS}
+          image: registry.redhat.io/rhel8/grafana:7-82
           imagePullPolicy: IfNotPresent
           name: grafana
           ports:
@@ -119,6 +121,10 @@ parameters:
   displayName: App Name
   description: The name of the application
   value: grafana
+- name: GF_INSTALL_PLUGINS
+  displayName: GF Install Plugins
+  description: Extra plugins you want to installed with grafana.
+  value: yesoreyeram-infinity-datasource    # We need this for json data display
 - name: NAMESPACE
   displayName: Namespace
   description: The namespace for all of the images, applications, etc.

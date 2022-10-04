@@ -20,17 +20,23 @@ services:
     depends_on:
       - db
 
-  # backend:
-  #   build: Dockerfile.local
-  #   ports:
-  #     - 8000:8000
-  #   volumes:
-  #     - ./:/sitreps
-  #   env_file:
-  #     - '.env'
-  #   depends_on:
-  #     - db
-  #     - grafana
+  # If you run this with docker-compose then you need to pass DATABASE_URL in .env file.
+  backend:
+    image: sitreps/server
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    # wait for postgress
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn sitreps_server.main:app --host 0.0.0.0'
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/sitreps
+    env_file:
+      - '.env'
+    depends_on:
+      - db
+      - grafana
 
 volumes:
   postgres_data:

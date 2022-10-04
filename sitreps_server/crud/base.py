@@ -32,6 +32,9 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
     def get(self, db: Session, id: Any) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.id == id).first()
+    
+    def get_with_repository_id(self, db: Session, repository_id: Any) -> Optional[ModelType]:
+        return db.query(self.model).filter(self.model.repository_id == repository_id).first()
 
     def get_multi(self, db: Session, *, skip: int = 0, limit: int = 100) -> List[ModelType]:
         return db.query(self.model).offset(skip).limit(limit).all()

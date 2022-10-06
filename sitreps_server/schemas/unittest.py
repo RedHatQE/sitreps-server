@@ -15,6 +15,7 @@ class UnitTestBase(BaseModel):
     travis: Optional[int]
     other: Optional[int]
 
+
 class UnitTest(UnitTestBase):
     pass
 

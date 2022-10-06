@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 
-
 from .api.v1 import api_router
 from .core.config import settings
 from .db import Base

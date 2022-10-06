@@ -1,11 +1,12 @@
 from datetime import datetime
 
-from sitreps_server.db import Base
 from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import Float
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
+
+from sitreps_server.db import Base
 
 
 class CodeCoverage(Base):

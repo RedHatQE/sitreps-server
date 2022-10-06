@@ -2,13 +2,12 @@ from typing import Any
 
 from fastapi import APIRouter
 from fastapi import Depends
-from fastapi import HTTPException
 from fastapi import status
-from sitreps_server import crud
-from sitreps_server import schemas
 from sqlalchemy.orm import Session
 
 from .deps import get_db
+from sitreps_server import crud
+from sitreps_server import schemas
 
 router = APIRouter()
 
@@ -42,7 +41,6 @@ def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
             proj = crud.project.create(db=db, obj_in=project_schema)
             print(f"Project {proj.name} created.")
 
-
         # jira
         if data.jira:
             data.jira.project_id = proj.id
@@ -70,7 +68,7 @@ def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
                 print(f"{tests_row.time}: New Integration Test entry")
             else:
                 print("Skipping Integration Test as data not found.")
-            
+
             # Metadata of integration test
             metadata_schema = repo_data.metadata
             if metadata_schema:
@@ -79,7 +77,6 @@ def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
                 print(f"{meta_row.time}: New metadata entry")
             else:
                 print("Skipping metadata as data not found.")
-
 
             # CLOC
             cloc_schema = repo_data.cloc
@@ -107,7 +104,6 @@ def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
                 print(f"{sonar_row.time}: New sonarqube entry")
             else:
                 print("Skipping sonarqube as data not found.")
-
 
             # Unit tests
             unittests_schema = repo_data.unittests

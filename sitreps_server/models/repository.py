@@ -1,4 +1,3 @@
-from operator import index
 from typing import TYPE_CHECKING
 
 from sitreps_server.db import Base
@@ -7,6 +6,9 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy.orm import relationship
+from sqlalchemy_json import mutable_json_type
+from ..db.types import PortableJSON
+
 
 if TYPE_CHECKING:
     from .cloc import CLOC  # noqa: F401
@@ -26,6 +28,8 @@ class Repository(Base):
     title = Column(String, index=True)
     type = Column(String, index=True)
     url = Column(String, index=True)
+    # Hold some extra info
+    meta = Column(mutable_json_type(dbtype=PortableJSON()))
 
     project_id = Column(Integer, ForeignKey("projects.id"), index=True)
 

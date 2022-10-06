@@ -12,27 +12,49 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.get("/")
-def read_jira(
-    db: Session = Depends(get_db),
-    skip: int = 0,
-    limit: int = 100,
-) -> Any:
-    """
-    Retrieve items.
-    """
-    item = crud.jira.get_multi(db, skip=skip, limit=limit)
-    return item
-
-
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create_jira(
+def add_jira(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.JiraCreate,
 ) -> Any:
     """
-    Create new item.
+    Add new Jira entry.
     """
     item = crud.jira.create(db=db, obj_in=item_in)
     return item
+
+
+@router.get("/")
+def read_jira(
+    db: Session = Depends(get_db),
+    skip: int = 0,
+    limit: int = 100,
+    filter_by_project_id: int = None,
+    filter_by_project_name: str = None,
+) -> Any:
+    """
+    Retrieve Jira data.
+    """
+    filters = {}
+
+    if filter_by_project_id:
+        filters["project_id"] = filter_by_project_id
+
+    if filter_by_project_name:
+        filters["project_name"] = filter_by_project_name
+
+    item = crud.jira.get_multi(db, skip=skip, limit=limit, filters=filters)
+    return item
+
+
+@router.get("/{project_id}")
+def read_latest_meta(
+    project_id: int,
+    db: Session = Depends(get_db),
+) -> Any:
+    """
+    Retrieve latest Jira 'meta' field for Project.
+    """
+    item = crud.jira.get_last_with_project_id(db, project_id=project_id)
+    return item.meta if item else {}

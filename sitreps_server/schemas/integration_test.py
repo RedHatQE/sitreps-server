@@ -41,6 +41,13 @@ class IntegrationTestBase(BaseModel):
     assignees: Optional[dict]
     requirements: Optional[dict]  # {<requirment>: <number of link tests>, ...}
 
+    meta: Optional[dict]
+
+    # Future reserved fields.
+    test1: Optional[int]
+    test2: Optional[int]
+    test3: Optional[int]
+
 
 class IntegrationTestCreate(IntegrationTestBase):
     pass

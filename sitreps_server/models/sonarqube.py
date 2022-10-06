@@ -5,6 +5,9 @@ from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy_json import mutable_json_type
+from ..db.types import PortableJSON
 
 
 class SonarQube(Base):
@@ -15,9 +18,14 @@ class SonarQube(Base):
     time = Column(
         DateTime, default=datetime.utcnow, primary_key=True, index=True
     )  # time for time series data.
-    vulnerabilities = Column(Integer, index=True)
-    code_smells = Column(Integer, index=True)
-    security_hotspots = Column(Integer, index=True)
-    bugs = Column(Integer, index=True)
 
     repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)
+
+    project = Column(String)
+    vulnerabilities = Column(Integer)
+    code_smells = Column(Integer)
+    security_hotspots = Column(Integer)
+    bugs = Column(Integer)
+
+    # store extra information.
+    meta = Column(mutable_json_type(dbtype=PortableJSON()))

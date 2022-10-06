@@ -3,11 +3,11 @@ from typing import Any
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import status
-from sitreps_server import crud
-from sitreps_server import schemas
 from sqlalchemy.orm import Session
 
 from .deps import get_db
+from sitreps_server import crud
+from sitreps_server import schemas
 
 router = APIRouter()
 
@@ -17,7 +17,7 @@ def read_code_coverage(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,
-    filter_by_repository_id: int = None
+    filter_by_repository_id: int = None,
 ) -> Any:
     """
     Retrieve items.
@@ -42,5 +42,3 @@ def add_code_coverage(
     """
     item = crud.code_coverage.create(db=db, obj_in=item_in)
     return item
-
-

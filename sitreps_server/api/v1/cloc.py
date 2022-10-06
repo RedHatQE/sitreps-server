@@ -3,11 +3,11 @@ from typing import Any
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import status
-from sitreps_server import crud
-from sitreps_server import schemas
 from sqlalchemy.orm import Session
 
 from .deps import get_db
+from sitreps_server import crud
+from sitreps_server import schemas
 
 router = APIRouter()
 

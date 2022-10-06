@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 class IntegrationTestBase(BaseModel):
     time: Optional[datetime]
-    
+
     # repository: instance of Repository for relationship
     repository_id: Optional[int]
 

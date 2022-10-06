@@ -5,12 +5,12 @@ from .code_coverage import router as cov_router
 from .integration_test import router as test_router
 from .jira import router as jira_router
 from .main import router as main_router
+from .metadata import router as metadata_router
 from .project import router as proj_router
 from .project_groups import router as pg_router
 from .repository import router as repo_router
 from .sonarqube import router as sonar_router
 from .unittests import router as unittest_router
-from .metadata import router as metadata_router
 
 api_router = APIRouter()
 api_router.include_router(main_router)  # default

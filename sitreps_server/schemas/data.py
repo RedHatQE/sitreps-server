@@ -7,12 +7,13 @@ from .cloc import CLOCCreate
 from .cove_coverage import CodeCoverageCreate
 from .integration_test import IntegrationTestCreate
 from .jira import JiraCreate
+from .metadata import MetadataCreate
 from .project import ProjectCreate
 from .project_group import ProjectGroupCreate
+from .repository import RepositoryCreate
 from .sonarqube import SonarQubeCreate
 from .unittest import UnitTestCreate
-from .repository import RepositoryCreate
-from .metadata import MetadataCreate
+
 
 class RepoData(BaseModel):
     repository: Optional[RepositoryCreate]

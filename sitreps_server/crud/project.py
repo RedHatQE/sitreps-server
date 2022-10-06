@@ -2,15 +2,15 @@ from typing import Any
 from typing import Optional
 from typing import TypeVar
 
-from ..db import Base
-
-ModelType = TypeVar("ModelType", bound=Base)
-
 from sqlalchemy.orm import Session
 
+from ..db import Base
 from sitreps_server.crud.base import CRUDBase
 from sitreps_server.models import Project
-from sitreps_server.schemas import ProjectCreate, ProjectUpdate
+from sitreps_server.schemas import ProjectCreate
+from sitreps_server.schemas import ProjectUpdate
+
+ModelType = TypeVar("ModelType", bound=Base)
 
 
 class CRUDItem(CRUDBase[Project, ProjectCreate, ProjectUpdate]):

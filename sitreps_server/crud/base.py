@@ -32,21 +32,32 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
     def get(self, db: Session, id: Any) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.id == id).first()
-    
 
     def get_with_project_id(self, db: Session, project_id: Any) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.project_id == project_id).first()
-    
+
     def get_with_repository_id(self, db: Session, repository_id: Any) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.repository_id == repository_id).first()
 
     def get_last_with_project_id(self, db: Session, project_id: Any) -> Optional[ModelType]:
-        return db.query(self.model).filter(self.model.project_id == project_id).order_by(self.model.time.desc()).first()
-    
-    def get_last_with_repository_id(self, db: Session, repository_id: Any) -> Optional[ModelType]:
-        return db.query(self.model).filter(self.model.repository_id == repository_id).order_by(self.model.time.desc()).first()
+        return (
+            db.query(self.model)
+            .filter(self.model.project_id == project_id)
+            .order_by(self.model.time.desc())
+            .first()
+        )
 
-    def get_multi(self, db: Session, *, skip: int = 0, limit: int = 100, filters: dict = None) -> List[ModelType]:
+    def get_last_with_repository_id(self, db: Session, repository_id: Any) -> Optional[ModelType]:
+        return (
+            db.query(self.model)
+            .filter(self.model.repository_id == repository_id)
+            .order_by(self.model.time.desc())
+            .first()
+        )
+
+    def get_multi(
+        self, db: Session, *, skip: int = 0, limit: int = 100, filters: dict = None
+    ) -> List[ModelType]:
         # return db.query(self.model).offset(skip).limit(limit).all()
         quary = db.query(self.model)
         if filters:

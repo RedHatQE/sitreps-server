@@ -4,11 +4,11 @@ from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import status
-from sitreps_server import crud
-from sitreps_server import schemas
 from sqlalchemy.orm import Session
 
 from .deps import get_db
+from sitreps_server import crud
+from sitreps_server import schemas
 
 router = APIRouter()
 
@@ -19,7 +19,7 @@ def read_repositories(
     skip: int = 0,
     limit: int = 10,
     filter_by_project_id: int = None,
-    filter_by_type: str = None
+    filter_by_type: str = None,
 ) -> Any:
     """
     Retrieve Repositories data.

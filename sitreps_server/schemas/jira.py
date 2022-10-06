@@ -6,8 +6,8 @@ from pydantic import BaseModel
 
 class JiraBase(BaseModel):
     time: Optional[datetime]
-    project_id: Optional[int]       # project: instance of Project for relationship
-    project_name: Optional[str]     # Jira project id like SPM for patchman
+    project_id: Optional[int]  # project: instance of Project for relationship
+    project_name: Optional[str]  # Jira project id like SPM for patchman
 
     resolved: int
     unresolved: int

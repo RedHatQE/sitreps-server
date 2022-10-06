@@ -1,13 +1,14 @@
 from datetime import datetime
 
-from sitreps_server.db import Base
 from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy_json import mutable_json_type
+
 from ..db.types import PortableJSON
+from sitreps_server.db import Base
 
 
 class SonarQube(Base):

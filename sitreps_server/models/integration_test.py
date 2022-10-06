@@ -1,5 +1,4 @@
 from datetime import datetime
-from operator import index
 
 from sitreps_server.db import Base
 from sqlalchemy import Column
@@ -24,7 +23,7 @@ class IntegrationTest(Base):
     total_tests=Column(Integer, index=True)
     customer_scenario=Column(Integer, index=True)
     component=Column(String, index=True)
-    # Automatin status
+    # Automation status
     automated=Column(Integer, index=True)
     not_automated=Column(Integer, index=True)
     manual_only=Column(Integer, index=True)
@@ -52,4 +51,10 @@ class IntegrationTest(Base):
 
     assignees=Column(mutable_json_type(dbtype=PortableJSON()))      # {<name>: <number of tests>, ...}
     requirements=Column(mutable_json_type(dbtype=PortableJSON()))  # {<requirment>: <number of link tests>, ...}
- 
+
+    meta = Column(mutable_json_type(dbtype=PortableJSON()))
+
+    # Future reserved fields.
+    test1 = Column(Integer)
+    test2 = Column(Integer)
+    test3 = Column(Integer)

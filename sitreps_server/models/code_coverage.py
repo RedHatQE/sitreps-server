@@ -6,7 +6,6 @@ from sqlalchemy import DateTime
 from sqlalchemy import Float
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
-from sqlalchemy import String
 
 
 class CodeCoverage(Base):
@@ -17,6 +16,7 @@ class CodeCoverage(Base):
     time = Column(
         DateTime, default=datetime.utcnow, primary_key=True, index=True
     )  # time for time series data.
+
     coverage = Column(Float, index=True)
 
     repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)

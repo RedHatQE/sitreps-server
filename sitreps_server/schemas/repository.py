@@ -8,6 +8,7 @@ class RepositoryBase(BaseModel):
     title: Optional[str] = None
     type: str
     url: str
+    meta: Optional[dict] = None
 
     project_id: Optional[int] = None
 

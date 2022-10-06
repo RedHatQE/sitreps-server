@@ -12,27 +12,31 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.get("/")
-def read_unittests(
-    db: Session = Depends(get_db),
-    skip: int = 0,
-    limit: int = 100,
-) -> Any:
-    """
-    Retrieve items.
-    """
-    item = crud.unittests.get_multi(db, skip=skip, limit=limit)
-    return item
-
-
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create_unittests(
+def add_unittests(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.UnitTestCreate,
 ) -> Any:
     """
-    Create new item.
+    Add new unittest entry.
     """
     item = crud.unittests.create(db=db, obj_in=item_in)
+    return item
+
+
+@router.get("/")
+def read_unittests(
+    db: Session = Depends(get_db),
+    skip: int = 0,
+    limit: int = 100,
+    filter_by_repository_id: int = None
+) -> Any:
+    """
+    Retrieve UnitTests data.
+    """
+    filters = {}
+    if filter_by_repository_id:
+        filters["repository_id"] = filter_by_repository_id
+    item = crud.unittests.get_multi(db, skip=skip, limit=limit, filters=filters)
     return item

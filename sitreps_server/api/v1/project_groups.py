@@ -20,7 +20,7 @@ def read_project_groups(
     limit: int = 10,
 ) -> Any:
     """
-    Retrieve items.
+    Retrieve Project Groups.
     """
     pg = crud.project_group.get_multi(db, skip=skip, limit=limit)
     return pg
@@ -33,7 +33,7 @@ def create_project_group(
     item_in: schemas.ProjectGroupCreate,
 ) -> Any:
     """
-    Create new item.
+    Create new Project Group.
     """
     pg = crud.project_group.get_with_name(db, name=item_in.name)
     if pg:
@@ -53,7 +53,7 @@ def update_project_group(
     item_in: schemas.ProjectGroupUpdate,
 ) -> Any:
     """
-    Update an item.
+    Update an Project Group.
     """
     item = crud.project_group.get(db=db, id=id)
     if not item:
@@ -69,7 +69,7 @@ def read_project_group(
     id: int,
 ) -> Any:
     """
-    Get item by ID.
+    Get Project Group by ID.
     """
     item = crud.project_group.get(db=db, id=id)
     if not item:
@@ -84,7 +84,7 @@ def delete_project_group(
     id: int,
 ) -> Any:
     """
-    Delete an item.
+    Delete an Project Group.
     """
     item = crud.project_group.get(db=db, id=id)
     if not item:

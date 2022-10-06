@@ -7,7 +7,7 @@ from pydantic import BaseModel
 class CLOCBase(BaseModel):
     time: Optional[datetime]
     cloc: int
-    cloc_meta: Optional[dict]
+    meta: Optional[dict]
     # repository: instance of Repository for relationship
     repository_id: Optional[int]
 

@@ -12,19 +12,6 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.get("/")
-def read_integration_test(
-    db: Session = Depends(get_db),
-    skip: int = 0,
-    limit: int = 100,
-) -> Any:
-    """
-    Retrieve items.
-    """
-    item = crud.integration_test.get_multi(db, skip=skip, limit=limit)
-    return item
-
-
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_integration_test(
     *,
@@ -35,4 +22,23 @@ def create_integration_test(
     Create new item.
     """
     item = crud.integration_test.create(db=db, obj_in=item_in)
+    return item
+
+
+@router.get("/")
+def read_integration_test(
+    db: Session = Depends(get_db),
+    skip: int = 0,
+    limit: int = 100,
+    filter_by_repository_id: int = None
+) -> Any:
+    """
+    Retrieve integration tests entries.
+    """
+    filters = {}
+
+    if filter_by_repository_id:
+        filters["repository_id"] = filter_by_repository_id
+
+    item = crud.integration_test.get_multi(db, skip=skip, limit=limit, filters=filters)
     return item

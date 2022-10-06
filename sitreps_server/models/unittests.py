@@ -16,8 +16,10 @@ class UnitTest(Base):
     time = Column(
         DateTime, default=datetime.utcnow, primary_key=True, index=True
     )  # time for time series data.
+
+    repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)
+
     gh_action = Column(Integer, index=True)
     jenkins = Column(Integer, index=True)
     travis = Column(Integer, index=True)
-
-    repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)
+    other = Column(Integer, index=True)

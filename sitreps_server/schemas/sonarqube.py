@@ -6,12 +6,17 @@ from pydantic import BaseModel
 
 class SonarQubeBase(BaseModel):
     time: Optional[datetime]
+
+    # repository: instance of Repository for relationship
+    repository_id: Optional[int]
+
+    project: Optional[str]
     vulnerabilities: int
     code_smells: int
     security_hotspots: int
     bugs: int
-    # repository: instance of Repository for relationship
-    repository_id: Optional[int]
+
+    meta: Optional[dict]
 
 
 class SonarQube(SonarQubeBase):

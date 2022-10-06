@@ -9,6 +9,9 @@ class ProjectBase(BaseModel):
     # group: instance of ProjectGroup for relation
     group_id: Optional[int] = None
 
+    # Hold some extra info
+    meta: Optional[dict] = None
+
 
 class Project(ProjectBase):
     pass

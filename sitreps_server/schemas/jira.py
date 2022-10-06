@@ -6,21 +6,30 @@ from pydantic import BaseModel
 
 class JiraBase(BaseModel):
     time: Optional[datetime]
-    project_name: Optional[str]  # Jira project id like SPM for patchman
+    project_id: Optional[int]       # project: instance of Project for relationship
+    project_name: Optional[str]     # Jira project id like SPM for patchman
+
+    resolved: int
+    unresolved: int
+    rejected: int
+
     todo: int
+    blocked: int
     in_progress: int
     code_review: int
-    blocked: int
     on_qa: int
-    unresolved: int
-    resolved: int
-    rejected: int
-    created_last_month: Optional[int]
-    resolved_last_month: Optional[int]
+
+    created_last_15d: Optional[int]
+    created_last_30d: Optional[int]
+    todo_older_than_30d: Optional[int]
     todo_older_than_60d: Optional[int]
 
-    # project: instance of Project for relationship
-    project_id: Optional[int]
+    meta: Optional[dict]
+
+    # Future reserved fields.
+    jira1: Optional[int]
+    jira2: Optional[int]
+    jira3: Optional[int]
 
 
 class Jira(JiraBase):

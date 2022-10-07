@@ -40,7 +40,7 @@ class Jira(Base):
     todo_older_than_60d = Column(Integer, index=True)
 
     # JQL/URL meta
-    meta = Column(mutable_json_type(dbtype=PortableJSON()))
+    meta = Column(mutable_json_type(dbtype=PortableJSON(), nested=True))
 
     # Extra filed reserved for future
     jira1 = Column(Integer, index=True)

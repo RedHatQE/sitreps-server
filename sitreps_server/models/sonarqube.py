@@ -29,4 +29,4 @@ class SonarQube(Base):
     bugs = Column(Integer)
 
     # store extra information.
-    meta = Column(mutable_json_type(dbtype=PortableJSON()))
+    meta = Column(mutable_json_type(dbtype=PortableJSON(), nested=True))

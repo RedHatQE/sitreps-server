@@ -18,6 +18,7 @@ class JiraBase(BaseModel):
     in_progress: int
     code_review: int
     on_qa: int
+    release_pending: int
 
     created_last_15d: Optional[int]
     created_last_30d: Optional[int]

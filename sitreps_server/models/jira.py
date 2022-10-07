@@ -32,6 +32,7 @@ class Jira(Base):
     in_progress = Column(Integer, index=True)
     code_review = Column(Integer, index=True)
     on_qa = Column(Integer, index=True)
+    release_pending = Column(Integer, index=True)
 
     created_last_15d = Column(Integer, index=True)
     created_last_30d = Column(Integer, index=True)

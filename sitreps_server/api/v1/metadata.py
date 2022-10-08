@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 @router.get("/{repository_id}")
-def read_latest_metadata(
+async def read_latest_metadata(
     *,
     db: Session = Depends(get_db),
     repository_id: int,
@@ -30,7 +30,7 @@ def read_latest_metadata(
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def add_metadata(
+async def add_metadata(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.MetadataCreate,

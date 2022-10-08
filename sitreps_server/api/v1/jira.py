@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def add_jira(
+async def add_jira(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.JiraCreate,
@@ -26,7 +26,7 @@ def add_jira(
 
 
 @router.get("/")
-def read_jira(
+async def read_jira(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,
@@ -49,7 +49,7 @@ def read_jira(
 
 
 @router.get("/{project_id}")
-def read_latest_meta(
+async def read_latest_meta(
     project_id: int,
     db: Session = Depends(get_db),
 ) -> Any:

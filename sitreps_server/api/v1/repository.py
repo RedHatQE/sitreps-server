@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 @router.get("/")
-def read_repositories(
+async def read_repositories(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 10,
@@ -36,7 +36,7 @@ def read_repositories(
 
 
 @router.get("/{id}")
-def read_repository_id(
+async def read_repository_id(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -51,7 +51,7 @@ def read_repository_id(
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create_repository(
+async def create_repository(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.RepositoryCreate,
@@ -70,7 +70,7 @@ def create_repository(
 
 
 @router.put("/{id}")
-def update_repository(
+async def update_repository(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -87,7 +87,7 @@ def update_repository(
 
 
 @router.delete("/{id}")
-def delete_repository(
+async def delete_repository(
     *,
     db: Session = Depends(get_db),
     id: int,

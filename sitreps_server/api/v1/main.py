@@ -13,13 +13,13 @@ router = APIRouter()
 
 
 @router.get("/", include_in_schema=False)
-def get_status() -> Any:
+async def get_status() -> Any:
     """Server status"""
     return {"details": "ok"}
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
+async def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
 
     try:
         # project group

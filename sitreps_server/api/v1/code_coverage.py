@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.get("/")
-def read_code_coverage(
+async def read_code_coverage(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,
@@ -32,7 +32,7 @@ def read_code_coverage(
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def add_code_coverage(
+async def add_code_coverage(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.CodeCoverageCreate,

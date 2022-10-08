@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def add_unittests(
+async def add_unittests(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.UnitTestCreate,
@@ -26,7 +26,7 @@ def add_unittests(
 
 
 @router.get("/")
-def read_unittests(
+async def read_unittests(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,

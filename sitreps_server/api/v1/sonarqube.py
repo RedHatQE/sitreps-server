@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def add_sonarqube(
+async def add_sonarqube(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.SonarQubeCreate,
@@ -26,7 +26,7 @@ def add_sonarqube(
 
 
 @router.get("/")
-def read_sonarqube(
+async def read_sonarqube(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,
@@ -43,7 +43,7 @@ def read_sonarqube(
 
 
 @router.get("/{repository_id}")
-def read_latest_meta(
+async def read_latest_meta(
     repository_id: int,
     db: Session = Depends(get_db),
 ) -> Any:

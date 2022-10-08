@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create_integration_test(
+async def create_integration_test(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.IntegrationTestCreate,
@@ -26,7 +26,7 @@ def create_integration_test(
 
 
 @router.get("/")
-def read_integration_test(
+async def read_integration_test(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,

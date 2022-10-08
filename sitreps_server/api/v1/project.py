@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 @router.get("/")
-def read_project(
+async def read_project(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 10,
@@ -27,7 +27,7 @@ def read_project(
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create_project(
+async def create_project(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.ProjectCreate,
@@ -46,7 +46,7 @@ def create_project(
 
 
 @router.put("/{id}")
-def update_project(
+async def update_project(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -63,7 +63,7 @@ def update_project(
 
 
 @router.get("/{id}")
-def read_project_id(
+async def read_project_id(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -78,7 +78,7 @@ def read_project_id(
 
 
 @router.delete("/{id}")
-def delete_project(
+async def delete_project(
     *,
     db: Session = Depends(get_db),
     id: int,

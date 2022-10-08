@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def add_cloc(
+async def add_cloc(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.CLOCCreate,
@@ -26,7 +26,7 @@ def add_cloc(
 
 
 @router.get("/")
-def read_cloc(
+async def read_cloc(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,

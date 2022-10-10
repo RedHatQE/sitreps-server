@@ -4,4 +4,5 @@ pydantic
 python-dotenv
 SQLAlchemy
 sqlalchemy-json
+urllib3>=1.26.12
 uvicorn

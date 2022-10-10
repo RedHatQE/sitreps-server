@@ -12,12 +12,19 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Get tag
+      id: tag
+      uses: dawidd6/action-get-tag@v1
+      with:
+        # Optionally strip `v` prefix
+        strip_v: true
+
     - name: Build Image
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
         image: sitreps-server
-        tags: latest ${{ github.ref }}
+        tags: latest ${{ steps.tag.outputs.tag }}
         containerfiles: |
           ./docker/Dockerfile.server
 

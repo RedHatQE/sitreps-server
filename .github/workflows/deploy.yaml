@@ -17,7 +17,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2
       with:
         image: sitreps-server
-        tags: latest ${{ github.sha }}
+        tags: latest ${{ github.ref }}
         containerfiles: |
           ./docker/Dockerfile.server
 
@@ -30,6 +30,3 @@ jobs:
         registry: quay.io/digitronik
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-
-    - name: Print image url
-      run: echo "Image pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"

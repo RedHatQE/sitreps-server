@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   db:
-    image: registry.redhat.io/rhel8/postgresql-13:1-78
+    image: registry.redhat.io/rhel8/postgresql-12
     volumes:
       - postgres_data:/var/lib/psql/data
     expose:
@@ -12,11 +12,13 @@ services:
       - '.env'
 
   grafana:
-    image: registry.redhat.io/rhel8/grafana:7-82
+    image: quay.io/digitronik/grafana-infinity:8.5.13
     ports:
       - 3000:3000
     environment:
-      - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource
+      - GF_AUTH_BASIC_ENABLED=true
+      - GF_SECURITY_ADMIN_USER=sitreps
+      - GF_SECURITY_ADMIN_PASSWORD=sitreps@123
     volumes:
       - grafana_data:/var/lib/grafana
     depends_on:
@@ -24,10 +26,11 @@ services:
 
   # If you run this with docker-compose then you need to pass DATABASE_URL in .env file.
   backend:
-    image: sitreps/server
+    image: sitreps/server-local
     build:
       context: .
-      dockerfile: Dockerfile.local
+#      dockerfile: docker/Dockerfile.server
+      dockerfile: docker/Dockerfile.server.local
     # wait for postgres
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn sitreps_server.main:app --host 0.0.0.0'
     ports:

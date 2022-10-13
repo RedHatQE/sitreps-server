@@ -15,7 +15,7 @@ objects:
     name: grafana
     namespace: ${NAMESPACE}
   spec:
-    replicas: 2
+    replicas: 1
     selector:
       deploymentConfig: grafana
     strategy:
@@ -29,9 +29,13 @@ objects:
       spec:
         containers:
         - env:
-          - name: GF_INSTALL_PLUGINS
-            value: ${GF_INSTALL_PLUGINS}
-          image: registry.redhat.io/rhel8/grafana:7-82
+          - name: GF_AUTH_BASIC_ENABLED
+            value: 'true'
+          - name: GF_SECURITY_ADMIN_USER
+            value: ${GRAFNA_ADMIN_USER}
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            value: ${GRAFNA_ADMIN_PASS}
+          image: quay.io/digitronik/grafana-infinity:8.5.13
           imagePullPolicy: IfNotPresent
           name: grafana
           ports:
@@ -39,10 +43,12 @@ objects:
             protocol: TCP
           resources:
             limits:
-              memory: 512Mi
+              memory: 4Gi
           volumeMounts:
           - mountPath: /var/lib/grafana
             name: grafana-data
+        imagePullSecrets:
+          - name: sitreps-pull-secret
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         volumes:
@@ -51,15 +57,6 @@ objects:
             claimName: grafana
     triggers:
     - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - grafana
-        from:
-          kind: ImageStreamTag
-          name: grafana:7-32
-      type: ImageChange
-
 # -----------------------------------------------
 - kind: Service
   apiVersion: v1
@@ -113,19 +110,23 @@ objects:
 # Parameters
 # ===============================================
 parameters:
-- name: GRAFANA_STORAGE
-  displayName: Grafana Storage
-  description: The amount of storage space for the database to use
-  value: 1Gi
 - name: APP_NAME
   displayName: App Name
   description: The name of the application
   value: grafana
-- name: GF_INSTALL_PLUGINS
-  displayName: GF Install Plugins
-  description: Extra plugins you want to installed with grafana.
-  value: yesoreyeram-infinity-datasource    # We need this for json data display
+- name: GRAFANA_STORAGE
+  displayName: Grafana Storage
+  description: The amount of storage space for the database to use
+  value: 1Gi
+- name: GRAFNA_ADMIN_USER
+  displayName: Grafana Admin User
+  description: The Admin User for Grafana
+  value: sitreps
+- name: GRAFNA_ADMIN_PASS
+  displayName: Grafana Admin User password
+  description: The Admin User password for Grafana
+  value: sitreps@123
 - name: NAMESPACE
   displayName: Namespace
   description: The namespace for all of the images, applications, etc.
-  value: vmugicag
+  value: insights-qe-sitreps

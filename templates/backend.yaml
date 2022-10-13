@@ -15,7 +15,7 @@ objects:
     name: sitreps-backend
     namespace: ${NAMESPACE}
   spec:
-    replicas: 1
+    replicas: 2
     selector:
       deploymentConfig: sitreps-backend
     strategy:
@@ -47,8 +47,8 @@ objects:
               secretKeyRef:
                 key: database-name
                 name: postgresql
-          image: sitreps-backend
-          imagePullPolicy: Always
+          image: quay.io/digitronik/sitreps-server:0.5
+          imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -78,38 +78,40 @@ objects:
           terminationMessagePolicy: File
         dnsPolicy: ClusterFirst
         restartPolicy: Always
+        imagePullSecrets:
+          - name: sitreps-pull-secret
     triggers:
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - sitreps-backend
-        from:
-          kind: ImageStreamTag
-          name: sitreps-backend:main
-          namespace: ${NAMESPACE}
-      type: ImageChange
+#    - imageChangeParams:
+#        automatic: true
+#        containerNames:
+#        - sitreps-backend
+#        from:
+#          kind: ImageStreamTag
+#          name: sitreps-backend:main
+#          namespace: ${NAMESPACE}
+#      type: ImageChange
     - type: ConfigChange
 # -----------------------------------------------
-- kind: ImageStream
-  apiVersion: v1
-  metadata:
-    name: sitreps-backend
-    annotations:
-      description: "The api of sitreps server"
-  spec:
-    lookupPolicy:
-      local: false
-    tags:
-    - annotations: null
-      from:
-        kind: DockerImage
-        name: quay.io/digitronik/sitreps-backend:main
-      generation: 3
-      importPolicy:
-        scheduled: true
-      name: main
-      referencePolicy:
-        type: Source
+#- kind: ImageStream
+#  apiVersion: v1
+#  metadata:
+#    name: sitreps-backend
+#    annotations:
+#      description: "The api of sitreps server"
+#  spec:
+#    lookupPolicy:
+#      local: false
+#    tags:
+#    - annotations: null
+#      from:
+#        kind: DockerImage
+#        name: quay.io/digitronik/sitreps-server:main
+#      generation: 3
+#      importPolicy:
+#        scheduled: true
+#      name: main
+#      referencePolicy:
+#        type: Source
 # -----------------------------------------------
 - kind: Service
   apiVersion: v1
@@ -153,4 +155,4 @@ parameters:
 - name: NAMESPACE
   displayName: Namespace
   description: The namespace for all of the images, applications, etc.
-  value: vmugicag
+  value: insights-qe-sitreps

@@ -4,11 +4,13 @@ from pathlib import Path
 from pydantic import BaseModel
 from pydantic import BaseSettings
 
+BASE_PATH = Path(__file__).resolve().parent.parent
+
 
 class AppConfig(BaseModel):
     """Application configurations."""
 
-    BASE_DIR: Path = Path(__file__).resolve().parent.parent
+    BASE_DIR: Path = BASE_PATH
 
 
 class GlobalConfig(BaseSettings):
@@ -26,7 +28,7 @@ class GlobalConfig(BaseSettings):
 
     class Config:
         case_sensitive = True
-        env_file = ".env"
+        env_file = BASE_PATH.parent / ".env"
 
 
 # for avoid multiple calls.

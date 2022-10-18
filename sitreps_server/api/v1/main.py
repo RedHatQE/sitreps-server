@@ -109,7 +109,7 @@ async def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
             unittests_schema = repo_data.unittests
             if unittests_schema:
                 unittests_schema.repository_id = repo.id
-                unittests_row = crud.unittests.create(db=db, obj_in=repo_schema)
+                unittests_row = crud.unittests.create(db=db, obj_in=unittests_schema)
                 print(f"{unittests_row.time}: New Unit Tests entry")
             else:
                 print("Skipping Unit Tests as data not found.")

@@ -3,7 +3,7 @@ services:
   db:
     image: registry.redhat.io/rhel8/postgresql-12
     volumes:
-      - postgres_data:/var/lib/psql/data
+      - postgres_data:/var/lib/pgsql/data
     expose:
       - 5432
     ports:
@@ -24,7 +24,6 @@ services:
     depends_on:
       - db
 
-  # If you run this with docker-compose then you need to pass DATABASE_URL in .env file.
   backend:
     image: sitreps/server-local
     build:
@@ -36,9 +35,12 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./:/sitreps
+      - ./:/sitreps:z
     env_file:
       - '.env'
+    environment:
+      # Overwrite server coming from .env file so it will be network.
+      - POSTGRESQL_SERVER=db
     depends_on:
       - db
       - grafana

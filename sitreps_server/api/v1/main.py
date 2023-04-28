@@ -20,7 +20,6 @@ async def get_status() -> Any:
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
-
     try:
         # project group
         pg_schema = data.project_group

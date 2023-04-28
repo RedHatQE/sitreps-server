@@ -50,7 +50,7 @@ async def update_project(
     *,
     db: Session = Depends(get_db),
     id: int,
-    item_in: schemas.ProjectGroupUpdate,
+    item_in: schemas.ProjectUpdate,
 ) -> Any:
     """
     Update an Project.

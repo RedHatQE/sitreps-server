@@ -13,12 +13,15 @@ services:
 
   grafana:
     image: quay.io/digitronik/grafana-infinity:8.5.13
+    expose:
+      - 3000
+      - 8000
     ports:
       - 3000:3000
+    env_file:
+      - '.env'
     environment:
       - GF_AUTH_BASIC_ENABLED=true
-      - GF_SECURITY_ADMIN_USER=sitreps
-      - GF_SECURITY_ADMIN_PASSWORD=sitreps@123
     volumes:
       - grafana_data:/var/lib/grafana
     depends_on:

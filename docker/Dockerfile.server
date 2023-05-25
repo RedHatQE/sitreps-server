@@ -3,10 +3,13 @@ FROM registry.access.redhat.com/ubi8/python-38
 USER 0
 WORKDIR /sitreps/
 
+COPY sitreps_server sitreps_server
 COPY requirements.txt requirements.txt
+COPY alembic.ini alembic.ini
+COPY alembic alembic
+
 RUN pip install -r requirements.txt
 
-COPY ./sitreps_server /sitreps/sitreps_server/
 EXPOSE 8000
 EXPOSE 5432
 

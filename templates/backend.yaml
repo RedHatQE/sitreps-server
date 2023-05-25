@@ -47,7 +47,11 @@ objects:
               secretKeyRef:
                 key: database-name
                 name: postgresql
-          image: quay.io/digitronik/sitreps-server:0.5
+          image: quay.io/digitronik/sitreps-server:0.8
+          command:
+            - 'bash'
+            - '-c'
+            - 'alembic upgrade head && uvicorn sitreps_server.main:app --host 0.0.0.0'
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3

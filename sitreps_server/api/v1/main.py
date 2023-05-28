@@ -75,8 +75,14 @@ async def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
             metadata_schema = repo_data.metadata
             if metadata_schema:
                 metadata_schema.repository_id = repo.id
-                meta_row = crud.metadata.create(db=db, obj_in=metadata_schema)
-                print(f"[{repo.name}] {meta_row.time}: New metadata entry")
+                repo_meta = crud.metadata.get_with_repository_id(db=db, repository_id=repo.id)
+                if repo_meta:
+                    print(f"\n[{repo.name}] metadata for ({repo.id}) already exists.")
+                    crud.metadata.update(db=db, db_obj=repo_meta, obj_in=metadata_schema)
+                    print(f"\n[{repo.name}] metadata for ({repo.id}) updated successfully.")
+                else:
+                    meta_row = crud.metadata.create(db=db, obj_in=metadata_schema)
+                    print(f"[{repo.name}] {meta_row.time}: New metadata entry")
             else:
                 print(f"[{repo.name}] Skipping metadata as data not found.")
 

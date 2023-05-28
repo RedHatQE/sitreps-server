@@ -40,15 +40,3 @@ async def read_sonarqube(
         filters["repository_id"] = filter_by_repository_id
     item = crud.sonarqube.get_multi(db, skip=skip, limit=limit, filters=filters)
     return item
-
-
-@router.get("/{repository_id}")
-async def read_latest_meta(
-    repository_id: int,
-    db: Session = Depends(get_db),
-) -> Any:
-    """
-    Retrieve latest SonarQube entry 'meta' field for Repository.
-    """
-    item = crud.jira.get_last_with_repository_id(db, repository_id=repository_id)
-    return item.meta if item else {}

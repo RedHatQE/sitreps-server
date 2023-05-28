@@ -29,6 +29,7 @@ class Repository(Base):
     title = Column(String, index=True)
     type = Column(String, index=True)
     url = Column(String, index=True)
+    sonar_last_analysis = Column(String)
     # Hold some extra info
     meta = Column(mutable_json_type(dbtype=PortableJSON()))
 

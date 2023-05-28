@@ -8,6 +8,7 @@ class RepositoryBase(BaseModel):
     title: Optional[str] = None
     type: str
     url: str
+    sonar_last_analysis: str = None
     meta: Optional[dict] = None
 
     project_id: Optional[int] = None

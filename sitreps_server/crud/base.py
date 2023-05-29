@@ -33,6 +33,9 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def get(self, db: Session, id: Any) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.id == id).first()
 
+    def get_first(self, db: Session) -> Optional[ModelType]:
+        return db.query(self.model).first()
+
     def get_with_project_id(self, db: Session, project_id: Any) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.project_id == project_id).first()
 

@@ -9,6 +9,7 @@ from .metadata import router as metadata_router
 from .project import router as proj_router
 from .project_groups import router as pg_router
 from .repository import router as repo_router
+from .req_portal import router as req_portal_router
 from .sonarqube import router as sonar_router
 from .unittests import router as unittest_router
 
@@ -24,3 +25,4 @@ api_router.include_router(test_router, prefix="/integrationtest", tags=["Integra
 api_router.include_router(metadata_router, prefix="/metadata", tags=["Metadata"])
 api_router.include_router(sonar_router, prefix="/sonarqube", tags=["SonarQube"])
 api_router.include_router(unittest_router, prefix="/unittests", tags=["Unit Tests"])
+api_router.include_router(req_portal_router, prefix="/req-portal", tags=["Requirements Portal"])

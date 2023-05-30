@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 class RequirementsPortalJsonBase(BaseModel):
     time: Optional[datetime]
-    data: Optional[dict]
+    data: Optional[list]
 
 
 class RequirementsPortalJsonCreate(RequirementsPortalJsonBase):
@@ -21,32 +21,31 @@ class RequirementsPortalJsonUpdate(RequirementsPortalJsonBase):
     pass
 
 
-# class RequirementsPortalBase(BaseModel):
-#     time: Optional[datetime]
+class RequirementsPortalBase(BaseModel):
+    time: Optional[datetime]
 
-#     plugin: Optional[str]           # Pluign name
-#     env: Optional[str]              # Env [prod, stage, fedramp]
-#     avg: Optional[str]              # type of avg [core_1, core_7, overall_7]
-#     report_time: Optional[str]      # Last analysis time
+    plugin: Optional[str]  # Pluign name
+    env: Optional[str]  # Env [prod, stage, fedramp]
+    avg: Optional[str]  # type of avg [core_1, core_7, overall_7]
+    report_time: Optional[str]  # Last analysis time
 
-#     blocked: Optional[float]
-#     error: Optional[float]
-#     failed: Optional[float]
-#     manual: Optional[float]
-#     passed: Optional[float]
-#     skip: Optional[float]
-#     time: Optional[float]
-#     xfailed: Optional[float]
-#     xpass: Optional[float]
-
-
-# class RequirementsPortalCreate(RequirementsPortalBase):
-#     pass
+    blocked: Optional[float]
+    error: Optional[float]
+    failed: Optional[float]
+    manual: Optional[float]
+    passed: Optional[float]
+    skip: Optional[float]
+    xfailed: Optional[float]
+    xpass: Optional[float]
 
 
-# class RequirementsPortal(RequirementsPortalBase):
-#     pass
+class RequirementsPortalCreate(RequirementsPortalBase):
+    pass
 
 
-# class RequirementsPortalUpdate(RequirementsPortalBase):
-#     pass
+class RequirementsPortal(RequirementsPortalBase):
+    pass
+
+
+class RequirementsPortalUpdate(RequirementsPortalBase):
+    pass

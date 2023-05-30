@@ -58,6 +58,18 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             .first()
         )
 
+    def get_last_req_portal_avg(
+        self, db: Session, plugin: Any, avg: Any, env: Any
+    ) -> Optional[ModelType]:
+        return (
+            db.query(self.model)
+            .filter(self.model.plugin == plugin)
+            .filter(self.model.avg == avg)
+            .filter(self.model.env == env)
+            .order_by(self.model.time.desc())
+            .first()
+        )
+
     def get_multi(
         self, db: Session, *, skip: int = 0, limit: int = 100, filters: dict = None
     ) -> List[ModelType]:

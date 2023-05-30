@@ -2,20 +2,21 @@ from typing import TypeVar
 
 from ..db import Base
 from sitreps_server.crud.base import CRUDBase
+from sitreps_server.models import RequirementsPortal
 from sitreps_server.models import RequirementsPortalJson
+from sitreps_server.schemas import RequirementsPortalCreate
 from sitreps_server.schemas import RequirementsPortalJsonCreate
 from sitreps_server.schemas import RequirementsPortalJsonUpdate
-
-# from sitreps_server.models import RequirementsPortal
-# from sitreps_server.schemas import RequirementsPortalCreate
-# from sitreps_server.schemas import RequirementsPortalUpdate
+from sitreps_server.schemas import RequirementsPortalUpdate
 
 
 ModelType = TypeVar("ModelType", bound=Base)
 
 
-# class CRUDReqPortal(CRUDBase[RequirementsPortal, RequirementsPortalCreate, RequirementsPortalUpdate]):
-#     pass
+class CRUDReqPortal(
+    CRUDBase[RequirementsPortal, RequirementsPortalCreate, RequirementsPortalUpdate]
+):
+    pass
 
 
 class CRUDReqPortalJson(
@@ -24,5 +25,5 @@ class CRUDReqPortalJson(
     pass
 
 
-# req_portal = CRUDReqPortal(RequirementsPortal)
+req_portal = CRUDReqPortal(RequirementsPortal)
 req_portal_json = CRUDReqPortalJson(RequirementsPortalJson)

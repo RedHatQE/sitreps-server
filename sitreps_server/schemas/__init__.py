@@ -23,6 +23,12 @@ from .project_group import ProjectGroupUpdate  # noqa: F401
 from .repository import Repository  # noqa: F401
 from .repository import RepositoryCreate  # noqa: F401
 from .repository import RepositoryUpdate  # noqa: F401
+from .req_portal import RequirementsPortal  # noqa: F401
+from .req_portal import RequirementsPortalCreate  # noqa: F401
+from .req_portal import RequirementsPortalJson  # noqa: F401
+from .req_portal import RequirementsPortalJsonCreate  # noqa: F401
+from .req_portal import RequirementsPortalJsonUpdate  # noqa: F401
+from .req_portal import RequirementsPortalUpdate  # noqa: F401
 from .sonarqube import SonarQube  # noqa: F401
 from .sonarqube import SonarQubeCreate  # noqa: F401
 from .sonarqube import SonarQubeUpdate  # noqa: F401

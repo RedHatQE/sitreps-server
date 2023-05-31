@@ -25,6 +25,8 @@ from sitreps_server.models import (
     Repository,
     SonarQube,
     UnitTest,
+    RequirementsPortal,
+    RequirementsPortalJson,
 )
 
 ENV_FILE = Path(".env")

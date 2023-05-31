@@ -34,7 +34,7 @@ services:
 #      dockerfile: docker/Dockerfile.server
       dockerfile: docker/Dockerfile.server.local
     # wait for postgres
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 2; done; alembic upgrade head && uvicorn sitreps_server.main:app --host 0.0.0.0'
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 2; done; alembic upgrade head && uvicorn sitreps_server.main:app --host 0.0.0.0 --reload'
     ports:
       - 8000:8000
     volumes:

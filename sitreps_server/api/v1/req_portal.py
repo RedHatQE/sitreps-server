@@ -48,14 +48,16 @@ async def read_requirements_portal_raw_data(
     Retrieve requinments portal avg json data.
     """
     item = crud.req_portal_json.get_first(db=db)
-    data = item.data
-    if filter_by_plugin:
-        data = [i for i in data if i["plugin"] == filter_by_plugin]
-    if filter_by_env:
-        data = [i for i in data if i["env"] == filter_by_env]
-    if filter_by_avg:
-        data = [i for i in data if i["avg"] == filter_by_avg]
-    return data
+    if item:
+        data = item.data
+        if filter_by_plugin:
+            data = [i for i in data if i["plugin"] == filter_by_plugin]
+        if filter_by_env:
+            data = [i for i in data if i["env"] == filter_by_env]
+        if filter_by_avg:
+            data = [i for i in data if i["avg"] == filter_by_avg]
+        return data
+    return item
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)

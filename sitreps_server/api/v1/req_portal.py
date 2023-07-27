@@ -60,6 +60,39 @@ async def read_requirements_portal_raw_data(
     return item
 
 
+@router.get("/pass_rate/")
+async def read_services_passing_rate(
+    db: Session = Depends(get_db),
+    filter_by_env: str = "prod",
+    filter_by_avg: str = "core-7",
+) -> Any:
+    """
+    Retrieve services passing rate.
+    """
+    item = crud.req_portal_json.get_first(db=db)
+    if item:
+        _item = {}
+        _frontend_plugins = []
+        _missing_mapping = []
+        for plugin in item.data:
+            if plugin["env"] == filter_by_env and plugin["avg"] == filter_by_avg:
+                plugin_name = plugin["plugin"]
+                if "frontend" in plugin_name:
+                    # For now we are skipping frontend plugins.
+                    # We need to decide about taking average of frontend and backend.
+                    _frontend_plugins.append(plugin_name)
+                    continue
+                service = plugin["service"]
+                if service:
+                    _item.update({service: plugin["passed"]})
+                else:
+                    _missing_mapping.append(plugin_name)
+        print(f"Service mapping missing following plugins: \n \n {set(_missing_mapping)} \n")
+        print(f"Skipping those frontend pugins: \n \n {set(_frontend_plugins)} \n")
+        return _item
+    return item
+
+
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def add_historical_average(
     *,

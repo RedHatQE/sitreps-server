@@ -1,7 +1,7 @@
 alembic
 fastapi
 psycopg2-binary
-pydantic
+pydantic==1.10.8
 python-dotenv
 SQLAlchemy
 sqlalchemy-json

@@ -20,6 +20,12 @@ from .project import ProjectUpdate  # noqa: F401
 from .project_group import ProjectGroup  # noqa: F401
 from .project_group import ProjectGroupCreate  # noqa: F401
 from .project_group import ProjectGroupUpdate  # noqa: F401
+from .rapidast import Rapidast  # noqa: F401
+from .rapidast import RapidastCreate  # noqa: F401
+from .rapidast import RapidastReport  # noqa: F401
+from .rapidast import RapidastReportCreate  # noqa: F401
+from .rapidast import RapidastReportUpdate  # noqa: F401
+from .rapidast import RapidastUpdate  # noqa: F401
 from .repository import Repository  # noqa: F401
 from .repository import RepositoryCreate  # noqa: F401
 from .repository import RepositoryUpdate  # noqa: F401

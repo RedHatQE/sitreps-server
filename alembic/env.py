@@ -27,6 +27,8 @@ from sitreps_server.models import (
     UnitTest,
     RequirementsPortal,
     RequirementsPortalJson,
+    Rapidast,
+    RapidastReport,
 )
 
 ENV_FILE = Path(".env")

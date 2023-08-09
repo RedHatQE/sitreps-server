@@ -39,6 +39,20 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def get_with_project_id(self, db: Session, project_id: Any) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.project_id == project_id).first()
 
+    def get_service_with_name_env(self, db: Session, service: Any, env: Any) -> Optional[ModelType]:
+        return (
+            db.query(self.model)
+            .filter(self.model.service == service, self.model.env == env)
+            .first()
+        )
+
+    def get_services_with_name_env(
+        self, db: Session, service: Any, env: Any
+    ) -> Optional[ModelType]:
+        return (
+            db.query(self.model).filter(self.model.service == service, self.model.env == env).all()
+        )
+
     def get_with_repository_id(self, db: Session, repository_id: Any) -> Optional[ModelType]:
         return db.query(self.model).filter(self.model.repository_id == repository_id).first()
 

@@ -5,6 +5,8 @@ from .jira import Jira  # noqa: F401
 from .metadata import Metadata  # noqa: F401
 from .project import Project  # noqa: F401
 from .project_group import ProjectGroup  # noqa: F401
+from .rapidast import Rapidast  # noqa: F401
+from .rapidast import RapidastReport  # noqa: F401
 from .repository import Repository  # noqa: F401
 from .req_portal import RequirementsPortal  # noqa: F401
 from .req_portal import RequirementsPortalJson  # noqa: F401

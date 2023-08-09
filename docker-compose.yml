@@ -1,3 +1,13 @@
+# Create .env file in home directory so that compose will take some important values.
+
+# POSTGRESQL_SERVER=localhost
+# POSTGRESQL_PORT=5432
+# POSTGRESQL_DATABASE=sitreps
+# POSTGRESQL_USER=admin
+# POSTGRESQL_PASSWORD=admin
+# GF_SECURITY_ADMIN_USER=admin
+# GF_SECURITY_ADMIN_PASSWORD=admin@123
+
 version: '3.8'
 services:
   db:
@@ -21,7 +31,8 @@ services:
     env_file:
       - '.env'
     environment:
-      - GF_AUTH_BASIC_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_DISABLE_LOGIN_FORM=false
     volumes:
       - grafana_data:/var/lib/grafana
     depends_on:

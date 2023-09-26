@@ -35,6 +35,10 @@ objects:
             value: ${GRAFNA_ADMIN_USER}
           - name: GF_SECURITY_ADMIN_PASSWORD
             value: ${GRAFNA_ADMIN_PASS}
+          - name: GF_AUTH_ANONYMOUS_ENABLED
+            value: 'true'
+          - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+            value: "Viewer"
           image: quay.io/digitronik/grafana-infinity:8.5.13
           imagePullPolicy: IfNotPresent
           name: grafana

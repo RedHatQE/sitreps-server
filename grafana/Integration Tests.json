@@ -7,14 +7,6 @@
       "type": "datasource",
       "pluginId": "postgres",
       "pluginName": "PostgreSQL"
-    },
-    {
-      "name": "DS_API",
-      "label": "api",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "yesoreyeram-infinity-datasource",
-      "pluginName": "Infinity"
     }
   ],
   "__elements": [],
@@ -35,18 +27,6 @@
       "type": "datasource",
       "id": "postgres",
       "name": "PostgreSQL",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "yesoreyeram-infinity-datasource",
-      "name": "Infinity",
       "version": "1.0.0"
     }
   ],
@@ -76,7 +56,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1686136750915,
+  "iteration": 1695737825660,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -387,81 +367,6 @@
       "title": "Automated Tests",
       "transparent": true,
       "type": "bargauge"
-    },
-    {
-      "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_API}"
-      },
-      "description": "It will help to filter tets as per columns filter",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-BlYlRd"
-          },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 24,
-        "x": 0,
-        "y": 20
-      },
-      "id": 6,
-      "options": {
-        "footer": {
-          "enablePagination": true,
-          "fields": [],
-          "reducer": [
-            "count"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "8.5.13",
-      "targets": [
-        {
-          "columns": [],
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_API}"
-          },
-          "filters": [],
-          "format": "table",
-          "global_query_id": "",
-          "refId": "A",
-          "root_selector": "",
-          "source": "url",
-          "type": "uql",
-          "uql": "project \"Tests\"=\"id\", \"Automation Status\"=\"automation_status\", \"Importance\"=\"importance\", \"Test Type\"=\"type\", \"Interface Type\"=\"interface_type\", \"Assignee\"=\"assignee\", \"is Negative\"=\"negative\", \"Requirements\"=\"requirements\", \"Time\"=\"create_at\"\n",
-          "url": "http://sitreps-backend.insights-qe-sitreps.svc:8000/api/v1/metadata/$plugin_id",
-          "url_options": {
-            "data": "",
-            "method": "GET"
-          }
-        }
-      ],
-      "title": "Filter tests for $iqe_plugin",
-      "transparent": true,
-      "type": "table"
     }
   ],
   "refresh": "",
@@ -523,6 +428,6 @@
   "timezone": "",
   "title": "Integration Tests",
   "uid": "8Kb_NRo4z",
-  "version": 16,
+  "version": 17,
   "weekStart": ""
 }

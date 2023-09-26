@@ -20,12 +20,6 @@
   "__elements": [],
   "__requires": [
     {
-      "type": "panel",
-      "id": "bargauge",
-      "name": "Bar gauge",
-      "version": ""
-    },
-    {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
@@ -88,120 +82,10 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1686136856282,
+  "iteration": 1695737825530,
   "links": [],
   "liveNow": false,
   "panels": [
-    {
-      "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DS_API}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "dark-red",
-                "value": null
-              },
-              {
-                "color": "dark-orange",
-                "value": 70
-              },
-              {
-                "color": "dark-yellow",
-                "value": 80
-              },
-              {
-                "color": "dark-green",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 21,
-        "w": 5,
-        "x": 0,
-        "y": 0
-      },
-      "id": 5,
-      "options": {
-        "displayMode": "gradient",
-        "minVizHeight": 10,
-        "minVizWidth": 0,
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "limit": 100,
-          "values": true
-        },
-        "showUnfilled": false,
-        "text": {}
-      },
-      "pluginVersion": "8.5.13",
-      "targets": [
-        {
-          "columns": [
-            {
-              "selector": "plugin",
-              "text": "Plugin",
-              "type": "string"
-            },
-            {
-              "selector": "passed",
-              "text": "passed",
-              "type": "number"
-            }
-          ],
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DS_API}"
-          },
-          "filters": [],
-          "format": "table",
-          "global_query_id": "",
-          "refId": "A",
-          "root_selector": "",
-          "source": "url",
-          "type": "json",
-          "url": "http://sitreps-backend.insights-qe-sitreps.svc:8000/api/v1/req-portal/latest/?filter_by_env=$env&filter_by_avg=$avg",
-          "url_options": {
-            "data": "",
-            "method": "GET"
-          }
-        }
-      ],
-      "title": "Tests Passing rate [$env - $avg ]",
-      "transformations": [
-        {
-          "id": "sortBy",
-          "options": {
-            "fields": {},
-            "sort": [
-              {
-                "desc": true,
-                "field": "passed"
-              }
-            ]
-          }
-        }
-      ],
-      "transparent": true,
-      "type": "bargauge"
-    },
     {
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
@@ -221,24 +105,34 @@
           "mappings": [
             {
               "options": {
-                "*pass*": {
-                  "color": "dark-green",
-                  "index": 0
+                "null": {
+                  "color": "text",
+                  "index": 0,
+                  "text": "No Data"
                 }
               },
               "type": "value"
             }
           ],
+          "noValue": "No data",
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
-                "color": "green",
+                "color": "dark-red",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "dark-orange",
+                "value": 69.9
+              },
+              {
+                "color": "dark-yellow",
+                "value": 79.9
+              },
+              {
+                "color": "dark-green",
+                "value": 89.9
               }
             ]
           },
@@ -247,16 +141,62 @@
         "overrides": [
           {
             "matcher": {
-              "id": "byRegexp",
-              "options": "*pass*"
+              "id": "byName",
+              "options": "Report time"
             },
             "properties": [
               {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-green",
-                  "mode": "fixed"
-                }
+                "id": "unit",
+                "value": "dateTimeFromNow"
+              },
+              {
+                "id": "custom.width",
+                "value": 131
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "passed"
+            },
+            "properties": [
+              {
+                "id": "color"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Report timestamp"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 189
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Plugin Name"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "",
+                    "url": "https://iqe-requirements.apps.ocp4.prod.psi.redhat.com/$env/${__data.fields[\"Plugin Name\"]}/summary"
+                  }
+                ]
               }
             ]
           }
@@ -264,14 +204,14 @@
       },
       "gridPos": {
         "h": 21,
-        "w": 19,
-        "x": 5,
+        "w": 24,
+        "x": 0,
         "y": 0
       },
       "id": 4,
       "options": {
         "footer": {
-          "enablePagination": true,
+          "enablePagination": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -281,7 +221,7 @@
         "showHeader": true,
         "sortBy": [
           {
-            "desc": false,
+            "desc": true,
             "displayName": "passed"
           }
         ]
@@ -338,6 +278,11 @@
             {
               "selector": "report_time",
               "text": "Report time",
+              "type": "string"
+            },
+            {
+              "selector": "report_time",
+              "text": "Report timestamp",
               "type": "string"
             }
           ],
@@ -407,8 +352,8 @@
       {
         "current": {
           "selected": true,
-          "text": "overall-7",
-          "value": "overall-7"
+          "text": "core-7",
+          "value": "core-7"
         },
         "hide": 0,
         "includeAll": false,
@@ -422,12 +367,12 @@
             "value": "core-1"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "core-7",
             "value": "core-7"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "overall-7",
             "value": "overall-7"
           }
@@ -445,7 +390,7 @@
         },
         "definition": "select title from groups",
         "description": "Select Project Group",
-        "hide": 0,
+        "hide": 2,
         "includeAll": false,
         "label": "Project Group",
         "multi": false,
@@ -484,7 +429,7 @@
           "uid": "${DS_DB}"
         },
         "definition": "select name from projects where group_id='$group_id'",
-        "hide": 0,
+        "hide": 2,
         "includeAll": true,
         "multi": false,
         "name": "projects",
@@ -503,11 +448,23 @@
     "to": "now"
   },
   "timepicker": {
-    "hidden": false
+    "hidden": false,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
   },
   "timezone": "",
   "title": "Requirements Portal",
   "uid": "oMlYtH_4z",
-  "version": 37,
+  "version": 53,
   "weekStart": ""
 }

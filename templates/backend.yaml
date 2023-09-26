@@ -47,7 +47,7 @@ objects:
               secretKeyRef:
                 key: database-name
                 name: postgresql
-          image: quay.io/digitronik/sitreps-server:0.8
+          image: quay.io/digitronik/sitreps-server:1.2
           command:
             - 'bash'
             - '-c'

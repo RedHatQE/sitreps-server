@@ -62,7 +62,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1686136706119,
+  "iteration": 1695737827112,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -191,7 +191,26 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Repository Title"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "",
+                    "url": "https://app.codecov.io/gh/RedHatInsights/${__data.fields[\"Repository Slug\"]}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 21,
@@ -202,7 +221,7 @@
       "id": 8,
       "options": {
         "footer": {
-          "enablePagination": true,
+          "enablePagination": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -212,8 +231,8 @@
         "showHeader": true,
         "sortBy": [
           {
-            "desc": true,
-            "displayName": "Repository Title"
+            "desc": false,
+            "displayName": "Project Group"
           }
         ]
       },
@@ -336,6 +355,6 @@
   "timezone": "",
   "title": "Code Coverage",
   "uid": "_0LKbAcVz",
-  "version": 25,
+  "version": 27,
   "weekStart": ""
 }

@@ -18,6 +18,7 @@ class RapidastReport(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     service = Column(String)
+    plugin_name = Column(String)
     env = Column(String)
     report = Column(mutable_json_type(dbtype=PortableJSON(), nested=True))
     html_url = Column(String)

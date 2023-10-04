@@ -5,8 +5,11 @@
 # POSTGRESQL_DATABASE=sitreps
 # POSTGRESQL_USER=admin
 # POSTGRESQL_PASSWORD=admin
+# GF_AUTH_BASIC_ENABLED='true'
 # GF_SECURITY_ADMIN_USER=admin
-# GF_SECURITY_ADMIN_PASSWORD=admin@123
+# GF_SECURITY_ADMIN_PASSWORD=admin
+# GF_AUTH_ANONYMOUS_ENABLED='true'
+# GF_AUTH_ANONYMOUS_ORG_ROLE='Viewer'
 
 version: '3.8'
 services:
@@ -30,9 +33,6 @@ services:
       - 3000:3000
     env_file:
       - '.env'
-    environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_DISABLE_LOGIN_FORM=false
     volumes:
       - grafana_data:/var/lib/grafana
     depends_on:

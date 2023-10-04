@@ -26,17 +26,31 @@ async def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
         pg = crud.project_group.get_with_name(db, name=pg_schema.name)
         if pg:
             print(f"\n[{pg.name}] Project group ({pg.id}) alredy exists.")
+            missmatched = [
+                key for key, value in pg_schema.dict().items() if getattr(pg, key) != value
+            ]
+            if missmatched:
+                print(f'These fileds are updating: {",".join(missmatched)}')
+                crud.project.update(db=db, db_obj=pg, obj_in=pg_schema)
+
         else:
             pg = crud.project_group.create(db=db, obj_in=pg_schema)
             print(f"\n[{pg.name}] Project group created.")
 
         # project
         project_schema = data.project
+        project_schema.group_id = pg.id
         proj = crud.project.get_with_name(db, name=project_schema.name)
+
         if proj:
             print(f"[{proj.name}] Project ({proj.id}) already exists.")
+            missmatched = [
+                key for key, value in project_schema.dict().items() if getattr(proj, key) != value
+            ]
+            if missmatched:
+                print(f'These fileds are updating: {",".join(missmatched)}')
+                crud.project.update(db=db, db_obj=proj, obj_in=project_schema)
         else:
-            project_schema.group_id = pg.id
             proj = crud.project.create(db=db, obj_in=project_schema)
             print(f"[{proj.name}] Project created.")
 

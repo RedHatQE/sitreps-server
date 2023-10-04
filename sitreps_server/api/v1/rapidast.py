@@ -49,7 +49,10 @@ async def dump_rapidast_report(
     service = item_in.service
     env = item_in.env
     # extact data from json to create rapidas schema.
-    report_data = _extract_data(report=item_in.report)
+    if item_in.report:
+        report_data = _extract_data(report=item_in.report)
+    else:
+        report_data = item_in.report
 
     report_item = crud.rapidast_report.get_service_with_name_env(db=db, service=service, env=env)
     if report_item:
@@ -92,7 +95,16 @@ async def read_rapidast_report(
     items = crud.rapidast_report.get_multi(db=db)
     data = []
     for item in items:
-        _item = {"name": item.service, "id": item.id, "html_url": item.html_url, "env": item.env}
+        proj = crud.project.get_with_name(db, name=item.plugin_name)
+        group_title = proj.group.title if proj else None
+        _item = {
+            "name": item.service,
+            "plugin_name": item.plugin_name,
+            "group": group_title,
+            "id": item.id,
+            "html_url": item.html_url,
+            "env": item.env,
+        }
         report = _extract_data(item.report) if item.report else {}
         _item.update(report)
         data.append(_item)

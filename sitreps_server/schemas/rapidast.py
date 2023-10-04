@@ -6,6 +6,7 @@ from pydantic import BaseModel
 
 class RapidastReportBase(BaseModel):
     service: str
+    plugin_name: str = None
     env: Optional[str] = "stage"
     report: Optional[dict]
     html_url: Optional[str]

@@ -1,15 +1,16 @@
+"""CLOC schema."""
+
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
 
 class CLOCBase(BaseModel):
-    time: Optional[datetime]
+    time: datetime | None
     cloc: int
-    meta: Optional[dict]
+    meta: dict | None
     # repository: instance of Repository for relationship
-    repository_id: Optional[int]
+    repository_id: int | None
 
 
 class CLOC(CLOCBase):

@@ -1,3 +1,5 @@
+"""Unit-tests model."""
+
 from datetime import datetime
 
 from sqlalchemy import Column

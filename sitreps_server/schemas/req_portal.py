@@ -1,12 +1,13 @@
+"""Req-portal schema."""
+
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
 
 class RequirementsPortalJsonBase(BaseModel):
-    time: Optional[datetime]
-    data: Optional[list]
+    time: datetime | None
+    data: list | None
 
 
 class RequirementsPortalJsonCreate(RequirementsPortalJsonBase):
@@ -22,21 +23,21 @@ class RequirementsPortalJsonUpdate(RequirementsPortalJsonBase):
 
 
 class RequirementsPortalBase(BaseModel):
-    time: Optional[datetime]
+    time: datetime | None
 
-    plugin: Optional[str]  # Pluign name
-    env: Optional[str]  # Env [prod, stage, fedramp]
-    avg: Optional[str]  # type of avg [core_1, core_7, overall_7]
-    report_time: Optional[str]  # Last analysis time
+    plugin: str | None  # Pluign name
+    env: str | None  # Env [prod, stage, fedramp]
+    avg: str | None  # type of avg [core_1, core_7, overall_7]
+    report_time: str | None  # Last analysis time
 
-    blocked: Optional[float]
-    error: Optional[float]
-    failed: Optional[float]
-    manual: Optional[float]
-    passed: Optional[float]
-    skip: Optional[float]
-    xfailed: Optional[float]
-    xpass: Optional[float]
+    blocked: float | None
+    error: float | None
+    failed: float | None
+    manual: float | None
+    passed: float | None
+    skip: float | None
+    xfailed: float | None
+    xpass: float | None
 
 
 class RequirementsPortalCreate(RequirementsPortalBase):

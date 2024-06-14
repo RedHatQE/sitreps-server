@@ -1,52 +1,53 @@
+"""Integration test schema."""
+
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
 
 class IntegrationTestBase(BaseModel):
-    time: Optional[datetime]
+    time: datetime | None
 
     # repository: instance of Repository for relationship
-    repository_id: Optional[int]
+    repository_id: int | None
 
-    total_tests: Optional[int]
-    customer_scenario: Optional[int]
-    component: Optional[str]
+    total_tests: int | None
+    customer_scenario: int | None
+    component: str | None
     # Automatin status
-    automated: Optional[int]
-    not_automated: Optional[int]
-    manual_only: Optional[int]
+    automated: int | None
+    not_automated: int | None
+    manual_only: int | None
     # Test importance
-    critical: Optional[int]
-    high: Optional[int]
-    medium: Optional[int]
-    low: Optional[int]
+    critical: int | None
+    high: int | None
+    medium: int | None
+    low: int | None
     # Interface
-    ui: Optional[int]
-    non_ui: Optional[int]
+    ui: int | None
+    non_ui: int | None
     # Negative tests
-    negative: Optional[int]
+    negative: int | None
     # Type
-    functional: Optional[int]
-    non_functional: Optional[int]
+    functional: int | None
+    non_functional: int | None
     # Missing meta
-    missing_assignee: Optional[int]
-    missing_automation_status: Optional[int]
-    missing_component: Optional[int]
-    missing_importance: Optional[int]
-    missing_interface_type: Optional[int]
-    missing_requirements: Optional[int]
-    missing_type: Optional[int]
-    assignees: Optional[dict]
-    requirements: Optional[dict]  # {<requirment>: <number of link tests>, ...}
+    missing_assignee: int | None
+    missing_automation_status: int | None
+    missing_component: int | None
+    missing_importance: int | None
+    missing_interface_type: int | None
+    missing_requirements: int | None
+    missing_type: int | None
+    assignees: dict | None
+    requirements: dict | None  # {<requirment>: <number of link tests>, ...}
 
-    meta: Optional[dict]
+    meta: dict | None
 
     # Future reserved fields.
-    test1: Optional[int]
-    test2: Optional[int]
-    test3: Optional[int]
+    test1: int | None
+    test2: int | None
+    test3: int | None
 
 
 class IntegrationTestCreate(IntegrationTestBase):

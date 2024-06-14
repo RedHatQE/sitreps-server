@@ -1,22 +1,23 @@
+"""Sonarqube schema."""
+
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
 
 class SonarQubeBase(BaseModel):
-    time: Optional[datetime]
+    time: datetime | None
 
     # repository: instance of Repository for relationship
-    repository_id: Optional[int]
+    repository_id: int | None
 
-    project: Optional[str]
+    project: str | None
     vulnerabilities: int
     code_smells: int
     security_hotspots: int
     bugs: int
 
-    meta: Optional[dict]
+    meta: dict | None
 
 
 class SonarQube(SonarQubeBase):

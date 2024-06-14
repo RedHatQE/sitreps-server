@@ -1,3 +1,5 @@
+"""CLOC model."""
+
 from datetime import datetime
 
 from sqlalchemy import Column
@@ -6,8 +8,9 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy_json import mutable_json_type
 
-from ..db.types import PortableJSON
 from sitreps_server.db import Base
+
+from ..db.types import PortableJSON
 
 
 class CLOC(Base):

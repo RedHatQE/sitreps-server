@@ -1,3 +1,5 @@
+"""Project model."""
+
 from typing import TYPE_CHECKING
 
 from sqlalchemy import Column
@@ -7,13 +9,13 @@ from sqlalchemy import String
 from sqlalchemy.orm import relationship
 from sqlalchemy_json import mutable_json_type
 
-from ..db.types import PortableJSON
 from sitreps_server.db import Base
 
+from ..db.types import PortableJSON
 
 if TYPE_CHECKING:
-    from .repository import Repository  # noqa: F401
     from .jira import Jira  # noqa: F401
+    from .repository import Repository  # noqa: F401
 
 
 class Project(Base):

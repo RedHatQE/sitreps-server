@@ -1,3 +1,5 @@
+"""Code coverage model."""
+
 from datetime import datetime
 
 from sqlalchemy import Column

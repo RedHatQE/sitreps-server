@@ -1,16 +1,16 @@
-from typing import Optional
+"""Project schema."""
 
 from pydantic import BaseModel
 
 
 class ProjectBase(BaseModel):
     name: str
-    title: Optional[str] = None
+    title: str | None = None
     # group: instance of ProjectGroup for relation
-    group_id: Optional[int] = None
+    group_id: int | None = None
 
     # Hold some extra info
-    meta: Optional[dict] = None
+    meta: dict | None = None
 
 
 class Project(ProjectBase):

@@ -1,3 +1,5 @@
+"""All schemas."""
+
 from .cloc import CLOC  # noqa: F401
 from .cloc import CLOCCreate  # noqa: F401
 from .cloc import CLOCUpdate  # noqa: F401

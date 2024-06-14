@@ -1,3 +1,5 @@
+"""Rapidast routs."""
+
 from logging import getLogger
 from typing import Any
 
@@ -7,10 +9,10 @@ from fastapi import status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
-from .deps import get_db
 from sitreps_server import crud
 from sitreps_server import schemas
 
+from .deps import get_db
 
 router = APIRouter()
 LOGGER = getLogger(__name__)
@@ -43,9 +45,7 @@ async def dump_rapidast_report(
     db: Session = Depends(get_db),
     item_in: schemas.RapidastReport,
 ) -> Any:
-    """
-    Update/add rapidast report data.
-    """
+    """Update/add rapidast report data."""
     service = item_in.service
     env = item_in.env
     # extact data from json to create rapidas schema.
@@ -86,9 +86,7 @@ async def read_rapidast_report(
     service: str = None,
     env: str = "stage",
 ) -> Any:
-    """
-    Retrieve rapidast report.
-    """
+    """Retrieve rapidast report."""
     if service and env:
         item = crud.rapidast_report.get_service_with_name_env(db=db, service=service, env=env)
         return item
@@ -119,9 +117,7 @@ async def read_rapidast(
     service: str = None,
     env: str = "stage",
 ) -> Any:
-    """
-    Retrieve rapidast historical data.
-    """
+    """Retrieve rapidast historical data."""
     if service and env:
         items = crud.rapidast.get_services_with_name_env(db=db, service=service, env=env)
         return items

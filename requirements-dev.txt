@@ -3,5 +3,4 @@ ipython
 mypy
 mypy_extensions
 pre-commit
-pydocstyle==3.0.0
 python-dotenv

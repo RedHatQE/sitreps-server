@@ -1,3 +1,5 @@
+"""Req-portal routs."""
+
 from logging import getLogger
 from typing import Any
 
@@ -7,10 +9,10 @@ from fastapi import status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
-from .deps import get_db
 from sitreps_server import crud
 from sitreps_server import schemas
 
+from .deps import get_db
 
 router = APIRouter()
 LOGGER = getLogger(__name__)
@@ -22,9 +24,7 @@ async def dump_requirements_portal_raw_data(
     db: Session = Depends(get_db),
     item_in: schemas.RequirementsPortalJson,
 ) -> Any:
-    """
-    Update/add requirements portal avg json data.
-    """
+    """Update/add requirements portal avg json data."""
     item = crud.req_portal_json.get_first(db=db)
     if item:
         item = crud.req_portal_json.update(db=db, db_obj=item, obj_in=item_in)
@@ -44,9 +44,7 @@ async def read_requirements_portal_raw_data(
     filter_by_env: str = None,
     filter_by_avg: str = None,
 ) -> Any:
-    """
-    Retrieve requinments portal avg json data.
-    """
+    """Retrieve requinments portal avg json data."""
     item = crud.req_portal_json.get_first(db=db)
     if item:
         data = item.data
@@ -66,9 +64,7 @@ async def read_services_passing_rate(
     filter_by_env: str = "prod",
     filter_by_avg: str = "core-7",
 ) -> Any:
-    """
-    Retrieve services passing rate.
-    """
+    """Retrieve services passing rate."""
     item = crud.req_portal_json.get_first(db=db)
     if item:
         _item = {}
@@ -99,9 +95,7 @@ async def add_historical_average(
     db: Session = Depends(get_db),
     item_in: schemas.RequirementsPortalCreate,
 ) -> Any:
-    """
-    Add new requirements portal avg entry.
-    """
+    """Add new requirements portal avg entry."""
     existing_item = crud.req_portal.get_last_req_portal_avg(
         db=db, plugin=item_in.plugin, avg=item_in.avg, env=item_in.env
     )
@@ -127,9 +121,7 @@ async def read_historical_average(
     filter_by_env: str = None,
     filter_by_avg: str = None,
 ) -> Any:
-    """
-    Retrieve requinment portal avg data.
-    """
+    """Retrieve requinment portal avg data."""
     filters = {}
     if filter_by_plugin:
         filters["plugin"] = filter_by_plugin

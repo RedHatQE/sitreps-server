@@ -1,3 +1,5 @@
+"""Base and engine declaration."""
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -6,6 +8,7 @@ from ..core.config import settings
 
 
 def get_db_url():
+    """Get db url."""
     if settings.DATABASE_URL:
         return settings.DATABASE_URL
     user = settings.POSTGRESQL_USER

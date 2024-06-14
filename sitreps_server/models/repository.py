@@ -1,3 +1,5 @@
+"""Repository model."""
+
 from typing import TYPE_CHECKING
 
 from sqlalchemy import Column
@@ -7,9 +9,9 @@ from sqlalchemy import String
 from sqlalchemy.orm import relationship
 from sqlalchemy_json import mutable_json_type
 
-from ..db.types import PortableJSON
 from sitreps_server.db import Base
 
+from ..db.types import PortableJSON
 
 if TYPE_CHECKING:
     from .cloc import CLOC  # noqa: F401

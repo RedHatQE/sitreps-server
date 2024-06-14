@@ -1,15 +1,16 @@
+"""Metadata schema."""
+
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
 
 class MetadataBase(BaseModel):
-    time: Optional[datetime]
+    time: datetime | None
 
     # repository: instance of Repository for relationship
-    repository_id: Optional[int]
-    meta: Optional[list]
+    repository_id: int | None
+    meta: list | None
 
 
 class MetadataCreate(MetadataBase):

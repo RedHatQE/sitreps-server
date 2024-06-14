@@ -1,3 +1,5 @@
+"""Project routs."""
+
 from typing import Any
 
 from fastapi import APIRouter
@@ -6,9 +8,10 @@ from fastapi import HTTPException
 from fastapi import status
 from sqlalchemy.orm import Session
 
-from .deps import get_db
 from sitreps_server import crud
 from sitreps_server import schemas
+
+from .deps import get_db
 
 router = APIRouter()
 
@@ -19,9 +22,7 @@ async def read_project(
     skip: int = 0,
     limit: int = 10,
 ) -> Any:
-    """
-    Retrieve Projects.
-    """
+    """Retrieve Projects."""
     proj = crud.project.get_multi(db, skip=skip, limit=limit)
     return proj
 
@@ -32,9 +33,7 @@ async def create_project(
     db: Session = Depends(get_db),
     item_in: schemas.ProjectCreate,
 ) -> Any:
-    """
-    Create new Project.
-    """
+    """Create new Project."""
     proj = crud.project.get_with_name(db, name=item_in.name)
     if proj:
         raise HTTPException(
@@ -52,9 +51,7 @@ async def update_project(
     id: int,
     item_in: schemas.ProjectUpdate,
 ) -> Any:
-    """
-    Update an Project.
-    """
+    """Update an Project."""
     item = crud.project.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Project Group not found")
@@ -68,9 +65,7 @@ async def read_project_id(
     db: Session = Depends(get_db),
     id: int,
 ) -> Any:
-    """
-    Get project by ID.
-    """
+    """Get project by ID."""
     item = crud.project.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Project Group not found")
@@ -83,9 +78,7 @@ async def delete_project(
     db: Session = Depends(get_db),
     id: int,
 ) -> Any:
-    """
-    Delete an project.
-    """
+    """Delete an project."""
     item = crud.project.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Project Group not found")

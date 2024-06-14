@@ -1,3 +1,5 @@
+"""Configuration for sitreps backend."""
+
 from functools import lru_cache
 from pathlib import Path
 
@@ -27,13 +29,16 @@ class GlobalConfig(BaseSettings):
     DATABASE_URL: str = ""
 
     class Config:
+        """External config."""
+
         case_sensitive = True
         env_file = BASE_PATH.parent / ".env"
 
 
 # for avoid multiple calls.
-@lru_cache()
+@lru_cache
 def get_settings():
+    """Get configurations."""
     return GlobalConfig()
 
 

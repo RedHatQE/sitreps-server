@@ -39,7 +39,7 @@ objects:
             value: 'true'
           - name: GF_AUTH_ANONYMOUS_ORG_ROLE
             value: "Viewer"
-          image: quay.io/digitronik/grafana-infinity:8.5.13
+          image: quay.io/insights-qe/sitreps-grafana:10.3.6
           imagePullPolicy: IfNotPresent
           name: grafana
           ports:

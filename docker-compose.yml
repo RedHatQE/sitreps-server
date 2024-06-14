@@ -14,7 +14,7 @@
 version: '3.8'
 services:
   db:
-    image: registry.redhat.io/rhel8/postgresql-12
+    image: registry.redhat.io/rhel9/postgresql-15:1-68
     volumes:
       - postgres_data:/var/lib/pgsql/data
     expose:
@@ -25,7 +25,7 @@ services:
       - '.env'
 
   grafana:
-    image: quay.io/digitronik/grafana-infinity:8.5.13
+    image: quay.io/insights-qe/sitreps-grafana:10.3.6
     expose:
       - 3000
       - 8000
@@ -39,7 +39,7 @@ services:
       - db
 
   backend:
-    image: sitreps/server-local:latest
+    image: localhost/sitreps-server:local
     build:
       context: .
 #      dockerfile: docker/Dockerfile.server
@@ -53,7 +53,7 @@ services:
     env_file:
       - '.env'
     environment:
-      # Overwrite server coming from .env file so it will be network.
+      # Overwrite server config coming from .env file so that it will be in network.
       - POSTGRESQL_SERVER=db
     depends_on:
       - db

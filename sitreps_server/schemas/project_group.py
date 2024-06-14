@@ -1,11 +1,11 @@
-from typing import Optional
+"""Project group schema."""
 
 from pydantic import BaseModel
 
 
 class ProjectGroupBase(BaseModel):
     name: str
-    title: Optional[str] = None
+    title: str | None = None
 
 
 class ProjectGroup(ProjectGroupBase):

@@ -1,19 +1,20 @@
+"""Unittests schema."""
+
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
 
 class UnitTestBase(BaseModel):
-    time: Optional[datetime]
+    time: datetime | None
 
     # repository: instance of Repository for relationship
-    repository_id: Optional[int]
+    repository_id: int | None
 
-    gh_action: Optional[int]
-    jenkins: Optional[int]
-    travis: Optional[int]
-    other: Optional[int]
+    gh_action: int | None
+    jenkins: int | None
+    travis: int | None
+    other: int | None
 
 
 class UnitTest(UnitTestBase):

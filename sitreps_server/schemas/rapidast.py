@@ -1,5 +1,6 @@
+"""Rapidast schema."""
+
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -7,9 +8,9 @@ from pydantic import BaseModel
 class RapidastReportBase(BaseModel):
     service: str
     plugin_name: str = None
-    env: Optional[str] = "stage"
-    report: Optional[dict]
-    html_url: Optional[str]
+    env: str | None = "stage"
+    report: dict | None
+    html_url: str | None
 
 
 class RapidastReportCreate(RapidastReportBase):
@@ -25,15 +26,15 @@ class RapidastReportUpdate(RapidastReportBase):
 
 
 class RapidastBase(BaseModel):
-    time: Optional[datetime]
+    time: datetime | None
     service: str
-    service_id: Optional[int] = None
-    env: Optional[str] = "stage"
-    informational: Optional[int]
-    low: Optional[int]
-    medium: Optional[int]
-    high: Optional[int]
-    false_positive: Optional[int]
+    service_id: int | None = None
+    env: str | None = "stage"
+    informational: int | None
+    low: int | None
+    medium: int | None
+    high: int | None
+    false_positive: int | None
 
 
 class RapidastCreate(RapidastBase):

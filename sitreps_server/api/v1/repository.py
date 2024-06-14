@@ -1,3 +1,5 @@
+"""Repository routs."""
+
 from typing import Any
 
 from fastapi import APIRouter
@@ -6,9 +8,10 @@ from fastapi import HTTPException
 from fastapi import status
 from sqlalchemy.orm import Session
 
-from .deps import get_db
 from sitreps_server import crud
 from sitreps_server import schemas
+
+from .deps import get_db
 
 router = APIRouter()
 
@@ -21,9 +24,7 @@ async def read_repositories(
     filter_by_project_id: int = None,
     filter_by_type: str = None,
 ) -> Any:
-    """
-    Retrieve Repositories data.
-    """
+    """Retrieve Repositories data."""
     filters = {}
 
     if filter_by_project_id:
@@ -41,9 +42,7 @@ async def read_repository_id(
     db: Session = Depends(get_db),
     id: int,
 ) -> Any:
-    """
-    Get Repository by ID.
-    """
+    """Get Repository by ID."""
     item = crud.repository.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="repository not found")
@@ -56,9 +55,7 @@ async def create_repository(
     db: Session = Depends(get_db),
     item_in: schemas.RepositoryCreate,
 ) -> Any:
-    """
-    Create new item.
-    """
+    """Create new item."""
     repo = crud.repository.get_with_name(db, name=item_in.name)
     if repo:
         raise HTTPException(
@@ -76,9 +73,7 @@ async def update_repository(
     id: int,
     item_in: schemas.RepositoryUpdate,
 ) -> Any:
-    """
-    Update an item.
-    """
+    """Update an item."""
     item = crud.repository.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="repository not found")
@@ -92,9 +87,7 @@ async def delete_repository(
     db: Session = Depends(get_db),
     id: int,
 ) -> Any:
-    """
-    Delete an item.
-    """
+    """Delete an item."""
     item = crud.repository.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="repository not found")

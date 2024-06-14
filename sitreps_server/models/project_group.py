@@ -1,3 +1,5 @@
+"""Project group model."""
+
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String

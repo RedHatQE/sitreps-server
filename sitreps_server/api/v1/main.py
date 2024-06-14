@@ -1,3 +1,5 @@
+"""Common routs. Used for dumpping collective data."""
+
 from typing import Any
 
 from fastapi import APIRouter
@@ -5,21 +7,23 @@ from fastapi import Depends
 from fastapi import status
 from sqlalchemy.orm import Session
 
-from .deps import get_db
 from sitreps_server import crud
 from sitreps_server import schemas
+
+from .deps import get_db
 
 router = APIRouter()
 
 
 @router.get("/", include_in_schema=False)
 async def get_status() -> Any:
-    """Server status"""
+    """Server status."""
     return {"details": "ok"}
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def dump_data(data: schemas.Data, db: Session = Depends(get_db)):
+    """Dump collective data. Its combination of most of routs."""
     try:
         # project group
         pg_schema = data.project_group

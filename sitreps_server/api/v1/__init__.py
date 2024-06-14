@@ -1,3 +1,5 @@
+"""API rout declarations."""
+
 from fastapi import APIRouter
 
 from .cloc import router as cloc_router

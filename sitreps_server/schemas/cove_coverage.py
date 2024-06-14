@@ -1,14 +1,15 @@
+"""Code coverage schema."""
+
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
 
 class CodeCoverageBase(BaseModel):
-    time: Optional[datetime]
+    time: datetime | None
     coverage: float
     # repository: instance of Repository for relationship
-    repository_id: Optional[int]
+    repository_id: int | None
 
 
 class CodeCoverage(CodeCoverageBase):

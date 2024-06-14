@@ -1,3 +1,5 @@
+"""Jira routs."""
+
 from typing import Any
 
 from fastapi import APIRouter
@@ -5,9 +7,10 @@ from fastapi import Depends
 from fastapi import status
 from sqlalchemy.orm import Session
 
-from .deps import get_db
 from sitreps_server import crud
 from sitreps_server import schemas
+
+from .deps import get_db
 
 router = APIRouter()
 
@@ -18,9 +21,7 @@ async def add_jira(
     db: Session = Depends(get_db),
     item_in: schemas.JiraCreate,
 ) -> Any:
-    """
-    Add new Jira entry.
-    """
+    """Add new Jira entry."""
     item = crud.jira.create(db=db, obj_in=item_in)
     return item
 
@@ -33,9 +34,7 @@ async def read_jira(
     filter_by_project_id: int = None,
     filter_by_project_name: str = None,
 ) -> Any:
-    """
-    Retrieve Jira data.
-    """
+    """Retrieve Jira data."""
     filters = {}
 
     if filter_by_project_id:
@@ -53,8 +52,6 @@ async def read_latest_meta(
     project_id: int,
     db: Session = Depends(get_db),
 ) -> Any:
-    """
-    Retrieve latest Jira 'meta' field for Project.
-    """
+    """Retrieve latest Jira 'meta' field for Project."""
     item = crud.jira.get_last_with_project_id(db, project_id=project_id)
     return item.meta if item else {}

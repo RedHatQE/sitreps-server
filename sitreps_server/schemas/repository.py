@@ -1,17 +1,17 @@
-from typing import Optional
+"""Repository schema."""
 
 from pydantic import BaseModel
 
 
 class RepositoryBase(BaseModel):
     name: str
-    title: Optional[str] = None
+    title: str | None = None
     type: str
     url: str
     sonar_last_analysis: str = None
-    meta: Optional[dict] = None
+    meta: dict | None = None
 
-    project_id: Optional[int] = None
+    project_id: int | None = None
 
 
 class Repository(RepositoryBase):

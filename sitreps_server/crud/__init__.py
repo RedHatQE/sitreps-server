@@ -1,14 +1,33 @@
-from .cloc import cloc  # noqa: F401
-from .code_coverage import code_coverage  # noqa: F401
-from .integration_test import integration_test  # noqa: F401
-from .jira import jira  # noqa: F401
-from .metadata import metadata  # noqa: F401
-from .project import project  # noqa: F401
-from .project_group import project_group  # noqa: F401
-from .rapidast import rapidast  # noqa: F401
-from .rapidast import rapidast_report  # noqa: F401
-from .repository import repository  # noqa: F401
-from .req_portal import req_portal  # noqa: F401
-from .req_portal import req_portal_json  # noqa: F401
-from .sonarqube import sonarqube  # noqa: F401
-from .unittests import unittests  # noqa: F401
+"""Crud methods."""
+
+from .cloc import cloc
+from .code_coverage import code_coverage
+from .integration_test import integration_test
+from .jira import jira
+from .metadata import metadata
+from .project import project
+from .project_group import project_group
+from .rapidast import rapidast
+from .rapidast import rapidast_report
+from .repository import repository
+from .req_portal import req_portal
+from .req_portal import req_portal_json
+from .sonarqube import sonarqube
+from .unittests import unittests
+
+__all__ = [
+    "cloc",
+    "code_coverage",
+    "integration_test",
+    "jira",
+    "metadata",
+    "project",
+    "project_group",
+    "rapidast",
+    "rapidast_report",
+    "repository",
+    "req_portal",
+    "req_portal_json",
+    "sonarqube",
+    "unittests",
+]

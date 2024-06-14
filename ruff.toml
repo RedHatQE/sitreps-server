@@ -1,0 +1,19 @@
+# Support Python 3.12+.
+target-version = "py312"
+
+# Set the maximum line length to 100
+line-length = 100
+
+[lint]
+extend-select = [
+    "I",    # isort
+    "UP",   # pyupgrade
+    "D",    # pydocstyle
+]
+ignore = ["D101"]
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.isort]
+force-single-line = true

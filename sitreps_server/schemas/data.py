@@ -1,5 +1,4 @@
-from typing import List
-from typing import Optional
+"""Bulk operation schema."""
 
 from pydantic import BaseModel
 
@@ -16,17 +15,17 @@ from .unittest import UnitTestCreate
 
 
 class RepoData(BaseModel):
-    repository: Optional[RepositoryCreate]
-    integrationtests: Optional[IntegrationTestCreate]
-    metadata: Optional[MetadataCreate]
-    sonarqube: Optional[SonarQubeCreate]
-    cloc: Optional[CLOCCreate]
-    codecoverage: Optional[CodeCoverageCreate]
-    unittests: Optional[UnitTestCreate]
+    repository: RepositoryCreate | None
+    integrationtests: IntegrationTestCreate | None
+    metadata: MetadataCreate | None
+    sonarqube: SonarQubeCreate | None
+    cloc: CLOCCreate | None
+    codecoverage: CodeCoverageCreate | None
+    unittests: UnitTestCreate | None
 
 
 class Data(BaseModel):
     project_group: ProjectGroupCreate
     project: ProjectCreate
-    repos: List[RepoData]
-    jira: Optional[JiraCreate]
+    repos: list[RepoData]
+    jira: JiraCreate | None

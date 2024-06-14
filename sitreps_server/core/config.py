@@ -4,7 +4,8 @@ from functools import lru_cache
 from pathlib import Path
 
 from pydantic import BaseModel
-from pydantic import BaseSettings
+from pydantic import Extra
+from pydantic_settings import BaseSettings
 
 BASE_PATH = Path(__file__).resolve().parent.parent
 
@@ -29,10 +30,12 @@ class GlobalConfig(BaseSettings):
     DATABASE_URL: str = ""
 
     class Config:
-        """External config."""
+        """Load from .env file."""
 
         case_sensitive = True
         env_file = BASE_PATH.parent / ".env"
+        # We are passing some extra args in .env files for grafana.
+        extra = Extra.allow
 
 
 # for avoid multiple calls.

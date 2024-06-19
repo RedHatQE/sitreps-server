@@ -3,12 +3,13 @@
 from datetime import datetime
 
 from pydantic import BaseModel
+from pydantic import ConfigDict
 
 
 class JiraBase(BaseModel):
-    time: datetime | None
-    project_id: int | None  # project: instance of Project for relationship
-    project_name: str | None  # Jira project id like SPM for patchman
+    time: datetime | None = None
+    project_id: int | None = None  # project: instance of Project for relationship
+    project_name: str | None = None  # Jira project id like SPM for patchman
 
     resolved: int
     unresolved: int
@@ -21,21 +22,21 @@ class JiraBase(BaseModel):
     on_qa: int
     release_pending: int
 
-    created_last_15d: int | None
-    created_last_30d: int | None
-    todo_older_than_30d: int | None
-    todo_older_than_60d: int | None
+    created_last_15d: int | None = None
+    created_last_30d: int | None = None
+    todo_older_than_30d: int | None = None
+    todo_older_than_60d: int | None = None
 
-    meta: dict | None
+    meta: dict | None = None
 
     # Future reserved fields.
-    jira1: int | None
-    jira2: int | None
-    jira3: int | None
+    jira1: int | None = None
+    jira2: int | None = None
+    jira3: int | None = None
 
 
 class Jira(JiraBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
 
 
 class JiraCreate(JiraBase):

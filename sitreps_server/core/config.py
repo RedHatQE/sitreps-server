@@ -4,8 +4,8 @@ from functools import lru_cache
 from pathlib import Path
 
 from pydantic import BaseModel
-from pydantic import Extra
 from pydantic_settings import BaseSettings
+from pydantic_settings import SettingsConfigDict
 
 BASE_PATH = Path(__file__).resolve().parent.parent
 
@@ -28,14 +28,9 @@ class GlobalConfig(BaseSettings):
     POSTGRESQL_USER: str = "admin"
     POSTGRESQL_PASSWORD: str = "admin"
     DATABASE_URL: str = ""
-
-    class Config:
-        """Load from .env file."""
-
-        case_sensitive = True
-        env_file = BASE_PATH.parent / ".env"
-        # We are passing some extra args in .env files for grafana.
-        extra = Extra.allow
+    model_config = SettingsConfigDict(
+        case_sensitive=True, env_file=BASE_PATH.parent / ".env", extra="allow"
+    )
 
 
 # for avoid multiple calls.

@@ -16,7 +16,7 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/", response_model=list[schemas.ProjectGroup])
 async def read_project_groups(
     db: Session = Depends(get_db),
     skip: int = 0,
@@ -25,9 +25,12 @@ async def read_project_groups(
     """Retrieve Project Groups."""
     pg = crud.project_group.get_multi(db, skip=skip, limit=limit)
     return pg
+    # import ipdb; ipdb.set_trace()
+    # return [schemas.ProjectGroup.from_orm(g) for g in pg]
+    # return pg
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.ProjectGroup)
 async def create_project_group(
     *,
     db: Session = Depends(get_db),
@@ -44,7 +47,7 @@ async def create_project_group(
     return pg
 
 
-@router.put("/{id}")
+@router.put("/{id}", response_model=schemas.ProjectGroup)
 async def update_project_group(
     *,
     db: Session = Depends(get_db),
@@ -59,7 +62,7 @@ async def update_project_group(
     return item
 
 
-@router.get("/{id}")
+@router.get("/{id}", response_model=schemas.ProjectGroup)
 async def read_project_group(
     *,
     db: Session = Depends(get_db),
@@ -72,7 +75,7 @@ async def read_project_group(
     return item
 
 
-@router.delete("/{id}")
+@router.delete("/{id}", response_model=schemas.ProjectGroup)
 async def delete_project_group(
     *,
     db: Session = Depends(get_db),

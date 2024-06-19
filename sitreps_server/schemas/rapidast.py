@@ -3,14 +3,15 @@
 from datetime import datetime
 
 from pydantic import BaseModel
+from pydantic import ConfigDict
 
 
 class RapidastReportBase(BaseModel):
     service: str
     plugin_name: str = None
     env: str | None = "stage"
-    report: dict | None
-    html_url: str | None
+    report: dict | None = None
+    html_url: str | None = None
 
 
 class RapidastReportCreate(RapidastReportBase):
@@ -18,7 +19,7 @@ class RapidastReportCreate(RapidastReportBase):
 
 
 class RapidastReport(RapidastReportBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RapidastReportUpdate(RapidastReportBase):
@@ -26,15 +27,15 @@ class RapidastReportUpdate(RapidastReportBase):
 
 
 class RapidastBase(BaseModel):
-    time: datetime | None
+    time: datetime | None = None
     service: str
     service_id: int | None = None
     env: str | None = "stage"
-    informational: int | None
-    low: int | None
-    medium: int | None
-    high: int | None
-    false_positive: int | None
+    informational: int | None = None
+    low: int | None = None
+    medium: int | None = None
+    high: int | None = None
+    false_positive: int | None = None
 
 
 class RapidastCreate(RapidastBase):

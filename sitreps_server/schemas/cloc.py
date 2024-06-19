@@ -3,18 +3,19 @@
 from datetime import datetime
 
 from pydantic import BaseModel
+from pydantic import ConfigDict
 
 
 class CLOCBase(BaseModel):
-    time: datetime | None
+    time: datetime | None = None
     cloc: int
-    meta: dict | None
+    meta: dict | None = None
     # repository: instance of Repository for relationship
-    repository_id: int | None
+    repository_id: int | None = None
 
 
 class CLOC(CLOCBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CLOCCreate(CLOCBase):

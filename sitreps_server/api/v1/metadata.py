@@ -16,7 +16,7 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.get("/{repository_id}")
+@router.get("/{repository_id}", response_model=schemas.Metadata)
 async def read_latest_metadata(
     *,
     db: Session = Depends(get_db),
@@ -30,7 +30,7 @@ async def read_latest_metadata(
     return item.meta
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Metadata)
 async def add_metadata(
     *,
     db: Session = Depends(get_db),

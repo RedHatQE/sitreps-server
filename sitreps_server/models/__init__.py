@@ -1,4 +1,4 @@
-"""All Models."""
+"""Database Models."""
 
 from .cloc import CLOC
 from .code_coverage import CodeCoverage

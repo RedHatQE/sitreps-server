@@ -15,7 +15,7 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Jira)
 async def add_jira(
     *,
     db: Session = Depends(get_db),
@@ -26,7 +26,7 @@ async def add_jira(
     return item
 
 
-@router.get("/")
+@router.get("/", response_model=list[schemas.IntegrationTest])
 async def read_jira(
     db: Session = Depends(get_db),
     skip: int = 0,

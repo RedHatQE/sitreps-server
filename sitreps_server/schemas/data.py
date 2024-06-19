@@ -15,17 +15,17 @@ from .unittest import UnitTestCreate
 
 
 class RepoData(BaseModel):
-    repository: RepositoryCreate | None
-    integrationtests: IntegrationTestCreate | None
-    metadata: MetadataCreate | None
-    sonarqube: SonarQubeCreate | None
-    cloc: CLOCCreate | None
-    codecoverage: CodeCoverageCreate | None
-    unittests: UnitTestCreate | None
+    repository: RepositoryCreate | None = None
+    integrationtests: IntegrationTestCreate | None = None
+    metadata: MetadataCreate | None = None
+    sonarqube: SonarQubeCreate | None = None
+    cloc: CLOCCreate | None = None
+    codecoverage: CodeCoverageCreate | None = None
+    unittests: UnitTestCreate | None = None
 
 
 class Data(BaseModel):
     project_group: ProjectGroupCreate
     project: ProjectCreate
     repos: list[RepoData]
-    jira: JiraCreate | None
+    jira: JiraCreate | None = None

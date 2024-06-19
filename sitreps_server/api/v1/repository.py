@@ -16,7 +16,7 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/", response_model=list[schemas.Repository])
 async def read_repositories(
     db: Session = Depends(get_db),
     skip: int = 0,
@@ -36,7 +36,7 @@ async def read_repositories(
     return repo
 
 
-@router.get("/{id}")
+@router.get("/{id}", response_model=schemas.Repository)
 async def read_repository_id(
     *,
     db: Session = Depends(get_db),
@@ -49,7 +49,7 @@ async def read_repository_id(
     return item
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Repository)
 async def create_repository(
     *,
     db: Session = Depends(get_db),
@@ -66,7 +66,7 @@ async def create_repository(
     return repo
 
 
-@router.put("/{id}")
+@router.put("/{id}", response_model=schemas.Repository)
 async def update_repository(
     *,
     db: Session = Depends(get_db),
@@ -81,7 +81,7 @@ async def update_repository(
     return item
 
 
-@router.delete("/{id}")
+@router.delete("/{id}", response_model=schemas.Repository)
 async def delete_repository(
     *,
     db: Session = Depends(get_db),

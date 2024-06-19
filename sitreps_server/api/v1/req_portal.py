@@ -18,7 +18,9 @@ router = APIRouter()
 LOGGER = getLogger(__name__)
 
 
-@router.put("/latest/", status_code=status.HTTP_201_CREATED)
+@router.put(
+    "/latest/", status_code=status.HTTP_201_CREATED, response_model=schemas.RequirementsPortal
+)
 async def dump_requirements_portal_raw_data(
     *,
     db: Session = Depends(get_db),
@@ -37,7 +39,7 @@ async def dump_requirements_portal_raw_data(
     return item
 
 
-@router.get("/latest/")
+@router.get("/latest/", response_model=schemas.RequirementsPortal)
 async def read_requirements_portal_raw_data(
     db: Session = Depends(get_db),
     filter_by_plugin: str = None,

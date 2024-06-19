@@ -16,7 +16,7 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/", response_model=list[schemas.Project])
 async def read_project(
     db: Session = Depends(get_db),
     skip: int = 0,
@@ -27,7 +27,7 @@ async def read_project(
     return proj
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Project)
 async def create_project(
     *,
     db: Session = Depends(get_db),
@@ -44,7 +44,7 @@ async def create_project(
     return proj
 
 
-@router.put("/{id}")
+@router.put("/{id}", response_model=schemas.Project)
 async def update_project(
     *,
     db: Session = Depends(get_db),
@@ -59,7 +59,7 @@ async def update_project(
     return item
 
 
-@router.get("/{id}")
+@router.get("/{id}", response_model=schemas.Project)
 async def read_project_id(
     *,
     db: Session = Depends(get_db),
@@ -72,7 +72,7 @@ async def read_project_id(
     return item
 
 
-@router.delete("/{id}")
+@router.delete("/{id}", response_model=schemas.Project)
 async def delete_project(
     *,
     db: Session = Depends(get_db),

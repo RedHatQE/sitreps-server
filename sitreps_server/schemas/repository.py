@@ -1,6 +1,7 @@
 """Repository schema."""
 
 from pydantic import BaseModel
+from pydantic import ConfigDict
 
 
 class RepositoryBase(BaseModel):
@@ -15,7 +16,7 @@ class RepositoryBase(BaseModel):
 
 
 class Repository(RepositoryBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RepositoryCreate(RepositoryBase):

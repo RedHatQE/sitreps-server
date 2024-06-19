@@ -3,17 +3,18 @@
 from datetime import datetime
 
 from pydantic import BaseModel
+from pydantic import ConfigDict
 
 
 class CodeCoverageBase(BaseModel):
-    time: datetime | None
+    time: datetime | None = None
     coverage: float
     # repository: instance of Repository for relationship
-    repository_id: int | None
+    repository_id: int | None = None
 
 
 class CodeCoverage(CodeCoverageBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CodeCoverageCreate(CodeCoverageBase):

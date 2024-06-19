@@ -15,7 +15,7 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.UnitTest)
 async def add_unittests(
     *,
     db: Session = Depends(get_db),
@@ -26,7 +26,7 @@ async def add_unittests(
     return item
 
 
-@router.get("/")
+@router.get("/", response_model=list[schemas.UnitTest])
 async def read_unittests(
     db: Session = Depends(get_db),
     skip: int = 0,

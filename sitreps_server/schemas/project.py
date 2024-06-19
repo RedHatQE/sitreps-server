@@ -1,6 +1,7 @@
 """Project schema."""
 
 from pydantic import BaseModel
+from pydantic import ConfigDict
 
 
 class ProjectBase(BaseModel):
@@ -14,7 +15,8 @@ class ProjectBase(BaseModel):
 
 
 class Project(ProjectBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
+    id: int
 
 
 class ProjectCreate(ProjectBase):

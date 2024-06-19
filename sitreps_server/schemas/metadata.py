@@ -3,18 +3,19 @@
 from datetime import datetime
 
 from pydantic import BaseModel
+from pydantic import ConfigDict
 
 
 class MetadataBase(BaseModel):
-    time: datetime | None
+    time: datetime | None = None
 
     # repository: instance of Repository for relationship
-    repository_id: int | None
-    meta: list | None
+    repository_id: int | None = None
+    meta: list | None = None
 
 
 class MetadataCreate(MetadataBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
 
 
 class Metadata(MetadataBase):

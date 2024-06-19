@@ -15,7 +15,7 @@ from .deps import get_db
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/", response_model=list[schemas.CodeCoverage])
 async def read_code_coverage(
     db: Session = Depends(get_db),
     skip: int = 0,
@@ -32,7 +32,7 @@ async def read_code_coverage(
     return item
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.CodeCoverage)
 async def add_code_coverage(
     *,
     db: Session = Depends(get_db),

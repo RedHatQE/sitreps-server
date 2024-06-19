@@ -3,11 +3,12 @@
 from datetime import datetime
 
 from pydantic import BaseModel
+from pydantic import ConfigDict
 
 
 class RequirementsPortalJsonBase(BaseModel):
-    time: datetime | None
-    data: list | None
+    time: datetime | None = None
+    data: list | None = None
 
 
 class RequirementsPortalJsonCreate(RequirementsPortalJsonBase):
@@ -15,7 +16,7 @@ class RequirementsPortalJsonCreate(RequirementsPortalJsonBase):
 
 
 class RequirementsPortalJson(RequirementsPortalJsonBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RequirementsPortalJsonUpdate(RequirementsPortalJsonBase):
@@ -23,21 +24,21 @@ class RequirementsPortalJsonUpdate(RequirementsPortalJsonBase):
 
 
 class RequirementsPortalBase(BaseModel):
-    time: datetime | None
+    time: datetime | None = None
 
-    plugin: str | None  # Pluign name
-    env: str | None  # Env [prod, stage, fedramp]
-    avg: str | None  # type of avg [core_1, core_7, overall_7]
-    report_time: str | None  # Last analysis time
+    plugin: str | None = None  # Pluign name
+    env: str | None = None  # Env [prod, stage, fedramp]
+    avg: str | None = None  # type of avg [core_1, core_7, overall_7]
+    report_time: str | None = None  # Last analysis time
 
-    blocked: float | None
-    error: float | None
-    failed: float | None
-    manual: float | None
-    passed: float | None
-    skip: float | None
-    xfailed: float | None
-    xpass: float | None
+    blocked: float | None = None
+    error: float | None = None
+    failed: float | None = None
+    manual: float | None = None
+    passed: float | None = None
+    skip: float | None = None
+    xfailed: float | None = None
+    xpass: float | None = None
 
 
 class RequirementsPortalCreate(RequirementsPortalBase):
@@ -45,7 +46,7 @@ class RequirementsPortalCreate(RequirementsPortalBase):
 
 
 class RequirementsPortal(RequirementsPortalBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RequirementsPortalUpdate(RequirementsPortalBase):

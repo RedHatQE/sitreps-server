@@ -1,15 +1,16 @@
 """Project group schema."""
 
 from pydantic import BaseModel
+from pydantic import ConfigDict
 
 
 class ProjectGroupBase(BaseModel):
     name: str
-    title: str | None = None
 
 
 class ProjectGroup(ProjectGroupBase):
-    pass
+    model_config = ConfigDict(from_attributes=True)
+    id: int
 
 
 class ProjectGroupCreate(ProjectGroupBase):

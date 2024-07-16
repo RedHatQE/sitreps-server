@@ -6,7 +6,6 @@ from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
-from sqlalchemy import String
 from sqlalchemy_json import mutable_json_type
 
 from sitreps_server.db import Base
@@ -25,11 +24,10 @@ class SonarQube(Base):
 
     repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)
 
-    project = Column(String)
     vulnerabilities = Column(Integer)
     code_smells = Column(Integer)
     security_hotspots = Column(Integer)
     bugs = Column(Integer)
-
+    sonar_last_analysis = Column(DateTime)
     # store extra information.
     meta = Column(mutable_json_type(dbtype=PortableJSON(), nested=True))

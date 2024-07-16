@@ -26,13 +26,14 @@ async def add_jira(
     return item
 
 
-@router.get("/", response_model=list[schemas.IntegrationTest])
+@router.get("/", response_model=list[schemas.Jira])
 async def read_jira(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 100,
     filter_by_project_id: int = None,
     filter_by_project_name: str = None,
+    filter_by_type: str = None,
 ) -> Any:
     """Retrieve Jira data."""
     filters = {}
@@ -42,6 +43,9 @@ async def read_jira(
 
     if filter_by_project_name:
         filters["project_name"] = filter_by_project_name
+
+    if filter_by_type:
+        filters["type"] = filter_by_type
 
     item = crud.jira.get_multi(db, skip=skip, limit=limit, filters=filters)
     return item

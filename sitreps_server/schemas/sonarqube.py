@@ -11,12 +11,11 @@ class SonarQubeBase(BaseModel):
     # repository: instance of Repository for relationship
     repository_id: int | None = None
 
-    project: str | None = None
     vulnerabilities: int
     code_smells: int
     security_hotspots: int
     bugs: int
-
+    sonar_last_analysis: datetime | None = None
     meta: dict | None = None
 
 

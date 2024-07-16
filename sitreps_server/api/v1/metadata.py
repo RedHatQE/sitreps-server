@@ -24,18 +24,22 @@ async def read_latest_metadata(
 ) -> Any:
     """Get latest metadata entry for repository."""
     item = crud.metadata.get_last_with_repository_id(db=db, repository_id=repository_id)
-
     if not item:
         raise HTTPException(status_code=404, detail="Metadata not found")
-    return item.meta
+    return item
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Metadata)
-async def add_metadata(
+async def add_update_metadata(
     *,
     db: Session = Depends(get_db),
     item_in: schemas.MetadataCreate,
 ) -> Any:
     """Add new metadata entry."""
-    item = crud.metadata.create(db=db, obj_in=item_in)
-    return item
+    if existing_item := crud.metadata.get_with_repository_id(
+        db=db, repository_id=item_in.repository_id
+    ):
+        print(f"Updating existing metadata for {item_in.repository_id}")
+        return crud.metadata.update(db=db, db_obj=existing_item, obj_in=item_in)
+    print(f"Creating new metadata for {item_in.repository_id}")
+    return crud.metadata.create(db=db, obj_in=item_in)

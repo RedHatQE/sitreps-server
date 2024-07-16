@@ -17,7 +17,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=list[schemas.Project])
-async def read_project(
+async def read_projects(
     db: Session = Depends(get_db),
     skip: int = 0,
     limit: int = 10,

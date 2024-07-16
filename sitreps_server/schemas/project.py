@@ -5,8 +5,10 @@ from pydantic import ConfigDict
 
 
 class ProjectBase(BaseModel):
-    name: str
+    name: str | None = None
     title: str | None = None
+    manager_name: str | None = None
+    manager_email: str | None = None
     # group: instance of ProjectGroup for relation
     group_id: int | None = None
 
@@ -20,7 +22,7 @@ class Project(ProjectBase):
 
 
 class ProjectCreate(ProjectBase):
-    pass
+    name: str
 
 
 class ProjectUpdate(ProjectBase):

@@ -25,23 +25,39 @@ class Jira(Base):
 
     project_id = Column(Integer, ForeignKey("projects.id"), index=True)
     project_name = Column(String, index=True)  # Jira project name
+    # Type either qe (QE tasks) or dev (Bug against product).
+    type = Column(String, index=True)
 
-    resolved = Column(Integer, index=True)
-    unresolved = Column(Integer, index=True)
-    rejected = Column(Integer, index=True)
+    resolved = Column(Integer)
+    jql_resolved = Column(String)
+    unresolved = Column(Integer)
+    jql_unresolved = Column(String)
+    rejected = Column(Integer)
+    jql_rejected = Column(String)
 
-    todo = Column(Integer, index=True)
-    blocked = Column(Integer, index=True)
-    in_progress = Column(Integer, index=True)
-    code_review = Column(Integer, index=True)
-    on_qa = Column(Integer, index=True)
-    release_pending = Column(Integer, index=True)
+    todo = Column(Integer)
+    jql_todo = Column(String)
 
-    created_last_15d = Column(Integer, index=True)
-    created_last_30d = Column(Integer, index=True)
+    blocked = Column(Integer)
+    jql_blocked = Column(String)
+    in_progress = Column(Integer)
+    jql_in_progress = Column(String)
+    code_review = Column(Integer)
+    jql_code_review = Column(String)
+    on_qa = Column(Integer)
+    jql_on_qa = Column(String)
+    release_pending = Column(Integer)
+    jql_release_pending = Column(String)
 
-    todo_older_than_30d = Column(Integer, index=True)
-    todo_older_than_60d = Column(Integer, index=True)
+    created_last_15d = Column(Integer)
+    jql_created_last_15d = Column(String)
+    created_last_30d = Column(Integer)
+    jql_created_last_30d = Column(String)
+
+    todo_older_than_30d = Column(Integer)
+    jql_todo_older_than_30d = Column(String)
+    todo_older_than_60d = Column(Integer)
+    jql_todo_older_than_60d = Column(String)
 
     # JQL/URL meta
     meta = Column(mutable_json_type(dbtype=PortableJSON(), nested=True))

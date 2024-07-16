@@ -19,7 +19,11 @@ class CodeCoverage(Base):
     time = Column(
         DateTime, default=datetime.utcnow, primary_key=True, index=True
     )  # time for time series data.
-
     coverage = Column(Float, index=True)
+    updatestamp = Column(DateTime, index=True)
+    line = Column(Integer)
+    hits = Column(Integer)
+    misses = Column(Integer)
+    partials = Column(Integer)
 
     repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)

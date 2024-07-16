@@ -30,8 +30,14 @@ class Repository(Base):
     name = Column(String, unique=True, index=True)
     title = Column(String, index=True)
     type = Column(String, index=True)
-    url = Column(String, index=True)
-    sonar_last_analysis = Column(String)
+    url = Column(String)
+    maintainer_primary_name = Column(String)
+    maintainer_primary_email = Column(String)
+    maintainer_secondary_name = Column(String)
+    maintainer_secondary_email = Column(String)
+    sonarqube_project = Column(String)
+    sonarqube_host = Column(String)
+
     # Hold some extra info
     meta = Column(mutable_json_type(dbtype=PortableJSON()))
 

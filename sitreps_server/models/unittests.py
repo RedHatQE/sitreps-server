@@ -21,7 +21,7 @@ class UnitTest(Base):
 
     repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)
 
-    gh_action = Column(Integer, index=True)
-    jenkins = Column(Integer, index=True)
-    travis = Column(Integer, index=True)
-    other = Column(Integer, index=True)
+    gh_action = Column(Integer)
+    jenkins = Column(Integer)
+    travis = Column(Integer)
+    other = Column(Integer)

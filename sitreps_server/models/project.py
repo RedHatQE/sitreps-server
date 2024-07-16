@@ -26,6 +26,10 @@ class Project(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
     title = Column(String, index=True)
+    manager_name = Column(String, index=True)
+    manager_email = Column(String)
+    jira_project = Column(String)
+
     meta = Column(mutable_json_type(dbtype=PortableJSON()))
 
     group_id = Column(Integer, ForeignKey("groups.id"), index=True)

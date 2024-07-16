@@ -35,9 +35,9 @@ class Rapidast(Base):
     time = Column(
         DateTime, default=datetime.utcnow, primary_key=True, index=True
     )  # time for time series data.
-    service = Column(String)
+    service = Column(String, index=True)
     service_id = Column(Integer, ForeignKey("rapidast_report.id"), index=True)
-    env = Column(String)
+    env = Column(String, index=True)
     informational = Column(Integer)
     low = Column(Integer)
     medium = Column(Integer)

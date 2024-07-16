@@ -32,10 +32,10 @@ class RequirementsPortal(Base):
     time = Column(
         DateTime, default=datetime.utcnow, primary_key=True, index=True
     )  # time for time series data.
-    plugin = Column(String)
-    env = Column(String)
-    avg = Column(String)
-    report_time = Column(String)
+    plugin = Column(String, index=True)
+    env = Column(String, index=True)
+    avg = Column(String, index=True)
+    report_time = Column(String, index=True)
 
     blocked = Column(Float)
     error = Column(Float)

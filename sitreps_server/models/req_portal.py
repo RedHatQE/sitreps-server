@@ -35,7 +35,7 @@ class RequirementsPortal(Base):
     plugin = Column(String, index=True)
     env = Column(String, index=True)
     avg = Column(String, index=True)
-    report_time = Column(String, index=True)
+    report_time = Column(DateTime, index=True)
 
     blocked = Column(Float)
     error = Column(Float)

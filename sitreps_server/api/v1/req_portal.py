@@ -91,7 +91,7 @@ async def read_services_passing_rate(
     return item
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.RequirementsPortal)
 async def add_historical_average(
     *,
     db: Session = Depends(get_db),
@@ -101,17 +101,16 @@ async def add_historical_average(
     existing_item = crud.req_portal.get_last_req_portal_avg(
         db=db, plugin=item_in.plugin, avg=item_in.avg, env=item_in.env
     )
-    if existing_item and item_in.time.date() == existing_item.time.date():
+    if (
+        existing_item
+        and item_in.report_time.date() == existing_item.report_time.date()
+        and item_in.report_time.time() == existing_item.report_time.time()
+    ):
         item = crud.req_portal.update(db=db, db_obj=existing_item, obj_in=item_in)
-        return JSONResponse(
-            status_code=200,
-            content={
-                "message": f"Requirements portal data for {item_in.plugin} updated successfully"
-            },
-        )
+        print(f"{item_in.plugin}: req-portal data updated.")
     else:
         item = crud.req_portal.create(db=db, obj_in=item_in)
-        return item
+    return item
 
 
 @router.get("/")

@@ -29,7 +29,7 @@ class RequirementsPortalBase(BaseModel):
     plugin: str | None = None  # Pluign name
     env: str | None = None  # Env [prod, stage, fedramp]
     avg: str | None = None  # type of avg [core_1, core_7, overall_7]
-    report_time: str | None = None  # Last analysis time
+    report_time: datetime | None = None  # Last analysis time
 
     blocked: float | None = None
     error: float | None = None

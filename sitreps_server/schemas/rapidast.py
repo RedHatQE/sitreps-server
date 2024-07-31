@@ -8,7 +8,7 @@ from pydantic import ConfigDict
 
 class RapidastReportBase(BaseModel):
     service: str
-    plugin_name: str = None
+    plugin_name: str
     env: str | None = "stage"
     report: dict | None = None
     html_url: str | None = None

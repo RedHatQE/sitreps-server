@@ -39,7 +39,7 @@ def _extract_data(report):
     return data
 
 
-@router.put("/", status_code=status.HTTP_201_CREATED)
+@router.put("/", status_code=status.HTTP_201_CREATED, response_model=schemas.RapidastReportCreate)
 async def dump_rapidast_report(
     *,
     db: Session = Depends(get_db),
@@ -48,7 +48,8 @@ async def dump_rapidast_report(
     """Update/add rapidast report data."""
     service = item_in.service
     env = item_in.env
-    # extact data from json to create rapidas schema.
+
+    # Extracts data from json to create rapidas schema.
     if item_in.report:
         report_data = _extract_data(report=item_in.report)
     else:
@@ -59,7 +60,7 @@ async def dump_rapidast_report(
         report_item = crud.rapidast_report.update(db=db, db_obj=report_item, obj_in=item_in)
         resp = JSONResponse(
             status_code=200,
-            content={"message": f"Rapidas report data for {service} updated successfully."},
+            content={"message": f"Rapidast report data for {service} updated successfully."},
         )
     else:
         report_item = crud.rapidast_report.create(db=db, obj_in=item_in)
@@ -80,7 +81,7 @@ async def dump_rapidast_report(
     return resp
 
 
-@router.get("/")
+@router.get("/", response_model=schemas.RapidastReport)
 async def read_rapidast_report(
     db: Session = Depends(get_db),
     service: str = None,
@@ -111,7 +112,7 @@ async def read_rapidast_report(
     return data
 
 
-@router.get("/historical/")
+@router.get("/historical/", response_model=list[schemas.Rapidast])
 async def read_rapidast(
     db: Session = Depends(get_db),
     service: str = None,

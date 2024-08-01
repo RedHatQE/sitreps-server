@@ -95,7 +95,7 @@ async def read_rapidast_report(
     data = []
     for item in items:
         proj = crud.project.get_with_name(db, name=item.plugin_name)
-        group_title = proj.group.title if proj else None
+        group_title = proj.group.name if proj else None
         _item = {
             "name": item.service,
             "plugin_name": item.plugin_name,

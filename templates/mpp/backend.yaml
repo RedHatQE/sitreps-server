@@ -1,0 +1,170 @@
+# Template for sitreps stage server
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: sitreps-server-template
+# ===============================================
+# Backend
+# ===============================================
+objects:
+- kind: Deployment
+  apiVersion: apps/v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: sitreps-server
+    namespace: ${NAMESPACE}
+#    annotations:
+#      image.openshift.io/triggers: >-
+#        [{"from":{"kind":"ImageStreamTag","name":"sitreps-server:latest","namespace":"${NAMESPACE}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"container\")].image","pause":"true"}]
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: ${APP_NAME}
+    strategy:
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: ${APP_NAME}
+      spec:
+        containers:
+        - env:
+          - name: POSTGRESQL_SERVER
+            value: postgresql
+          - name: POSTGRESQL_PORT
+            value: "5432"
+          - name: POSTGRESQL_USER
+            valueFrom:
+              secretKeyRef:
+                key: database-user
+                name: postgresql
+          - name: POSTGRESQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: database-password
+                name: postgresql
+          - name: POSTGRESQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                key: database-name
+                name: postgresql
+#          image: sitreps-server:latest
+          image: quay.io/insights-qe/sitreps-server:2.3
+          command:
+            - 'bash'
+            - '-c'
+            - 'alembic upgrade head && uvicorn sitreps_server.main:app --host 0.0.0.0'
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/v1/
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 20
+          name: sitreps-server
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/v1/
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 20
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        imagePullSecrets:
+          - name: sitreps-pull-secret
+#    triggers:
+#    - type: ConfigChange
+#    - imageChangeParams:
+#        automatic: true
+#        containerNames:
+#        - sitreps-server
+#        from:
+#          kind: ImageStreamTag
+#          name: sitreps-server:latest
+#          namespace: ${NAMESPACE}
+#      type: ImageChange
+
+# -----------------------------------------------
+#- kind: ImageStream
+#  apiVersion: v1
+#  metadata:
+#    name: sitreps-server
+#    annotations:
+#      description: "The api of sitreps server"
+#      openshift.io/image.insecureRepository: "true"
+#    namespace: ${NAMESPACE}
+#  spec:
+#    lookupPolicy:
+#      local: true
+#    tags:
+#    - from:
+#        kind: DockerImage
+#        name: quay.io/insights-qe/sitreps-server:latest
+#      importPolicy:
+#        scheduled: true
+#      name: latest
+# -----------------------------------------------
+- kind: Service
+  apiVersion: v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: sitreps-server
+    namespace: ${NAMESPACE}
+  spec:
+    ports:
+    - port: 8000
+      targetPort: 8000
+    selector:
+      app: ${APP_NAME}
+# -----------------------------------------------
+- kind: Route
+  apiVersion: v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+      shard: internal
+    name: sitreps-server
+    namespace: ${NAMESPACE}
+    annotations:
+      description: "A route to the backend"
+  spec:
+    host: ${SERVER_ROUTE}
+    to:
+      kind: Service
+      name: sitreps-server
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+# ------------------------------------------------
+# ===============================================
+# Parameters
+# ===============================================
+parameters:
+- name: APP_NAME
+  displayName: App Name
+  description: The name of the application
+  value: sitreps-server
+- name: SERVER_ROUTE
+  displayName: Sitreps Server Route
+  value: "sitreps-api.apps.int.gpc.ocp-hub.prod.psi.redhat.com"
+- name: NAMESPACE
+  displayName: Namespace
+  description: The namespace for all of the images, applications, etc.
+  value: insights-qe-gpc--sitreps

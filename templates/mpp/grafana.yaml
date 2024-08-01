@@ -1,0 +1,148 @@
+# Template for grafana sitreps
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: sitreps-grafana-template
+# ===============================================
+# Grafana
+# ===============================================
+objects:
+- kind: Deployment
+  apiVersion: apps/v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: grafana
+    namespace: ${NAMESPACE}
+
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: ${APP_NAME}
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        labels:
+          app: ${APP_NAME}
+      spec:
+        containers:
+        - env:
+          - name: GF_AUTH_BASIC_ENABLED
+            value: 'true'
+          - name: GF_SECURITY_ADMIN_USER
+            value: ${GRAFNA_ADMIN_USER}
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            value: ${GRAFNA_ADMIN_PASS}
+          - name: GF_AUTH_ANONYMOUS_ENABLED
+            value: 'true'
+          - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+            value: "Viewer"
+          image: quay.io/insights-qe/sitreps-grafana:10.3.6
+          imagePullPolicy: IfNotPresent
+          name: grafana
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              memory: 6Gi
+              cpu: '2'
+            requests:
+              memory: 4Gi
+              cpu: '2'
+          volumeMounts:
+          - mountPath: /var/lib/grafana
+            name: grafana-data
+        imagePullSecrets:
+          - name: sitreps-pull-secret
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        volumes:
+        - name: grafana-data
+          persistentVolumeClaim:
+            claimName: grafana
+    triggers:
+    - type: ConfigChange
+# -----------------------------------------------
+- kind: Service
+  apiVersion: v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: grafana
+    namespace: ${NAMESPACE}
+  spec:
+    ports:
+    - name: grafana
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: ${APP_NAME}
+# -----------------------------------------------
+- kind: PersistentVolumeClaim
+  apiVersion: v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+    name: grafana
+    namespace: ${NAMESPACE}
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: ${GRAFANA_STORAGE}
+
+# -----------------------------------------------
+- kind: Route
+  apiVersion: v1
+  metadata:
+    labels:
+      app: ${APP_NAME}
+      shard: internal
+    name: grafana
+    namespace: ${NAMESPACE}
+    annotations:
+      description: "A route to the grafana"
+  spec:
+    host: ${GRAFANA_ROUTE}
+    to:
+      kind: Service
+      name: grafana
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+    wildcardPolicy: None
+
+
+# ===============================================
+# Parameters
+# ===============================================
+parameters:
+- name: APP_NAME
+  displayName: App Name
+  description: The name of the application
+  value: grafana
+- name: GRAFANA_STORAGE
+  displayName: Grafana Storage
+  description: The amount of storage space for the database to use
+  value: 2Gi
+- name: GRAFNA_ADMIN_USER
+  displayName: Grafana Admin User
+  description: The Admin User for Grafana
+  value: sitreps
+- name: GRAFNA_ADMIN_PASS
+  displayName: Grafana Admin User password
+  description: The Admin User password for Grafana
+  value: sitreps@123
+- name: GRAFANA_ROUTE
+  displayName: Grafana Route
+  description: Grafana route url
+  value: "sitreps.apps.int.gpc.ocp-hub.prod.psi.redhat.com"
+- name: NAMESPACE
+  displayName: Namespace
+  description: The namespace for all of the images, applications, etc.
+  value: insights-qe-gpc--sitreps

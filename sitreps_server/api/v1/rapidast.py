@@ -81,7 +81,7 @@ async def dump_rapidast_report(
     return resp
 
 
-@router.get("/", response_model=schemas.RapidastReport)
+@router.get("/", response_model=schemas.RapidastReport | list[dict])
 async def read_rapidast_report(
     db: Session = Depends(get_db),
     service: str = None,

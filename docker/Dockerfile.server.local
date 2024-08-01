@@ -4,7 +4,7 @@ USER 0
 WORKDIR /sitreps
 
 COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt && pip install ipdb
 
 EXPOSE 8000
 EXPOSE 5432

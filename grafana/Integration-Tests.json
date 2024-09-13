@@ -1,0 +1,481 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "target": {
+                    "limit": 100,
+                    "matchAny": false,
+                    "tags": [],
+                    "type": "dashboard"
+                },
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 5,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+        {
+            "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "${DB}"
+            },
+            "description": "> IQE automation backlog\n\nNon Automated tests \n0-4 > Green\n5-9 > Yellow\n10+  > Read",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "displayName": "${__field.labels.name}",
+                    "links": [],
+                    "mappings": [
+                        {
+                            "options": {
+                                "not_automated": {
+                                    "index": 0
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 5
+                            },
+                            {
+                                "color": "red",
+                                "value": 10
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 25,
+                "w": 7,
+                "x": 0,
+                "y": 0
+            },
+            "id": 2,
+            "options": {
+                "displayMode": "gradient",
+                "maxVizHeight": 300,
+                "minVizHeight": 15,
+                "minVizWidth": 0,
+                "namePlacement": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true,
+                "sizing": "auto",
+                "text": {},
+                "valueMode": "color"
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "${DB}"
+                    },
+                    "editorMode": "code",
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "SELECT \n    tests.time AS \"time\", \n    repositories.name, \n    tests.not_automated\nFROM \n    tests\nINNER JOIN \n    repositories ON tests.repository_id = repositories.id\nINNER JOIN \n    projects ON repositories.project_id = projects.id\nWHERE \n    $__timeFilter(tests.time)\n    AND (\n        ($group = 0 OR projects.group_id = $group)\n    )\n    AND (\n        ('$manager' = 'All' OR projects.manager_name = '$manager')\n    )\nORDER BY \n    tests.time;",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "coverage"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "codecoverage",
+                    "timeColumn": "\"time\"",
+                    "timeColumnType": "timestamp",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Non-Automated Tests",
+            "transparent": true,
+            "type": "bargauge"
+        },
+        {
+            "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "${DB}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "fixed"
+                    },
+                    "displayName": "${__field.labels.name}",
+                    "mappings": [
+                        {
+                            "options": {
+                                "not_automated": {
+                                    "index": 0
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 5
+                            },
+                            {
+                                "color": "red",
+                                "value": 10
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 25,
+                "w": 7,
+                "x": 7,
+                "y": 0
+            },
+            "id": 3,
+            "options": {
+                "displayMode": "basic",
+                "maxVizHeight": 300,
+                "minVizHeight": 10,
+                "minVizWidth": 0,
+                "namePlacement": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true,
+                "sizing": "auto",
+                "valueMode": "color"
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "${DB}"
+                    },
+                    "editorMode": "code",
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "SELECT \n    tests.time AS \"time\", \n    repositories.name, \n    tests.manual_only\nFROM \n    tests\nINNER JOIN \n    repositories ON tests.repository_id = repositories.id\nINNER JOIN \n    projects ON repositories.project_id = projects.id\nWHERE \n    $__timeFilter(tests.time)\n    AND (\n        ($group = 0 OR projects.group_id = $group)\n    )\n    AND (\n        ('$manager' = 'All' OR projects.manager_name = '$manager')\n    )\nORDER BY \n    tests.time;",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "coverage"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "codecoverage",
+                    "timeColumn": "\"time\"",
+                    "timeColumnType": "timestamp",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Manual-Only Tests",
+            "transparent": true,
+            "type": "bargauge"
+        },
+        {
+            "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "${DB}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "fixed"
+                    },
+                    "displayName": "${__field.labels.name}",
+                    "mappings": [
+                        {
+                            "options": {
+                                "not_automated": {
+                                    "index": 0
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "#EAB839",
+                                "value": 5
+                            },
+                            {
+                                "color": "red",
+                                "value": 10
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 25,
+                "w": 7,
+                "x": 14,
+                "y": 0
+            },
+            "id": 4,
+            "options": {
+                "displayMode": "basic",
+                "maxVizHeight": 300,
+                "minVizHeight": 10,
+                "minVizWidth": 0,
+                "namePlacement": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true,
+                "sizing": "auto",
+                "valueMode": "color"
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "${DB}"
+                    },
+                    "editorMode": "code",
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "SELECT \n    tests.time AS \"time\", \n    repositories.name, \n    tests.automated\nFROM \n    tests\nINNER JOIN \n    repositories ON tests.repository_id = repositories.id\nINNER JOIN \n    projects ON repositories.project_id = projects.id\nWHERE \n    $__timeFilter(tests.time)\n    AND (\n        ($group = 0 OR projects.group_id = $group)\n    )\n    AND (\n        ('$manager' = 'All' OR projects.manager_name = '$manager')\n    )\nORDER BY \n    tests.time;",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "coverage"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "codecoverage",
+                    "timeColumn": "\"time\"",
+                    "timeColumnType": "timestamp",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Automated Tests",
+            "transparent": true,
+            "type": "bargauge"
+        }
+    ],
+    "refresh": "",
+    "schemaVersion": 39,
+    "tags": [
+        "23.06.07"
+    ],
+    "templating": {
+        "list": [
+            {
+                "current": {
+                    "selected": false,
+                    "text": "All",
+                    "value": "0"
+                },
+                "definition": "SELECT name AS __text, id AS __value\nFROM groups\nUNION ALL\nSELECT 'All' AS __text, 0 AS __value\nORDER BY __text;",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Project Group",
+                "multi": false,
+                "name": "group",
+                "options": [],
+                "query": "SELECT name AS __text, id AS __value\nFROM groups\nUNION ALL\nSELECT 'All' AS __text, 0 AS __value\nORDER BY __text;",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "All",
+                    "value": "All"
+                },
+                "definition": "SELECT 'All' AS __text, 'All' AS __value\nUNION ALL\nSELECT DISTINCT \nCOALESCE(manager_name, 'Unknown') AS __text, \nCOALESCE(manager_name, 'Unknown') AS __value\nFROM projects\nWHERE \n  CASE\n    WHEN $group = 0 THEN true\n    ELSE group_id = $group\n  END\nORDER BY __text;",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Manager",
+                "multi": false,
+                "name": "manager",
+                "options": [],
+                "query": "SELECT 'All' AS __text, 'All' AS __value\nUNION ALL\nSELECT DISTINCT \nCOALESCE(manager_name, 'Unknown') AS __text, \nCOALESCE(manager_name, 'Unknown') AS __value\nFROM projects\nWHERE \n  CASE\n    WHEN $group = 0 THEN true\n    ELSE group_id = $group\n  END\nORDER BY __text;",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            }
+        ]
+    },
+    "time": {
+        "from": "now-6h",
+        "to": "now"
+    },
+    "timeRangeUpdatedDuringEditOrView": false,
+    "timepicker": {
+        "hidden": true
+    },
+    "timezone": "",
+    "title": "Integration Tests",
+    "uid": "8Kb_NRo4z",
+    "version": 7,
+    "weekStart": "",
+    "__inputs": [
+        {
+            "name": "DB",
+            "label": "db",
+            "description": "",
+            "type": "datasource",
+            "pluginId": "grafana-postgresql-datasource",
+            "pluginName": "PostgreSQL"
+        }
+    ]
+}

@@ -1,0 +1,287 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "yesoreyeram-infinity-datasource",
+                    "uid": "c5566608-1039-4b8d-aed7-7939821a1f74"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "target": {
+                    "columns": [],
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "limit": 100,
+                    "matchAny": false,
+                    "refId": "",
+                    "root_selector": "",
+                    "source": "url",
+                    "tags": [],
+                    "type": "dashboard",
+                    "url": "https://jsonplaceholder.typicode.com/users",
+                    "url_options": {
+                        "data": "",
+                        "method": "GET"
+                    }
+                },
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 9,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+        {
+            "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "${DB}"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 21,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 4,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "grafana-postgresql-datasource",
+                        "uid": "${DB}"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "WITH LatestTime AS (\n    SELECT \n        rp.plugin,\n        MAX(rp.time) AS latest_time\n    FROM \n        req_portal rp\n    INNER JOIN \n        projects p ON rp.plugin = p.name\n    WHERE \n        ($group = 0 OR p.group_id = $group)\n        AND ('$manager' = 'All' OR p.manager_name = '$manager')\n        AND rp.env = '$env'\n        AND rp.avg = '$avg'\n    GROUP BY \n        rp.plugin\n)\nSELECT \n    p.name AS project,\n    rp.passed,\n    rp.xpass,\n    rp.skip,\n    rp.blocked,\n    rp.failed,\n    rp.xfailed,\n    rp.error,\n    rp.manual,\n    rp.report_time\nFROM \n    req_portal rp\nINNER JOIN \n    projects p ON rp.plugin = p.name\nINNER JOIN \n    LatestTime lt ON rp.plugin = lt.plugin AND rp.time = lt.latest_time\nWHERE \n    ($group = 0 OR p.group_id = $group)\n    AND ('$manager' = 'All' OR p.manager_name = '$manager')\n    AND rp.env = '$env'\n    AND rp.avg = '$avg'\nORDER BY \n    rp.time;",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    }
+                }
+            ],
+            "title": "Tests average $avg [$env]",
+            "type": "table"
+        }
+    ],
+    "refresh": "",
+    "schemaVersion": 39,
+    "tags": [
+        "23.06.07"
+    ],
+    "templating": {
+        "list": [
+            {
+                "current": {},
+                "datasource": {
+                    "type": "postgres",
+                    "uid": "${DB}"
+                },
+                "definition": "SELECT name AS __text, id AS __value\nFROM groups\nUNION ALL\nSELECT 'All' AS __text, 0 AS __value\nORDER BY __text;",
+                "description": "Select Project Group",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Project Group",
+                "multi": false,
+                "name": "group",
+                "options": [],
+                "query": "SELECT name AS __text, id AS __value\nFROM groups\nUNION ALL\nSELECT 'All' AS __text, 0 AS __value\nORDER BY __text;",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "All",
+                    "value": "All"
+                },
+                "datasource": {
+                    "type": "grafana-postgresql-datasource",
+                    "uid": "${DB}"
+                },
+                "definition": "SELECT 'All' AS __text, 'All' AS __value\nUNION ALL\nSELECT DISTINCT \nCOALESCE(manager_name, 'Unknown') AS __text, \nCOALESCE(manager_name, 'Unknown') AS __value\nFROM projects\nWHERE \n  CASE\n    WHEN $group = 0 THEN true\n    ELSE group_id = $group\n  END\nORDER BY __text;",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Manager",
+                "multi": false,
+                "name": "manager",
+                "options": [],
+                "query": "SELECT 'All' AS __text, 'All' AS __value\nUNION ALL\nSELECT DISTINCT \nCOALESCE(manager_name, 'Unknown') AS __text, \nCOALESCE(manager_name, 'Unknown') AS __value\nFROM projects\nWHERE \n  CASE\n    WHEN $group = 0 THEN true\n    ELSE group_id = $group\n  END\nORDER BY __text;",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": "prod",
+                    "value": "prod"
+                },
+                "hide": 0,
+                "includeAll": false,
+                "label": "Environment",
+                "multi": false,
+                "name": "env",
+                "options": [
+                    {
+                        "selected": false,
+                        "text": "stage",
+                        "value": "stage"
+                    },
+                    {
+                        "selected": true,
+                        "text": "prod",
+                        "value": "prod"
+                    },
+                    {
+                        "selected": false,
+                        "text": "fedramp",
+                        "value": "fedramp"
+                    }
+                ],
+                "query": "stage,prod,fedramp",
+                "queryValue": "",
+                "skipUrlSync": false,
+                "type": "custom"
+            },
+            {
+                "current": {
+                    "selected": true,
+                    "text": "core-7",
+                    "value": "core-7"
+                },
+                "hide": 0,
+                "includeAll": false,
+                "label": "Average",
+                "multi": false,
+                "name": "avg",
+                "options": [
+                    {
+                        "selected": false,
+                        "text": "core-1",
+                        "value": "core-1"
+                    },
+                    {
+                        "selected": true,
+                        "text": "core-7",
+                        "value": "core-7"
+                    },
+                    {
+                        "selected": false,
+                        "text": "overall-7",
+                        "value": "overall-7"
+                    }
+                ],
+                "query": "core-1, core-7, overall-7",
+                "queryValue": "",
+                "skipUrlSync": false,
+                "type": "custom"
+            }
+        ]
+    },
+    "time": {
+        "from": "now-6h",
+        "to": "now"
+    },
+    "timeRangeUpdatedDuringEditOrView": false,
+    "timepicker": {
+        "hidden": false,
+        "refresh_intervals": [
+            "5s",
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+        ]
+    },
+    "timezone": "",
+    "title": "Requirements Portal",
+    "uid": "oMlYtH_4z",
+    "version": 5,
+    "weekStart": "",
+    "__inputs": [
+        {
+            "name": "DB",
+            "label": "db",
+            "description": "",
+            "type": "datasource",
+            "pluginId": "grafana-postgresql-datasource",
+            "pluginName": "PostgreSQL"
+        }
+    ]
+}

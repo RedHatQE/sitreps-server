@@ -1,0 +1,431 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "target": {
+                    "limit": 100,
+                    "matchAny": false,
+                    "tags": [],
+                    "type": "dashboard"
+                },
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 6,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+        {
+            "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "${DB}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "max": 100,
+                    "min": 0,
+                    "noValue": "No data",
+                    "thresholds": {
+                        "mode": "percentage",
+                        "steps": [
+                            {
+                                "color": "dark-red",
+                                "value": null
+                            },
+                            {
+                                "color": "dark-yellow",
+                                "value": 70
+                            },
+                            {
+                                "color": "dark-green",
+                                "value": 85
+                            }
+                        ]
+                    },
+                    "unit": "percent",
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 25,
+                "w": 9,
+                "x": 0,
+                "y": 0
+            },
+            "id": 5,
+            "options": {
+                "displayMode": "basic",
+                "maxVizHeight": 300,
+                "minVizHeight": 10,
+                "minVizWidth": 0,
+                "namePlacement": "auto",
+                "orientation": "horizontal",
+                "reduceOptions": {
+                    "calcs": [],
+                    "fields": "",
+                    "limit": 100,
+                    "values": true
+                },
+                "showUnfilled": false,
+                "sizing": "auto",
+                "text": {},
+                "valueMode": "color"
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "${DB}"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "SELECT \n    r.title AS repository_title, \n    cc.coverage, \n    cc.time\nFROM \n    repositories r\nJOIN \n    codecoverage cc ON r.id = cc.repository_id\nJOIN \n    projects p ON r.project_id = p.id\nWHERE \n    r.type = 'Development'\n    AND (\n        ($group = 0 OR p.group_id = $group)\n    )\n    AND (\n        ('$manager' = 'All' OR p.manager_name = '$manager')\n    )\n    AND cc.time = (\n        SELECT MAX(cc_inner.time)\n        FROM codecoverage cc_inner\n        WHERE cc_inner.repository_id = r.id\n    )\nORDER BY \n    r.title;",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "coverage"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "codecoverage",
+                    "timeColumn": "\"time\"",
+                    "timeColumnType": "timestamp",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Code Coverage",
+            "transparent": true,
+            "type": "bargauge"
+        },
+        {
+            "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "${DB}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "filterable": true,
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "repository_title"
+                        },
+                        "properties": [
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "",
+                                        "url": "https://app.codecov.io/gh/RedHatInsights/${__data.fields.repository_name}"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "displayName",
+                                "value": "Repository"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "coverage"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 167
+                            },
+                            {
+                                "id": "unit",
+                                "value": "percent"
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": "center"
+                            },
+                            {
+                                "id": "displayName",
+                                "value": "Code Coverage"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "unittests_count"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.align",
+                                "value": "center"
+                            },
+                            {
+                                "id": "displayName",
+                                "value": "Unit Tests"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "repository_name"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hidden",
+                                "value": true
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Code Coverage"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 244
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 25,
+                "w": 10,
+                "x": 9,
+                "y": 0
+            },
+            "id": 8,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "enablePagination": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true,
+                "sortBy": []
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "${DB}"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "WITH LatestCodeCoverage AS (\n    SELECT \n        cc.repository_id, \n        cc.coverage, \n        cc.time,\n        ROW_NUMBER() OVER (PARTITION BY cc.repository_id ORDER BY cc.time DESC) AS rn\n    FROM \n        codecoverage cc\n),\nLatestUnitTests AS (\n    SELECT \n        ut.repository_id, \n        COALESCE(ut.jenkins, 0) + COALESCE(ut.travis, 0) + COALESCE(ut.other, 0) AS unittests_count,\n        ROW_NUMBER() OVER (PARTITION BY ut.repository_id ORDER BY ut.time DESC) AS rn\n    FROM \n        unittests ut\n)\nSELECT \n    r.title AS repository_title,\n    r.name AS repository_name, \n    lc.coverage, \n    lu.unittests_count\nFROM \n    repositories r\nJOIN \n    LatestCodeCoverage lc ON r.id = lc.repository_id AND lc.rn = 1\nLEFT JOIN \n    LatestUnitTests lu ON r.id = lu.repository_id AND lu.rn = 1\nJOIN \n    projects p ON r.project_id = p.id\nWHERE \n    r.type = 'Development'\n    AND (\n        ($group = 0 OR p.group_id = $group)\n    )\n    AND (\n        ('$manager' = 'All' OR p.manager_name = '$manager')\n    )\nORDER BY \n    r.title;",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "coverage"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "codecoverage",
+                    "timeColumn": "\"time\"",
+                    "timeColumnType": "timestamp",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Code Coverage & Unit Tests",
+            "transparent": true,
+            "type": "table"
+        }
+    ],
+    "refresh": false,
+    "schemaVersion": 39,
+    "tags": [
+        "23.06.07"
+    ],
+    "templating": {
+        "list": [
+            {
+                "current": {
+                    "selected": false,
+                    "text": "All",
+                    "value": "0"
+                },
+                "datasource": {
+                    "type": "postgres",
+                    "uid": "${DB}"
+                },
+                "definition": "SELECT name AS __text, id AS __value\nFROM groups\nUNION ALL\nSELECT 'All' AS __text, 0 AS __value\nORDER BY __text;",
+                "description": "Select Project Group",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Project Group",
+                "multi": false,
+                "name": "group",
+                "options": [],
+                "query": "SELECT name AS __text, id AS __value\nFROM groups\nUNION ALL\nSELECT 'All' AS __text, 0 AS __value\nORDER BY __text;",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "All",
+                    "value": "All"
+                },
+                "datasource": {
+                    "type": "grafana-postgresql-datasource",
+                    "uid": "${DB}"
+                },
+                "definition": "SELECT 'All' AS __text, 'All' AS __value\nUNION ALL\nSELECT DISTINCT \nCOALESCE(manager_name, 'Unknown') AS __text, \nCOALESCE(manager_name, 'Unknown') AS __value\nFROM projects\nWHERE \n  CASE\n    WHEN $group = 0 THEN true\n    ELSE group_id = $group\n  END\nORDER BY __text;",
+                "hide": 0,
+                "includeAll": false,
+                "label": "Managers",
+                "multi": false,
+                "name": "manager",
+                "options": [],
+                "query": "SELECT 'All' AS __text, 'All' AS __value\nUNION ALL\nSELECT DISTINCT \nCOALESCE(manager_name, 'Unknown') AS __text, \nCOALESCE(manager_name, 'Unknown') AS __value\nFROM projects\nWHERE \n  CASE\n    WHEN $group = 0 THEN true\n    ELSE group_id = $group\n  END\nORDER BY __text;",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            }
+        ]
+    },
+    "time": {
+        "from": "2024-07-23T22:24:54.817Z",
+        "to": "2024-07-24T10:24:54.817Z"
+    },
+    "timeRangeUpdatedDuringEditOrView": false,
+    "timepicker": {
+        "hidden": true
+    },
+    "timezone": "",
+    "title": "Code Coverage",
+    "uid": "_0LKbAcVz",
+    "version": 6,
+    "weekStart": "",
+    "__inputs": [
+        {
+            "name": "DB",
+            "label": "db",
+            "description": "",
+            "type": "datasource",
+            "pluginId": "grafana-postgresql-datasource",
+            "pluginName": "PostgreSQL"
+        }
+    ]
+}

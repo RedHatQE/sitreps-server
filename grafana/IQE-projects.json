@@ -1,0 +1,1714 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 3,
+    "links": [],
+    "liveNow": true,
+    "panels": [
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "${GITLAB_API}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "blue",
+                        "mode": "fixed"
+                    },
+                    "custom": {
+                        "align": "center",
+                        "cellOptions": {
+                            "type": "color-text"
+                        },
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 3,
+                "w": 23,
+                "x": 0,
+                "y": 0
+            },
+            "id": 2,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true,
+                "sortBy": [
+                    {
+                        "desc": false,
+                        "displayName": "timestamp"
+                    }
+                ]
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "columns": [
+                        {
+                            "selector": "timestamp",
+                            "text": "Last updated at",
+                            "type": "timestamp"
+                        }
+                    ],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "${GITLAB_API}"
+                    },
+                    "filters": [],
+                    "format": "dataframe",
+                    "global_query_id": "",
+                    "refId": "A",
+                    "root_selector": "",
+                    "source": "url",
+                    "type": "json",
+                    "uql": "project timestamp",
+                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url_options": {
+                        "data": "",
+                        "method": "GET"
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "table"
+        },
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "${GITLAB_API}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "semi-dark-blue",
+                        "mode": "shades"
+                    },
+                    "custom": {
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        }
+                    },
+                    "fieldMinMax": true,
+                    "mappings": [
+                        {
+                            "options": {
+                                "null": {
+                                    "index": 0,
+                                    "text": "Undefined"
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 7,
+                "x": 0,
+                "y": 3
+            },
+            "id": 5,
+            "options": {
+                "displayLabels": [],
+                "legend": {
+                    "displayMode": "list",
+                    "placement": "right",
+                    "showLegend": true,
+                    "values": [
+                        "percent"
+                    ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                    "calcs": [],
+                    "fields": "",
+                    "values": true
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "asc"
+                }
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "columns": [
+                        {
+                            "selector": "project_group",
+                            "text": "field",
+                            "type": "string"
+                        }
+                    ],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "${GITLAB_API}"
+                    },
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "json_options": {
+                        "columnar": false,
+                        "root_is_not_array": false
+                    },
+                    "parser": "simple",
+                    "refId": "A",
+                    "root_selector": "repositories",
+                    "source": "url",
+                    "type": "json",
+                    "uql": "parse-json",
+                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url_options": {
+                        "data": "",
+                        "headers": [
+                            {
+                                "key": "header-key",
+                                "value": "header-value"
+                            }
+                        ],
+                        "method": "GET"
+                    }
+                }
+            ],
+            "title": "Project Groups Repositories",
+            "transformations": [
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "Total",
+                        "mode": "reduceRow",
+                        "reduce": {
+                            "include": [
+                                "field"
+                            ],
+                            "reducer": "count"
+                        },
+                        "replaceFields": false
+                    }
+                },
+                {
+                    "id": "groupBy",
+                    "options": {
+                        "fields": {
+                            "Project Group": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            },
+                            "Total": {
+                                "aggregations": [
+                                    "count"
+                                ],
+                                "operation": "aggregate"
+                            },
+                            "field": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            }
+                        }
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "piechart"
+        },
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "${GITLAB_API}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "semi-dark-blue",
+                        "mode": "shades"
+                    },
+                    "custom": {
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        }
+                    },
+                    "fieldMinMax": true,
+                    "mappings": [
+                        {
+                            "options": {
+                                "null": {
+                                    "index": 0,
+                                    "text": "Undefined"
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 7,
+                "x": 7,
+                "y": 3
+            },
+            "id": 4,
+            "options": {
+                "displayLabels": [],
+                "legend": {
+                    "displayMode": "list",
+                    "placement": "right",
+                    "showLegend": true,
+                    "values": [
+                        "percent"
+                    ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                    "calcs": [],
+                    "fields": "",
+                    "values": true
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "asc"
+                }
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "columns": [
+                        {
+                            "selector": "repository_type",
+                            "text": "field",
+                            "type": "string"
+                        }
+                    ],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "${GITLAB_API}"
+                    },
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "json_options": {
+                        "columnar": false,
+                        "root_is_not_array": false
+                    },
+                    "parser": "simple",
+                    "refId": "A",
+                    "root_selector": "repositories",
+                    "source": "url",
+                    "type": "json",
+                    "uql": "parse-json",
+                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url_options": {
+                        "data": "",
+                        "headers": [
+                            {
+                                "key": "header-key",
+                                "value": "header-value"
+                            }
+                        ],
+                        "method": "GET"
+                    }
+                }
+            ],
+            "title": "Repository Types",
+            "transformations": [
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "Total",
+                        "mode": "reduceRow",
+                        "reduce": {
+                            "include": [
+                                "field"
+                            ],
+                            "reducer": "count"
+                        },
+                        "replaceFields": false
+                    }
+                },
+                {
+                    "id": "groupBy",
+                    "options": {
+                        "fields": {
+                            "Project Group": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            },
+                            "Total": {
+                                "aggregations": [
+                                    "count"
+                                ],
+                                "operation": "aggregate"
+                            },
+                            "field": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            }
+                        }
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "piechart"
+        },
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "${GITLAB_API}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "semi-dark-blue",
+                        "mode": "shades"
+                    },
+                    "custom": {
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        }
+                    },
+                    "fieldMinMax": true,
+                    "mappings": [
+                        {
+                            "options": {
+                                "null": {
+                                    "index": 0,
+                                    "text": "Undefined"
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 7,
+                "x": 14,
+                "y": 3
+            },
+            "id": 9,
+            "options": {
+                "displayLabels": [],
+                "legend": {
+                    "displayMode": "list",
+                    "placement": "right",
+                    "showLegend": true,
+                    "values": [
+                        "percent"
+                    ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                    "calcs": [],
+                    "fields": "",
+                    "values": true
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "asc"
+                }
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "columns": [
+                        {
+                            "selector": "manager_name",
+                            "text": "field",
+                            "type": "string"
+                        }
+                    ],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "${GITLAB_API}"
+                    },
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "json_options": {
+                        "columnar": false,
+                        "root_is_not_array": false
+                    },
+                    "parser": "simple",
+                    "refId": "A",
+                    "root_selector": "repositories",
+                    "source": "url",
+                    "type": "json",
+                    "uql": "parse-json",
+                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url_options": {
+                        "data": "",
+                        "headers": [
+                            {
+                                "key": "header-key",
+                                "value": "header-value"
+                            }
+                        ],
+                        "method": "GET"
+                    }
+                }
+            ],
+            "title": "QE Managers",
+            "transformations": [
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "Total",
+                        "mode": "reduceRow",
+                        "reduce": {
+                            "include": [
+                                "field"
+                            ],
+                            "reducer": "count"
+                        },
+                        "replaceFields": false
+                    }
+                },
+                {
+                    "id": "groupBy",
+                    "options": {
+                        "fields": {
+                            "Project Group": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            },
+                            "Total": {
+                                "aggregations": [
+                                    "count"
+                                ],
+                                "operation": "aggregate"
+                            },
+                            "field": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            }
+                        }
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "piechart"
+        },
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "${GITLAB_API}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "semi-dark-blue",
+                        "mode": "shades"
+                    },
+                    "custom": {
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        }
+                    },
+                    "fieldMinMax": true,
+                    "mappings": [
+                        {
+                            "options": {
+                                "null": {
+                                    "index": 0,
+                                    "text": "Undefined"
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 7,
+                "x": 0,
+                "y": 11
+            },
+            "id": 10,
+            "options": {
+                "displayLabels": [],
+                "legend": {
+                    "displayMode": "list",
+                    "placement": "right",
+                    "showLegend": true,
+                    "values": [
+                        "percent"
+                    ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                    "calcs": [],
+                    "fields": "",
+                    "values": true
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "asc"
+                }
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "columns": [
+                        {
+                            "selector": "maintainer_primary_name",
+                            "text": "field",
+                            "type": "string"
+                        }
+                    ],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "${GITLAB_API}"
+                    },
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "json_options": {
+                        "columnar": false,
+                        "root_is_not_array": false
+                    },
+                    "parser": "simple",
+                    "refId": "A",
+                    "root_selector": "repositories",
+                    "source": "url",
+                    "type": "json",
+                    "uql": "parse-json",
+                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url_options": {
+                        "data": "",
+                        "headers": [
+                            {
+                                "key": "header-key",
+                                "value": "header-value"
+                            }
+                        ],
+                        "method": "GET"
+                    }
+                }
+            ],
+            "title": "Primary Maintainers",
+            "transformations": [
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "Total",
+                        "mode": "reduceRow",
+                        "reduce": {
+                            "include": [
+                                "field"
+                            ],
+                            "reducer": "count"
+                        },
+                        "replaceFields": false
+                    }
+                },
+                {
+                    "id": "groupBy",
+                    "options": {
+                        "fields": {
+                            "Project Group": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            },
+                            "Total": {
+                                "aggregations": [
+                                    "count"
+                                ],
+                                "operation": "aggregate"
+                            },
+                            "field": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            }
+                        }
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "piechart"
+        },
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "${GITLAB_API}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "semi-dark-blue",
+                        "mode": "shades"
+                    },
+                    "custom": {
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        }
+                    },
+                    "fieldMinMax": true,
+                    "mappings": [
+                        {
+                            "options": {
+                                "null": {
+                                    "index": 0,
+                                    "text": "Undefined"
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 7,
+                "x": 7,
+                "y": 11
+            },
+            "id": 11,
+            "options": {
+                "displayLabels": [],
+                "legend": {
+                    "displayMode": "list",
+                    "placement": "right",
+                    "showLegend": true,
+                    "values": [
+                        "percent"
+                    ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                    "calcs": [],
+                    "fields": "",
+                    "values": true
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "asc"
+                }
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "columns": [
+                        {
+                            "selector": "maintainer_secondary_name",
+                            "text": "field",
+                            "type": "string"
+                        }
+                    ],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "${GITLAB_API}"
+                    },
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "json_options": {
+                        "columnar": false,
+                        "root_is_not_array": false
+                    },
+                    "parser": "simple",
+                    "refId": "A",
+                    "root_selector": "repositories",
+                    "source": "url",
+                    "type": "json",
+                    "uql": "parse-json",
+                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url_options": {
+                        "data": "",
+                        "headers": [
+                            {
+                                "key": "header-key",
+                                "value": "header-value"
+                            }
+                        ],
+                        "method": "GET"
+                    }
+                }
+            ],
+            "title": "Secondary Maintainers",
+            "transformations": [
+                {
+                    "id": "calculateField",
+                    "options": {
+                        "alias": "Total",
+                        "mode": "reduceRow",
+                        "reduce": {
+                            "include": [
+                                "field"
+                            ],
+                            "reducer": "count"
+                        },
+                        "replaceFields": false
+                    }
+                },
+                {
+                    "id": "groupBy",
+                    "options": {
+                        "fields": {
+                            "Project Group": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            },
+                            "Total": {
+                                "aggregations": [
+                                    "count"
+                                ],
+                                "operation": "aggregate"
+                            },
+                            "field": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            }
+                        }
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "piechart"
+        },
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "${GITLAB_API}"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "inspect": false
+                    },
+                    "fieldMinMax": true,
+                    "mappings": [
+                        {
+                            "options": {
+                                "null": {
+                                    "index": 0,
+                                    "text": "Undefined"
+                                }
+                            },
+                            "type": "value"
+                        }
+                    ],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 7,
+                "x": 14,
+                "y": 12
+            },
+            "id": 7,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": false
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "columns": [],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "${GITLAB_API}"
+                    },
+                    "filters": [],
+                    "format": "dataframe",
+                    "global_query_id": "",
+                    "json_options": {
+                        "columnar": false,
+                        "root_is_not_array": true
+                    },
+                    "parser": "simple",
+                    "refId": "A",
+                    "root_selector": "",
+                    "source": "url",
+                    "type": "uql",
+                    "uql": "parse-json\n| scope \"repositories.defined_but_archived\"\n| project \"Repository\"=\"repository_name\"\n\n",
+                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url_options": {
+                        "data": "",
+                        "headers": [
+                            {
+                                "key": "header-key",
+                                "value": "header-value"
+                            }
+                        ],
+                        "method": "GET"
+                    }
+                }
+            ],
+            "title": "Defined but archived",
+            "transformations": [],
+            "transparent": true,
+            "type": "table"
+        },
+        {
+            "datasource": {
+                "type": "yesoreyeram-infinity-datasource",
+                "uid": "${GITLAB_API}"
+            },
+            "description": "Unified Dashboard is an initiative aimed at consolidating all projects utilized by the IQE team under one umbrella.\nGiven the multitude of repositories within the GitLab insights-qa organization, along with projects maintained on GitHub,\nmanaging basic level information about these repositories presents a significant challenge.",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "blue",
+                        "mode": "fixed"
+                    },
+                    "custom": {
+                        "align": "left",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "filterable": true,
+                        "inspect": false
+                    },
+                    "fieldMinMax": true,
+                    "mappings": [],
+                    "noValue": "null",
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unitScale": true
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Repository Name"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 256
+                            },
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "",
+                                        "url": "${__data.fields._repository_link}"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Plugin/ Tool Name"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 143
+                            },
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "null": {
+                                                "color": "dark-red",
+                                                "index": 0,
+                                                "text": "Undefined"
+                                            }
+                                        },
+                                        "type": "value"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Project Group"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 160
+                            },
+                            {
+                                "id": "noValue",
+                                "value": "Unspecified"
+                            },
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "null": {
+                                                "color": "dark-red",
+                                                "index": 0,
+                                                "text": "Undefined"
+                                            }
+                                        },
+                                        "type": "value"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Repository Type"
+                        },
+                        "properties": [
+                            {
+                                "id": "noValue",
+                                "value": "Unspecified"
+                            },
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "null": {
+                                                "color": "dark-red",
+                                                "index": 0,
+                                                "text": "Undefined"
+                                            }
+                                        },
+                                        "type": "value"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 152
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Primary Maintainer"
+                        },
+                        "properties": [
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "",
+                                        "url": "mailto:${__data.fields._maintainer_primary_email}"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "null": {
+                                                "color": "transparent",
+                                                "index": 0,
+                                                "text": "-"
+                                            }
+                                        },
+                                        "type": "value"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 167
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Secondary Maintainer"
+                        },
+                        "properties": [
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "null": {
+                                                "color": "transparent",
+                                                "index": 0,
+                                                "text": "-"
+                                            }
+                                        },
+                                        "type": "value"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "",
+                                        "url": "mailto:${__data.fields._maintainer_secondary_email}"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 188
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "QE Manager"
+                        },
+                        "properties": [
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "",
+                                        "url": "mailto:${__data.fields._manager_email}"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "null": {
+                                                "color": "transparent",
+                                                "index": 0,
+                                                "text": "-"
+                                            }
+                                        },
+                                        "type": "value"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 134
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Jira"
+                        },
+                        "properties": [
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "null": {
+                                                "color": "transparent",
+                                                "index": 0,
+                                                "text": "N/A"
+                                            }
+                                        },
+                                        "type": "value"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "",
+                                        "url": "${__data.fields._jira_link}"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 101
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Requirements Dashboard"
+                        },
+                        "properties": [
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "null": {
+                                                "color": "transparent",
+                                                "index": 2,
+                                                "text": "N/A"
+                                            }
+                                        },
+                                        "type": "value"
+                                    },
+                                    {
+                                        "options": {
+                                            "match": "true",
+                                            "result": {
+                                                "color": "green",
+                                                "index": 0,
+                                                "text": "Enabled"
+                                            }
+                                        },
+                                        "type": "special"
+                                    },
+                                    {
+                                        "options": {
+                                            "match": "false",
+                                            "result": {
+                                                "color": "red",
+                                                "index": 1,
+                                                "text": "Disabled"
+                                            }
+                                        },
+                                        "type": "special"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            },
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "",
+                                        "url": "https://iqe-requirements-dashboard.apps.int.gpc.ocp-hub.prod.psi.redhat.com/prod/${__data.fields[\"Plugin/ Tool Name\"]}/summary"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 123
+                            },
+                            {
+                                "id": "displayName",
+                                "value": "Req-Portal"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Req-Dash"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 96
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Sitreps"
+                        },
+                        "properties": [
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "match": "true",
+                                            "result": {
+                                                "color": "green",
+                                                "index": 1,
+                                                "text": "Enabled"
+                                            }
+                                        },
+                                        "type": "special"
+                                    },
+                                    {
+                                        "options": {
+                                            "match": "false",
+                                            "result": {
+                                                "color": "red",
+                                                "index": 2,
+                                                "text": "Disabled"
+                                            }
+                                        },
+                                        "type": "special"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 96
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Req-Portal"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.width",
+                                "value": 106
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "SonarQube"
+                        },
+                        "properties": [
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "",
+                                        "url": "${__data.fields._sonarqube_link}"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "mappings",
+                                "value": [
+                                    {
+                                        "options": {
+                                            "null": {
+                                                "color": "transparent",
+                                                "index": 0,
+                                                "text": "N/A"
+                                            }
+                                        },
+                                        "type": "value"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 123
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": "center"
+                            },
+                            {
+                                "id": "custom.cellOptions",
+                                "value": {
+                                    "type": "color-text"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Dev Repos"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hidden",
+                                "value": true
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Documentation"
+                        },
+                        "properties": [
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "link",
+                                        "url": "${__data.fields.Documentation}"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "mappings",
+                                "value": []
+                            },
+                            {
+                                "id": "custom.width",
+                                "value": 146
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/.*^_/"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hidden",
+                                "value": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 26,
+                "w": 23,
+                "x": 0,
+                "y": 20
+            },
+            "id": 3,
+            "options": {
+                "cellHeight": "sm",
+                "footer": {
+                    "countRows": false,
+                    "enablePagination": false,
+                    "fields": "",
+                    "reducer": [],
+                    "show": false
+                },
+                "showHeader": true,
+                "sortBy": []
+            },
+            "pluginVersion": "10.3.6",
+            "targets": [
+                {
+                    "columns": [
+                        {
+                            "selector": "repository_name",
+                            "text": "Repository Name",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "plugin_tool_name",
+                            "text": "Plugin/ Tool Name",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "project_group",
+                            "text": "Project Group",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "repository_type",
+                            "text": "Repository Type",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "maintainer_primary_name",
+                            "text": "Primary Maintainer",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "maintainer_secondary_name",
+                            "text": "Secondary Maintainer",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "manager_name",
+                            "text": "QE Manager",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "jira_project",
+                            "text": "Jira",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "requirements_portal",
+                            "text": "Requirements Dashboard",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "sitreps",
+                            "text": "Sitreps",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "sonarqube_project",
+                            "text": "SonarQube",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "dev_repo_links",
+                            "text": "Dev Repos",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "documentation",
+                            "text": "Documentation",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "repository_link",
+                            "text": "_repository_link",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "maintainer_primary_email",
+                            "text": "_maintainer_primary_email",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "maintainer_secondary_email",
+                            "text": "_maintainer_secondary_email",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "manager_email",
+                            "text": "_manager_email",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "jira_link",
+                            "text": "_jira_link",
+                            "type": "string"
+                        },
+                        {
+                            "selector": "sonarqube_link",
+                            "text": "_sonarqube_link",
+                            "type": "string"
+                        }
+                    ],
+                    "datasource": {
+                        "type": "yesoreyeram-infinity-datasource",
+                        "uid": "${GITLAB_API}"
+                    },
+                    "filters": [],
+                    "format": "table",
+                    "global_query_id": "",
+                    "json_options": {
+                        "columnar": false,
+                        "root_is_not_array": false
+                    },
+                    "parser": "simple",
+                    "refId": "A",
+                    "root_selector": "repositories",
+                    "source": "url",
+                    "type": "json",
+                    "uql": "parse-json",
+                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url_options": {
+                        "data": "",
+                        "headers": [
+                            {
+                                "key": "header-key",
+                                "value": "header-value"
+                            }
+                        ],
+                        "method": "GET"
+                    }
+                }
+            ],
+            "title": "Unified Dashboard",
+            "transformations": [
+                {
+                    "id": "sortBy",
+                    "options": {
+                        "fields": {},
+                        "sort": [
+                            {
+                                "desc": false,
+                                "field": "Repository Name"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "transparent": true,
+            "type": "table"
+        }
+    ],
+    "refresh": "",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+        "list": []
+    },
+    "time": {
+        "from": "2024-06-18T21:28:50.928Z",
+        "to": "2024-06-19T21:28:50.928Z"
+    },
+    "timeRangeUpdatedDuringEditOrView": false,
+    "timepicker": {
+        "hidden": true
+    },
+    "timezone": "",
+    "title": "IQE projects",
+    "uid": "c67027f0-edc8-46df-b0a5-993e4b047e1b",
+    "version": 6,
+    "weekStart": "",
+    "__inputs": [
+        {
+            "name": "GITLAB_API",
+            "label": "gitlab-api",
+            "description": "",
+            "type": "datasource",
+            "pluginId": "yesoreyeram-infinity-datasource",
+            "pluginName": "Infinity"
+        }
+    ]
+}

@@ -106,7 +106,7 @@
                     "source": "url",
                     "type": "json",
                     "uql": "project timestamp",
-                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url": "${GITLAB_HOSTNAME}/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
                     "url_options": {
                         "data": "",
                         "method": "GET"
@@ -206,7 +206,7 @@
                     "source": "url",
                     "type": "json",
                     "uql": "parse-json",
-                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url": "${GITLAB_HOSTNAME}/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
                     "url_options": {
                         "data": "",
                         "headers": [
@@ -350,7 +350,7 @@
                     "source": "url",
                     "type": "json",
                     "uql": "parse-json",
-                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url": "${GITLAB_HOSTNAME}/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
                     "url_options": {
                         "data": "",
                         "headers": [
@@ -494,7 +494,7 @@
                     "source": "url",
                     "type": "json",
                     "uql": "parse-json",
-                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url": "${GITLAB_HOSTNAME}/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
                     "url_options": {
                         "data": "",
                         "headers": [
@@ -638,7 +638,7 @@
                     "source": "url",
                     "type": "json",
                     "uql": "parse-json",
-                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url": "${GITLAB_HOSTNAME}/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
                     "url_options": {
                         "data": "",
                         "headers": [
@@ -782,7 +782,7 @@
                     "source": "url",
                     "type": "json",
                     "uql": "parse-json",
-                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url": "${GITLAB_HOSTNAME}/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
                     "url_options": {
                         "data": "",
                         "headers": [
@@ -923,7 +923,7 @@
                     "source": "url",
                     "type": "uql",
                     "uql": "parse-json\n| scope \"repositories.defined_but_archived\"\n| project \"Repository\"=\"repository_name\"\n\n",
-                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url": "${GITLAB_HOSTNAME}/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
                     "url_options": {
                         "data": "",
                         "headers": [
@@ -1332,7 +1332,7 @@
                                     {
                                         "targetBlank": true,
                                         "title": "",
-                                        "url": "https://iqe-requirements-dashboard.apps.int.gpc.ocp-hub.prod.psi.redhat.com/prod/${__data.fields[\"Plugin/ Tool Name\"]}/summary"
+                                        "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/prod/${__data.fields[\"Plugin/ Tool Name\"]}/summary"
                                     }
                                 ]
                             },
@@ -1650,7 +1650,7 @@
                     "source": "url",
                     "type": "json",
                     "uql": "parse-json",
-                    "url": "https://gitlab.cee.redhat.com/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
+                    "url": "${GITLAB_HOSTNAME}/api/v4/projects/insights-qe%2Fiqe-keeper/repository/files/iqe_keeper%2Fdata%2Frepositories.json/raw",
                     "url_options": {
                         "data": "",
                         "headers": [
@@ -1709,6 +1709,18 @@
             "type": "datasource",
             "pluginId": "yesoreyeram-infinity-datasource",
             "pluginName": "Infinity"
+        },
+        {
+            "name": "REQUIREMENTS_DASHBOARD_HOSTNAME",
+            "label": "requirements_dashboard_hostname",
+            "description": "requirements_dashboard_hostname",
+            "type": "constant"
+        },
+        {
+            "name": "GITLAB_HOSTNAME",
+            "label": "gitlab_hostname",
+            "description": "gitlab_hostname",
+            "type": "constant"
         }
     ]
 }

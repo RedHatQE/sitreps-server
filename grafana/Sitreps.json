@@ -196,7 +196,7 @@
                         {
                             "targetBlank": true,
                             "title": "Requirements Portal",
-                            "url": "https://iqe-requirements.apps.ocp4.prod.psi.redhat.com/$env/$plugin_name/summary"
+                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/$env/$plugin_name/summary"
                         }
                     ],
                     "options": {
@@ -447,7 +447,7 @@
                         {
                             "targetBlank": true,
                             "title": "Requirements Portal",
-                            "url": "https://iqe-requirements.apps.ocp4.prod.psi.redhat.com/prod/$plugin_name/summary\n\n"
+                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/prod/$plugin_name/summary\n\n"
                         }
                     ],
                     "options": {
@@ -727,7 +727,7 @@
                         {
                             "targetBlank": true,
                             "title": "Requirements Portal",
-                            "url": "https://iqe-requirements.apps.ocp4.prod.psi.redhat.com/$env/$plugin_name/summary"
+                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/$env/$plugin_name/summary"
                         }
                     ],
                     "options": {
@@ -979,7 +979,7 @@
                         {
                             "targetBlank": true,
                             "title": "Requirements Portal",
-                            "url": "https://iqe-requirements.apps.ocp4.prod.psi.redhat.com/prod/$plugin_name/summary\n\n"
+                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/prod/$plugin_name/summary\n\n"
                         }
                     ],
                     "options": {
@@ -1258,7 +1258,7 @@
                         {
                             "targetBlank": true,
                             "title": "Requirements Portal",
-                            "url": "https://iqe-requirements.apps.ocp4.prod.psi.redhat.com/$env/$plugin_name/summary\n\n"
+                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/$env/$plugin_name/summary\n\n"
                         }
                     ],
                     "options": {
@@ -1510,7 +1510,7 @@
                         {
                             "targetBlank": true,
                             "title": "Requirements Portal",
-                            "url": "https://iqe-requirements.apps.ocp4.prod.psi.redhat.com/prod/$plugin_name/summary\n\n"
+                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/prod/$plugin_name/summary\n\n"
                         }
                     ],
                     "options": {
@@ -3283,7 +3283,7 @@
                             "source": "url",
                             "type": "json",
                             "uql": "project \"Tests\"=\"id\", \"Automation Status\"=\"automation_status\", \"Importance\"=\"importance\", \"Test Type\"=\"type\", \"Interface Type\"=\"interface_type\", \"Assignee\"=\"assignee\", \"is Negative\"=\"negative\", \"Component\"=\"component\", \"Time\"=\"create_at\"\n",
-                            "url": "${SITREPS_API}/api/v1/metadata/$test_repository_id",
+                            "url": "${SITREPS_HOSTNAME}/api/v1/metadata/$test_repository_id",
                             "url_options": {
                                 "data": "",
                                 "method": "GET"
@@ -5751,6 +5751,12 @@
             "pluginName": "Infinity"
         },
         {
+            "name": "REQUIREMENTS_DASHBOARD_HOSTNAME",
+            "label": "requirements_dashboard_hostname",
+            "description": "requirements_dashboard_hostname",
+            "type": "constant"
+        },
+        {
             "name": "DB",
             "label": "db",
             "description": "",
@@ -5759,9 +5765,9 @@
             "pluginName": "PostgreSQL"
         },
         {
-            "name": "SITREPS_API",
-            "label": "sitreps_api",
-            "description": "Sitreps API endpoint.",
+            "name": "SITREPS_HOSTNAME",
+            "label": "sitreps_hostname",
+            "description": "sitreps_hostname",
             "type": "constant"
         }
     ]

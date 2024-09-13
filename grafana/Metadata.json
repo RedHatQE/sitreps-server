@@ -255,7 +255,7 @@
                     "source": "url",
                     "type": "json",
                     "uql": "",
-                    "url": "${SITREPS_API}/api/v1/metadata/$test_repository",
+                    "url": "${SITREPS_HOSTNAME}/api/v1/metadata/$test_repository",
                     "url_options": {
                         "data": "",
                         "method": "GET"
@@ -329,9 +329,9 @@
             "pluginName": "PostgreSQL"
         },
         {
-            "name": "SITREPS_API",
-            "label": "sitreps_api",
-            "description": "Sitreps API endpoint.",
+            "name": "SITREPS_HOSTNAME",
+            "label": "sitreps_hostname",
+            "description": "sitreps_hostname",
             "type": "constant"
         }
     ]

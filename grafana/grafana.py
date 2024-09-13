@@ -17,7 +17,9 @@ import requests
 
 # Define the directory where backup files will be stored
 PARENT_DIR = pathlib.Path(__file__).parent.resolve()
-SITREPS_API_REGEX = r"^http://[^/]+:8000+"
+SITREPS_HOSTNAME_REGEX = r"^https?://[^/]+:8000+"
+GITLAB_HOSTNAME_REGEX = r"^https?://gitlab[^/]+.com"
+REQUIREMENTS_HOSTNAME_REGEX = r"^https?://iqe-requirements[^/]+.com"
 
 
 class Grafana:
@@ -70,6 +72,14 @@ class Grafana:
             dict: The updated dashboard JSON data.
         """
         datasources = self.datasources
+        # Some constant inputs
+        for constant in ("sitreps_hostname", "gitlab_hostname", "requirements_dashboard_hostname"):
+            datasources[constant] = {
+                "name": constant.upper(),
+                "label": constant,
+                "description": constant,
+                "type": "constant",
+            }
         applicable_ds = []
 
         def _search_replace_datasource(obj):
@@ -84,9 +94,20 @@ class Grafana:
                                 applicable_ds.append(uid)
                                 ds_name = datasources[uid]["name"]
                                 value["uid"] = f"${{{ds_name}}}"
-                    # Replace sitreps API's UIL with Variable.
-                    elif key == "url" and re.search(SITREPS_API_REGEX, value):
-                        obj[key] = re.sub(SITREPS_API_REGEX, "${SITREPS_API}", value)
+                    # Replace sitreps hostname with Variable.
+                    elif key == "url" and re.search(SITREPS_HOSTNAME_REGEX, value):
+                        obj[key] = re.sub(SITREPS_HOSTNAME_REGEX, "${SITREPS_HOSTNAME}", value)
+                        applicable_ds.append("sitreps_hostname")
+                    # Replace GitLab hostname with Variable.
+                    elif key == "url" and re.search(GITLAB_HOSTNAME_REGEX, value):
+                        obj[key] = re.sub(GITLAB_HOSTNAME_REGEX, "${GITLAB_HOSTNAME}", value)
+                        applicable_ds.append("gitlab_hostname")
+                    # Replace iqe-requirements-dashboard hostname with Variable.
+                    elif key == "url" and re.search(REQUIREMENTS_HOSTNAME_REGEX, value):
+                        obj[key] = re.sub(
+                            REQUIREMENTS_HOSTNAME_REGEX, "${REQUIREMENTS_DASHBOARD_HOSTNAME}", value
+                        )
+                        applicable_ds.append("requirements_dashboard_hostname")
                     else:
                         _search_replace_datasource(value)
             elif isinstance(obj, list):
@@ -95,18 +116,6 @@ class Grafana:
 
         _search_replace_datasource(dashboard)
         inputs = [datasources.get(ds_uid) for ds_uid in set(applicable_ds)]
-
-        # If sitreps apis used by dashobard then include input asking hostname for sitreps apis.
-        if "APIS" in [ds["name"] for ds in inputs]:
-            inputs.append(
-                {
-                    "name": "SITREPS_API",
-                    "label": "sitreps_api",
-                    "description": "Sitreps API endpoint.",
-                    "type": "constant",
-                }
-            )
-
         dashboard["__inputs"] = inputs
         return dashboard
 

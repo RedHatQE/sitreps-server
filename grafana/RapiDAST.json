@@ -456,7 +456,7 @@
                     "root_selector": "",
                     "source": "url",
                     "type": "json",
-                    "url": "${SITREPS_API}/api/v1/rapidast/?env=stage",
+                    "url": "${SITREPS_HOSTNAME}/api/v1/rapidast/?env=stage",
                     "url_options": {
                         "data": "",
                         "method": "GET"
@@ -521,9 +521,9 @@
             "pluginName": "PostgreSQL"
         },
         {
-            "name": "SITREPS_API",
-            "label": "sitreps_api",
-            "description": "Sitreps API endpoint.",
+            "name": "SITREPS_HOSTNAME",
+            "label": "sitreps_hostname",
+            "description": "sitreps_hostname",
             "type": "constant"
         }
     ]

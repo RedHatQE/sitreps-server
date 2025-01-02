@@ -13,6 +13,7 @@ from .repository import repository
 from .req_portal import req_portal
 from .req_portal import req_portal_json
 from .sonarqube import sonarqube
+from .unittest_result import unittest_result
 from .unittests import unittests
 
 __all__ = [
@@ -30,4 +31,5 @@ __all__ = [
     "req_portal_json",
     "sonarqube",
     "unittests",
+    "unittest_result",
 ]

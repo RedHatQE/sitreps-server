@@ -37,5 +37,5 @@ async def read_unittest_results(
     filters = {}
     if filter_by_repository_id:
         filters["repository_id"] = filter_by_repository_id
-    item = crud.unittests.get_multi(db, skip=skip, limit=limit, filters=filters)
+    item = crud.unittest_result.get_multi(db, skip=skip, limit=limit, filters=filters)
     return item

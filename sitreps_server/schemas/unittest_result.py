@@ -12,6 +12,7 @@ class UnitTestResultBase(BaseModel):
     # repository: instance of Repository for relationship
     repository_id: int | None = None
 
+    ci_link: str | None = None
     ci_name: str
     framework_name: str
     passed: int = 0

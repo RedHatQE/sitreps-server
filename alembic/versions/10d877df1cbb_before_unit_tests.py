@@ -1,16 +1,13 @@
 """Before unit tests
 
 Revision ID: 10d877df1cbb
-Revises: 
+Revises:
 Create Date: 2025-01-02 22:41:55.918865
 
 """
-from alembic import op
-import sqlalchemy as sa
-
 
 # revision identifiers, used by Alembic.
-revision = '10d877df1cbb'
+revision = "10d877df1cbb"
 down_revision = None
 branch_labels = None
 depends_on = None

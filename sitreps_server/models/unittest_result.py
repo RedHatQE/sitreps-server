@@ -28,6 +28,7 @@ class UnitTestResult(Base):
     repository_id = Column(Integer, ForeignKey("repositories.id"), index=True)
 
     # CI tool name (e.g., 'gh_action', 'travis', etc.)
+    ci_link = Column(String, default=None)
     ci_name = Column(String, index=True)
 
     # Framework name, such as 'jest', 'cypress', etc.

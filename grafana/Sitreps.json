@@ -44,7 +44,6 @@
                         "type": "grafana-postgresql-datasource",
                         "uid": "${DB}"
                     },
-                    "description": "*Core Functionality - Critical & High importance test cases of Critical and High priority requirements.\n\n\n",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -191,1069 +190,7 @@
                         "x": 0,
                         "y": 1
                     },
-                    "id": 97,
-                    "links": [
-                        {
-                            "targetBlank": true,
-                            "title": "Requirements Portal",
-                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/$env/$plugin_name/summary"
-                        }
-                    ],
-                    "options": {
-                        "displayLabels": [],
-                        "legend": {
-                            "displayMode": "table",
-                            "placement": "right",
-                            "showLegend": true,
-                            "values": [
-                                "percent"
-                            ]
-                        },
-                        "pieType": "pie",
-                        "reduceOptions": {
-                            "calcs": [
-                                "lastNotNull"
-                            ],
-                            "fields": "",
-                            "values": false
-                        },
-                        "tooltip": {
-                            "mode": "multi",
-                            "sort": "asc"
-                        }
-                    },
-                    "targets": [
-                        {
-                            "datasource": {
-                                "type": "grafana-postgresql-datasource",
-                                "uid": "${DB}"
-                            },
-                            "editorMode": "code",
-                            "format": "table",
-                            "rawQuery": true,
-                            "rawSql": "SELECT time, passed, xpass, skip, blocked, failed, xfailed, error, manual\nFROM req_portal\nWHERE env='$env' AND avg='core-1' AND plugin='$plugin_name' ORDER BY 1",
-                            "refId": "A",
-                            "sql": {
-                                "columns": [
-                                    {
-                                        "parameters": [],
-                                        "type": "function"
-                                    }
-                                ],
-                                "groupBy": [
-                                    {
-                                        "property": {
-                                            "type": "string"
-                                        },
-                                        "type": "groupBy"
-                                    }
-                                ],
-                                "limit": 50
-                            }
-                        }
-                    ],
-                    "title": "Core Functionality, 24-hour avg [$env]",
-                    "transparent": true,
-                    "type": "piechart"
-                },
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "${DB}"
-                    },
-                    "description": "It's a historical representation of the 24 hr core avg. ",
-                    "fieldConfig": {
-                        "defaults": {
-                            "color": {
-                                "mode": "continuous-GrYlRd"
-                            },
-                            "custom": {
-                                "axisBorderShow": false,
-                                "axisCenteredZero": false,
-                                "axisColorMode": "text",
-                                "axisGridShow": true,
-                                "axisLabel": "",
-                                "axisPlacement": "auto",
-                                "barAlignment": 0,
-                                "drawStyle": "line",
-                                "fillOpacity": 0,
-                                "gradientMode": "none",
-                                "hideFrom": {
-                                    "legend": false,
-                                    "tooltip": false,
-                                    "viz": false
-                                },
-                                "insertNulls": false,
-                                "lineInterpolation": "smooth",
-                                "lineWidth": 1,
-                                "pointSize": 5,
-                                "scaleDistribution": {
-                                    "type": "linear"
-                                },
-                                "showPoints": "never",
-                                "spanNulls": true,
-                                "stacking": {
-                                    "group": "A",
-                                    "mode": "none"
-                                },
-                                "thresholdsStyle": {
-                                    "mode": "off"
-                                }
-                            },
-                            "mappings": [],
-                            "thresholds": {
-                                "mode": "absolute",
-                                "steps": [
-                                    {
-                                        "color": "green",
-                                        "value": null
-                                    }
-                                ]
-                            },
-                            "unit": "percent",
-                            "unitScale": true
-                        },
-                        "overrides": [
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "passed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "green",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "failed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "skip"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "light-yellow",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "manual"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-blue",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "blocked"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-yellow",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "error"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "xpass"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-green",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "xfailed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "super-light-red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    "gridPos": {
-                        "h": 8,
-                        "w": 18,
-                        "x": 5,
-                        "y": 1
-                    },
-                    "id": 106,
-                    "links": [
-                        {
-                            "targetBlank": true,
-                            "title": "Requirements Portal",
-                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/prod/$plugin_name/summary\n\n"
-                        }
-                    ],
-                    "options": {
-                        "legend": {
-                            "calcs": [],
-                            "displayMode": "list",
-                            "placement": "bottom",
-                            "showLegend": true
-                        },
-                        "tooltip": {
-                            "mode": "multi",
-                            "sort": "asc"
-                        }
-                    },
-                    "pluginVersion": "8.5.13",
-                    "repeatDirection": "h",
-                    "targets": [
-                        {
-                            "columns": [],
-                            "datasource": {
-                                "type": "grafana-postgresql-datasource",
-                                "uid": "${DB}"
-                            },
-                            "editorMode": "code",
-                            "filters": [],
-                            "format": "table",
-                            "global_query_id": "",
-                            "group": [
-                                {
-                                    "params": [
-                                        "avg"
-                                    ],
-                                    "type": "column"
-                                }
-                            ],
-                            "metricColumn": "none",
-                            "rawQuery": true,
-                            "rawSql": "SELECT time, passed, xpass, skip, blocked, failed, xfailed, error, manual\nFROM req_portal\nWHERE\n  $__timeFilter(\"time\") AND env='$env' AND avg='core-1' AND plugin='$plugin_name' ORDER BY 1",
-                            "refId": "A",
-                            "root_selector": "",
-                            "select": [
-                                [
-                                    {
-                                        "params": [
-                                            "passed"
-                                        ],
-                                        "type": "column"
-                                    },
-                                    {
-                                        "params": [
-                                            "avg"
-                                        ],
-                                        "type": "aggregate"
-                                    },
-                                    {
-                                        "params": [
-                                            "passed"
-                                        ],
-                                        "type": "alias"
-                                    }
-                                ],
-                                [
-                                    {
-                                        "params": [
-                                            "failed"
-                                        ],
-                                        "type": "column"
-                                    },
-                                    {
-                                        "params": [
-                                            "avg"
-                                        ],
-                                        "type": "aggregate"
-                                    },
-                                    {
-                                        "params": [
-                                            "failed"
-                                        ],
-                                        "type": "alias"
-                                    }
-                                ]
-                            ],
-                            "source": "url",
-                            "sql": {
-                                "columns": [
-                                    {
-                                        "parameters": [],
-                                        "type": "function"
-                                    }
-                                ],
-                                "groupBy": [
-                                    {
-                                        "property": {
-                                            "type": "string"
-                                        },
-                                        "type": "groupBy"
-                                    }
-                                ],
-                                "limit": 50
-                            },
-                            "table": "req_portal",
-                            "timeColumn": "\"time\"",
-                            "timeColumnType": "timestamp",
-                            "type": "json",
-                            "url": "https://jsonplaceholder.typicode.com/users",
-                            "url_options": {
-                                "data": "",
-                                "method": "GET"
-                            },
-                            "where": [
-                                {
-                                    "name": "$__timeFilter",
-                                    "params": [],
-                                    "type": "macro"
-                                }
-                            ]
-                        }
-                    ],
-                    "title": "Core 24 Hour avg historical data [$env]",
-                    "transparent": true,
-                    "type": "timeseries"
-                },
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "${DB}"
-                    },
-                    "description": "*Core Functionality - Critical & High importance test cases of Critical and High priority requirements\n",
-                    "fieldConfig": {
-                        "defaults": {
-                            "color": {
-                                "fixedColor": "#4a6946",
-                                "mode": "palette-classic"
-                            },
-                            "custom": {
-                                "hideFrom": {
-                                    "legend": false,
-                                    "tooltip": false,
-                                    "viz": false
-                                }
-                            },
-                            "mappings": [],
-                            "max": 1,
-                            "unitScale": true
-                        },
-                        "overrides": [
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "passed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "green",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "failed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "skip"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "light-yellow",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "manual"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-blue",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "blocked"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-yellow",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "error"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "xpass"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-green",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "xfailed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "super-light-red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    "gridPos": {
-                        "h": 8,
-                        "w": 5,
-                        "x": 0,
-                        "y": 9
-                    },
-                    "id": 100,
-                    "links": [
-                        {
-                            "targetBlank": true,
-                            "title": "Requirements Portal",
-                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/$env/$plugin_name/summary"
-                        }
-                    ],
-                    "options": {
-                        "displayLabels": [],
-                        "legend": {
-                            "displayMode": "table",
-                            "placement": "right",
-                            "showLegend": true,
-                            "values": [
-                                "percent"
-                            ]
-                        },
-                        "pieType": "pie",
-                        "reduceOptions": {
-                            "calcs": [
-                                "lastNotNull"
-                            ],
-                            "fields": "",
-                            "values": false
-                        },
-                        "tooltip": {
-                            "mode": "multi",
-                            "sort": "asc"
-                        }
-                    },
-                    "repeatDirection": "h",
-                    "targets": [
-                        {
-                            "datasource": {
-                                "type": "grafana-postgresql-datasource",
-                                "uid": "${DB}"
-                            },
-                            "editorMode": "code",
-                            "format": "table",
-                            "rawQuery": true,
-                            "rawSql": "SELECT time, passed, xpass, skip, blocked, failed, xfailed, error, manual\nFROM req_portal\nWHERE env='$env' AND avg='core-7' AND plugin='$plugin_name' ORDER BY 1",
-                            "refId": "A",
-                            "sql": {
-                                "columns": [
-                                    {
-                                        "parameters": [],
-                                        "type": "function"
-                                    }
-                                ],
-                                "groupBy": [
-                                    {
-                                        "property": {
-                                            "type": "string"
-                                        },
-                                        "type": "groupBy"
-                                    }
-                                ],
-                                "limit": 50
-                            }
-                        }
-                    ],
-                    "title": "Core Functionality, 7-day avg [$env]",
-                    "transparent": true,
-                    "type": "piechart"
-                },
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "${DB}"
-                    },
-                    "description": "It's a historical representation of the 7-day core avg. Data points represent the 7-day average at that respective time. ",
-                    "fieldConfig": {
-                        "defaults": {
-                            "color": {
-                                "mode": "continuous-GrYlRd"
-                            },
-                            "custom": {
-                                "axisBorderShow": false,
-                                "axisCenteredZero": false,
-                                "axisColorMode": "text",
-                                "axisGridShow": true,
-                                "axisLabel": "",
-                                "axisPlacement": "auto",
-                                "barAlignment": 0,
-                                "drawStyle": "line",
-                                "fillOpacity": 0,
-                                "gradientMode": "none",
-                                "hideFrom": {
-                                    "legend": false,
-                                    "tooltip": false,
-                                    "viz": false
-                                },
-                                "insertNulls": false,
-                                "lineInterpolation": "smooth",
-                                "lineWidth": 1,
-                                "pointSize": 5,
-                                "scaleDistribution": {
-                                    "type": "linear"
-                                },
-                                "showPoints": "never",
-                                "spanNulls": true,
-                                "stacking": {
-                                    "group": "A",
-                                    "mode": "none"
-                                },
-                                "thresholdsStyle": {
-                                    "mode": "off"
-                                }
-                            },
-                            "mappings": [],
-                            "thresholds": {
-                                "mode": "absolute",
-                                "steps": [
-                                    {
-                                        "color": "green",
-                                        "value": null
-                                    }
-                                ]
-                            },
-                            "unit": "percent",
-                            "unitScale": true
-                        },
-                        "overrides": [
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "passed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "green",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "failed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "skip"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "light-yellow",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "manual"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-blue",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "blocked"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-yellow",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "error"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "xpass"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-green",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "xfailed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "super-light-red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    "gridPos": {
-                        "h": 8,
-                        "w": 18,
-                        "x": 5,
-                        "y": 9
-                    },
-                    "id": 105,
-                    "links": [
-                        {
-                            "targetBlank": true,
-                            "title": "Requirements Portal",
-                            "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/prod/$plugin_name/summary\n\n"
-                        }
-                    ],
-                    "options": {
-                        "legend": {
-                            "calcs": [],
-                            "displayMode": "list",
-                            "placement": "bottom",
-                            "showLegend": true
-                        },
-                        "tooltip": {
-                            "mode": "multi",
-                            "sort": "asc"
-                        }
-                    },
-                    "pluginVersion": "8.5.13",
-                    "repeatDirection": "h",
-                    "targets": [
-                        {
-                            "columns": [],
-                            "datasource": {
-                                "type": "grafana-postgresql-datasource",
-                                "uid": "${DB}"
-                            },
-                            "editorMode": "code",
-                            "filters": [],
-                            "format": "table",
-                            "global_query_id": "",
-                            "group": [
-                                {
-                                    "params": [
-                                        "avg"
-                                    ],
-                                    "type": "column"
-                                }
-                            ],
-                            "metricColumn": "none",
-                            "rawQuery": true,
-                            "rawSql": "SELECT time, passed, xpass, skip, blocked, failed, xfailed, error, manual\nFROM req_portal\nWHERE\n  $__timeFilter(\"time\") AND env='$env' AND avg='core-7' AND plugin='$plugin_name' ORDER BY 1",
-                            "refId": "A",
-                            "root_selector": "",
-                            "select": [
-                                [
-                                    {
-                                        "params": [
-                                            "passed"
-                                        ],
-                                        "type": "column"
-                                    },
-                                    {
-                                        "params": [
-                                            "avg"
-                                        ],
-                                        "type": "aggregate"
-                                    },
-                                    {
-                                        "params": [
-                                            "passed"
-                                        ],
-                                        "type": "alias"
-                                    }
-                                ],
-                                [
-                                    {
-                                        "params": [
-                                            "failed"
-                                        ],
-                                        "type": "column"
-                                    },
-                                    {
-                                        "params": [
-                                            "avg"
-                                        ],
-                                        "type": "aggregate"
-                                    },
-                                    {
-                                        "params": [
-                                            "failed"
-                                        ],
-                                        "type": "alias"
-                                    }
-                                ]
-                            ],
-                            "source": "url",
-                            "sql": {
-                                "columns": [
-                                    {
-                                        "parameters": [],
-                                        "type": "function"
-                                    }
-                                ],
-                                "groupBy": [
-                                    {
-                                        "property": {
-                                            "type": "string"
-                                        },
-                                        "type": "groupBy"
-                                    }
-                                ],
-                                "limit": 50
-                            },
-                            "table": "req_portal",
-                            "timeColumn": "\"time\"",
-                            "timeColumnType": "timestamp",
-                            "type": "json",
-                            "url": "https://jsonplaceholder.typicode.com/users",
-                            "url_options": {
-                                "data": "",
-                                "method": "GET"
-                            },
-                            "where": [
-                                {
-                                    "name": "$__timeFilter",
-                                    "params": [],
-                                    "type": "macro"
-                                }
-                            ]
-                        }
-                    ],
-                    "title": "Core 7-day avg historical data [$env]",
-                    "transparent": true,
-                    "type": "timeseries"
-                },
-                {
-                    "datasource": {
-                        "type": "grafana-postgresql-datasource",
-                        "uid": "${DB}"
-                    },
-                    "fieldConfig": {
-                        "defaults": {
-                            "color": {
-                                "fixedColor": "#4a6946",
-                                "mode": "palette-classic"
-                            },
-                            "custom": {
-                                "hideFrom": {
-                                    "legend": false,
-                                    "tooltip": false,
-                                    "viz": false
-                                }
-                            },
-                            "mappings": [],
-                            "max": 1,
-                            "unitScale": true
-                        },
-                        "overrides": [
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "passed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "green",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "failed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "skip"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "light-yellow",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "manual"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-blue",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "blocked"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-yellow",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "error"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "xpass"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "dark-green",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                "matcher": {
-                                    "id": "byName",
-                                    "options": "xfailed"
-                                },
-                                "properties": [
-                                    {
-                                        "id": "color",
-                                        "value": {
-                                            "fixedColor": "super-light-red",
-                                            "mode": "fixed"
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    "gridPos": {
-                        "h": 8,
-                        "w": 5,
-                        "x": 0,
-                        "y": 17
-                    },
-                    "id": 101,
+                    "id": 112,
                     "links": [
                         {
                             "targetBlank": true,
@@ -1284,7 +221,8 @@
                             "sort": "asc"
                         }
                     },
-                    "repeatDirection": "h",
+                    "repeat": "avg",
+                    "repeatDirection": "v",
                     "targets": [
                         {
                             "datasource": {
@@ -1294,7 +232,7 @@
                             "editorMode": "code",
                             "format": "table",
                             "rawQuery": true,
-                            "rawSql": "SELECT time, passed, xpass, skip, blocked, failed, xfailed, error, manual\nFROM req_portal\nWHERE env='$env' AND avg='overall-7' AND plugin='$plugin_name' ORDER BY 1",
+                            "rawSql": "SELECT time, passed, xpass, skip, blocked, failed, xfailed, error, manual\nFROM req_portal\nWHERE env='$env' AND avg=$avg AND plugin='$plugin_name' ORDER BY 1",
                             "refId": "A",
                             "sql": {
                                 "columns": [
@@ -1315,7 +253,7 @@
                             }
                         }
                     ],
-                    "title": "Overall, 7-day avg [$env]",
+                    "title": "$avg Avg [$env]",
                     "transparent": true,
                     "type": "piechart"
                 },
@@ -1503,9 +441,9 @@
                         "h": 8,
                         "w": 18,
                         "x": 5,
-                        "y": 17
+                        "y": 1
                     },
-                    "id": 102,
+                    "id": 113,
                     "links": [
                         {
                             "targetBlank": true,
@@ -1526,7 +464,8 @@
                         }
                     },
                     "pluginVersion": "8.5.13",
-                    "repeatDirection": "h",
+                    "repeat": "avg",
+                    "repeatDirection": "v",
                     "targets": [
                         {
                             "columns": [],
@@ -1548,7 +487,7 @@
                             ],
                             "metricColumn": "none",
                             "rawQuery": true,
-                            "rawSql": "SELECT time, passed, xpass, skip, blocked, failed, xfailed, error, manual\nFROM req_portal\nWHERE\n  $__timeFilter(\"time\") AND env='$env' AND avg='overall-7' AND plugin='$plugin_name' ORDER BY 1",
+                            "rawSql": "SELECT time, passed, xpass, skip, blocked, failed, xfailed, error, manual\nFROM req_portal\nWHERE\n  $__timeFilter(\"time\") AND env='$env' AND avg=$avg AND plugin='$plugin_name' ORDER BY 1",
                             "refId": "A",
                             "root_selector": "",
                             "select": [
@@ -1629,7 +568,7 @@
                             ]
                         }
                     ],
-                    "title": "Overall 7-day avg historical data [$env]",
+                    "title": "$avg Avg Historical Data [$env]",
                     "transparent": true,
                     "type": "timeseries"
                 }
@@ -1663,8 +602,7 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "dark-blue",
-                                        "value": null
+                                        "color": "dark-blue"
                                     }
                                 ]
                             },
@@ -1676,7 +614,7 @@
                         "h": 4,
                         "w": 11,
                         "x": 0,
-                        "y": 32
+                        "y": 2
                     },
                     "id": 92,
                     "options": {
@@ -1750,8 +688,7 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "dark-blue",
-                                        "value": null
+                                        "color": "dark-blue"
                                     }
                                 ]
                             },
@@ -1763,7 +700,7 @@
                         "h": 4,
                         "w": 11,
                         "x": 12,
-                        "y": 32
+                        "y": 2
                     },
                     "id": 93,
                     "options": {
@@ -1864,7 +801,7 @@
                         "h": 8,
                         "w": 6,
                         "x": 0,
-                        "y": 36
+                        "y": 6
                     },
                     "id": 61,
                     "options": {
@@ -1976,8 +913,7 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
-                                        "value": null
+                                        "color": "green"
                                     },
                                     {
                                         "color": "red",
@@ -1993,7 +929,7 @@
                         "h": 8,
                         "w": 18,
                         "x": 6,
-                        "y": 36
+                        "y": 6
                     },
                     "id": 62,
                     "options": {
@@ -2073,7 +1009,7 @@
                         "h": 8,
                         "w": 6,
                         "x": 0,
-                        "y": 44
+                        "y": 14
                     },
                     "id": 64,
                     "options": {
@@ -2186,8 +1122,7 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
-                                        "value": null
+                                        "color": "green"
                                     },
                                     {
                                         "color": "red",
@@ -2203,7 +1138,7 @@
                         "h": 8,
                         "w": 18,
                         "x": 6,
-                        "y": 44
+                        "y": 14
                     },
                     "id": 63,
                     "options": {
@@ -2283,7 +1218,7 @@
                         "h": 8,
                         "w": 6,
                         "x": 0,
-                        "y": 52
+                        "y": 22
                     },
                     "id": 66,
                     "options": {
@@ -2411,7 +1346,7 @@
                         "h": 8,
                         "w": 18,
                         "x": 6,
-                        "y": 52
+                        "y": 22
                     },
                     "id": 65,
                     "options": {
@@ -2491,7 +1426,7 @@
                         "h": 8,
                         "w": 6,
                         "x": 0,
-                        "y": 60
+                        "y": 30
                     },
                     "id": 68,
                     "options": {
@@ -2619,7 +1554,7 @@
                         "h": 8,
                         "w": 18,
                         "x": 6,
-                        "y": 60
+                        "y": 30
                     },
                     "id": 67,
                     "options": {
@@ -2699,7 +1634,7 @@
                         "h": 9,
                         "w": 6,
                         "x": 0,
-                        "y": 68
+                        "y": 38
                     },
                     "id": 73,
                     "options": {
@@ -2809,7 +1744,7 @@
                         "h": 3,
                         "w": 8,
                         "x": 6,
-                        "y": 68
+                        "y": 38
                     },
                     "id": 71,
                     "options": {
@@ -2897,7 +1832,7 @@
                         "h": 3,
                         "w": 8,
                         "x": 16,
-                        "y": 68
+                        "y": 38
                     },
                     "id": 72,
                     "options": {
@@ -2988,7 +1923,7 @@
                         "h": 4,
                         "w": 18,
                         "x": 6,
-                        "y": 71
+                        "y": 41
                     },
                     "id": 70,
                     "options": {
@@ -3209,7 +2144,7 @@
                         "h": 12,
                         "w": 24,
                         "x": 0,
-                        "y": 77
+                        "y": 47
                     },
                     "id": 75,
                     "options": {
@@ -3293,25 +2228,7 @@
                     "title": "Metadata",
                     "transparent": true,
                     "type": "table"
-                }
-            ],
-            "title": "Integration Test: $project",
-            "type": "row"
-        },
-        {
-            "collapsed": true,
-            "datasource": {
-                "type": "postgres",
-                "uid": "349rw7SVz"
-            },
-            "gridPos": {
-                "h": 1,
-                "w": 24,
-                "x": 0,
-                "y": 2
-            },
-            "id": 29,
-            "panels": [
+                },
                 {
                     "datasource": {
                         "type": "grafana-postgresql-datasource",
@@ -3340,7 +2257,7 @@
                         "h": 15,
                         "w": 5,
                         "x": 0,
-                        "y": 3
+                        "y": 59
                     },
                     "id": 44,
                     "options": {
@@ -3486,7 +2403,7 @@
                         "h": 14,
                         "w": 18,
                         "x": 6,
-                        "y": 3
+                        "y": 59
                     },
                     "id": 45,
                     "options": {
@@ -3555,6 +2472,268 @@
                         }
                     ],
                     "title": "CLOC",
+                    "transparent": true,
+                    "type": "timeseries"
+                }
+            ],
+            "title": "Integration Test: $project",
+            "type": "row"
+        },
+        {
+            "collapsed": true,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 2
+            },
+            "id": 107,
+            "panels": [
+                {
+                    "datasource": {
+                        "type": "grafana-postgresql-datasource",
+                        "uid": "${DB}"
+                    },
+                    "description": "Current count of CLOC",
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "thresholds"
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "dark-blue"
+                                    }
+                                ]
+                            },
+                            "unitScale": true
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
+                        "h": 15,
+                        "w": 5,
+                        "x": 0,
+                        "y": 3
+                    },
+                    "id": 111,
+                    "options": {
+                        "minVizHeight": 75,
+                        "minVizWidth": 75,
+                        "orientation": "auto",
+                        "reduceOptions": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "fields": "",
+                            "values": false
+                        },
+                        "showThresholdLabels": false,
+                        "showThresholdMarkers": false,
+                        "sizing": "auto",
+                        "text": {
+                            "titleSize": 20
+                        }
+                    },
+                    "pluginVersion": "10.3.6",
+                    "targets": [
+                        {
+                            "datasource": {
+                                "type": "grafana-postgresql-datasource",
+                                "uid": "${DB}"
+                            },
+                            "editorMode": "code",
+                            "format": "time_series",
+                            "group": [],
+                            "hide": false,
+                            "metricColumn": "none",
+                            "rawQuery": true,
+                            "rawSql": "SELECT cloc.time AS \"time\", cloc.cloc, repositories.name FROM cloc INNER JOIN repositories ON cloc.repository_id=repositories.id\nWHERE repositories.project_id=$project AND $__timeFilter(\"time\")\nORDER BY 1",
+                            "refId": "A",
+                            "select": [
+                                [
+                                    {
+                                        "params": [
+                                            "coverage"
+                                        ],
+                                        "type": "column"
+                                    }
+                                ]
+                            ],
+                            "sql": {
+                                "columns": [
+                                    {
+                                        "parameters": [],
+                                        "type": "function"
+                                    }
+                                ],
+                                "groupBy": [
+                                    {
+                                        "property": {
+                                            "type": "string"
+                                        },
+                                        "type": "groupBy"
+                                    }
+                                ],
+                                "limit": 50
+                            },
+                            "table": "codecoverage",
+                            "timeColumn": "\"time\"",
+                            "timeColumnType": "timestamp",
+                            "where": [
+                                {
+                                    "name": "$__timeFilter",
+                                    "params": [],
+                                    "type": "macro"
+                                }
+                            ]
+                        }
+                    ],
+                    "title": "CLOC Status",
+                    "transparent": true,
+                    "type": "gauge"
+                },
+                {
+                    "datasource": {
+                        "type": "grafana-postgresql-datasource",
+                        "uid": "${DB}"
+                    },
+                    "description": "",
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "custom": {
+                                "axisBorderShow": false,
+                                "axisCenteredZero": false,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "drawStyle": "line",
+                                "fillOpacity": 3,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
+                                "lineInterpolation": "stepAfter",
+                                "lineStyle": {
+                                    "fill": "solid"
+                                },
+                                "lineWidth": 1,
+                                "pointSize": 5,
+                                "scaleDistribution": {
+                                    "type": "linear"
+                                },
+                                "showPoints": "never",
+                                "spanNulls": true,
+                                "stacking": {
+                                    "group": "A",
+                                    "mode": "none"
+                                },
+                                "thresholdsStyle": {
+                                    "mode": "off"
+                                }
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green"
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unitScale": true
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
+                        "h": 6,
+                        "w": 18,
+                        "x": 5,
+                        "y": 3
+                    },
+                    "id": 108,
+                    "options": {
+                        "legend": {
+                            "calcs": [],
+                            "displayMode": "list",
+                            "placement": "bottom",
+                            "showLegend": true
+                        },
+                        "tooltip": {
+                            "mode": "multi",
+                            "sort": "none"
+                        }
+                    },
+                    "repeat": "repositories",
+                    "repeatDirection": "v",
+                    "targets": [
+                        {
+                            "datasource": {
+                                "type": "grafana-postgresql-datasource",
+                                "uid": "${DB}"
+                            },
+                            "editorMode": "code",
+                            "format": "time_series",
+                            "group": [],
+                            "hide": false,
+                            "metricColumn": "none",
+                            "rawQuery": true,
+                            "rawSql": "SELECT time AS \"time\", cloc FROM cloc WHERE repository_id=$repositories AND $__timeFilter(\"time\")\nORDER BY 1",
+                            "refId": "A",
+                            "select": [
+                                [
+                                    {
+                                        "params": [
+                                            "coverage"
+                                        ],
+                                        "type": "column"
+                                    }
+                                ]
+                            ],
+                            "sql": {
+                                "columns": [
+                                    {
+                                        "parameters": [],
+                                        "type": "function"
+                                    }
+                                ],
+                                "groupBy": [
+                                    {
+                                        "property": {
+                                            "type": "string"
+                                        },
+                                        "type": "groupBy"
+                                    }
+                                ],
+                                "limit": 50
+                            },
+                            "table": "codecoverage",
+                            "timeColumn": "\"time\"",
+                            "timeColumnType": "timestamp",
+                            "where": [
+                                {
+                                    "name": "$__timeFilter",
+                                    "params": [],
+                                    "type": "macro"
+                                }
+                            ]
+                        }
+                    ],
+                    "title": "CLOC-$repositories",
                     "transparent": true,
                     "type": "timeseries"
                 }
@@ -3871,7 +3050,7 @@
                         "h": 6,
                         "w": 5,
                         "x": 0,
-                        "y": 5
+                        "y": 21
                     },
                     "id": 77,
                     "options": {
@@ -4016,7 +3195,7 @@
                         "h": 10,
                         "w": 19,
                         "x": 5,
-                        "y": 5
+                        "y": 21
                     },
                     "id": 78,
                     "options": {
@@ -4139,7 +3318,7 @@
                         "h": 12,
                         "w": 6,
                         "x": 0,
-                        "y": 6
+                        "y": 22
                     },
                     "id": 103,
                     "options": {
@@ -4260,7 +3439,7 @@
                         "h": 12,
                         "w": 18,
                         "x": 6,
-                        "y": 6
+                        "y": 22
                     },
                     "id": 104,
                     "options": {
@@ -4391,7 +3570,7 @@
                         "h": 5,
                         "w": 24,
                         "x": 0,
-                        "y": 7
+                        "y": 38
                     },
                     "id": 95,
                     "options": {
@@ -4498,7 +3677,7 @@
                         "h": 7,
                         "w": 5,
                         "x": 0,
-                        "y": 12
+                        "y": 43
                     },
                     "id": 83,
                     "options": {
@@ -4644,7 +3823,7 @@
                         "h": 7,
                         "w": 19,
                         "x": 5,
-                        "y": 12
+                        "y": 43
                     },
                     "id": 82,
                     "options": {
@@ -4752,7 +3931,7 @@
                         "h": 7,
                         "w": 5,
                         "x": 0,
-                        "y": 19
+                        "y": 50
                     },
                     "id": 84,
                     "options": {
@@ -4898,7 +4077,7 @@
                         "h": 7,
                         "w": 19,
                         "x": 5,
-                        "y": 19
+                        "y": 50
                     },
                     "id": 87,
                     "options": {
@@ -5006,7 +4185,7 @@
                         "h": 7,
                         "w": 5,
                         "x": 0,
-                        "y": 26
+                        "y": 57
                     },
                     "id": 85,
                     "options": {
@@ -5152,7 +4331,7 @@
                         "h": 7,
                         "w": 19,
                         "x": 5,
-                        "y": 26
+                        "y": 57
                     },
                     "id": 88,
                     "options": {
@@ -5260,7 +4439,7 @@
                         "h": 7,
                         "w": 5,
                         "x": 0,
-                        "y": 33
+                        "y": 64
                     },
                     "id": 86,
                     "options": {
@@ -5410,7 +4589,7 @@
                         "h": 7,
                         "w": 19,
                         "x": 5,
-                        "y": 33
+                        "y": 64
                     },
                     "id": 89,
                     "options": {
@@ -5727,6 +4906,57 @@
                 "skipUrlSync": false,
                 "sort": 0,
                 "type": "query"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "All",
+                    "value": "$__all"
+                },
+                "datasource": {
+                    "type": "grafana-postgresql-datasource",
+                    "uid": "${DB}"
+                },
+                "definition": "SELECT name AS __text, id AS __value\nFROM repositories\nWHERE project_id=$project\nORDER BY __text;",
+                "hide": 2,
+                "includeAll": true,
+                "label": "",
+                "multi": false,
+                "name": "repositories",
+                "options": [],
+                "query": "SELECT name AS __text, id AS __value\nFROM repositories\nWHERE project_id=$project\nORDER BY __text;",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 0,
+                "type": "query"
+            },
+            {
+                "current": {
+                    "selected": false,
+                    "text": "\"Overall 24 Hr\": overall-1",
+                    "value": "\"Overall 24 Hr\": overall-1"
+                },
+                "hide": 1,
+                "includeAll": true,
+                "multi": false,
+                "name": "avg",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "\"Overall 24 Hr\": overall-1",
+                        "value": "\"Overall 24 Hr\": overall-1"
+                    },
+                    {
+                        "selected": false,
+                        "text": "\"Core Functionality 24 Hr\": core-1",
+                        "value": "\"Core Functionality 24 Hr\": core-1"
+                    }
+                ],
+                "query": "Overall 24 Hr : overall-1,Core Functionality 24 Hr : core-1,Overall 7 Days  : overall-7,Core Functionality 7 Days : core-7,Overall 30 Days : overall-30,Core Functionality 30 Days : core-30",
+                "queryValue": "",
+                "skipUrlSync": false,
+                "type": "custom"
             }
         ]
     },
@@ -5739,7 +4969,7 @@
     "timezone": "",
     "title": "Sitreps",
     "uid": "WSOLP7Lnk",
-    "version": 16,
+    "version": 40,
     "weekStart": "monday",
     "__inputs": [
         {
@@ -5749,12 +4979,6 @@
             "type": "datasource",
             "pluginId": "yesoreyeram-infinity-datasource",
             "pluginName": "Infinity"
-        },
-        {
-            "name": "REQUIREMENTS_DASHBOARD_HOSTNAME",
-            "label": "requirements_dashboard_hostname",
-            "description": "requirements_dashboard_hostname",
-            "type": "constant"
         },
         {
             "name": "DB",
@@ -5768,6 +4992,12 @@
             "name": "SITREPS_HOSTNAME",
             "label": "sitreps_hostname",
             "description": "sitreps_hostname",
+            "type": "constant"
+        },
+        {
+            "name": "REQUIREMENTS_DASHBOARD_HOSTNAME",
+            "label": "requirements_dashboard_hostname",
+            "description": "requirements_dashboard_hostname",
             "type": "constant"
         }
     ]

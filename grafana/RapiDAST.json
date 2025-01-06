@@ -505,14 +505,6 @@
     "weekStart": "monday",
     "__inputs": [
         {
-            "name": "APIS",
-            "label": "apis",
-            "description": "",
-            "type": "datasource",
-            "pluginId": "yesoreyeram-infinity-datasource",
-            "pluginName": "Infinity"
-        },
-        {
             "name": "DB",
             "label": "db",
             "description": "",
@@ -525,6 +517,14 @@
             "label": "sitreps_hostname",
             "description": "sitreps_hostname",
             "type": "constant"
+        },
+        {
+            "name": "APIS",
+            "label": "apis",
+            "description": "",
+            "type": "datasource",
+            "pluginId": "yesoreyeram-infinity-datasource",
+            "pluginName": "Infinity"
         }
     ]
 }

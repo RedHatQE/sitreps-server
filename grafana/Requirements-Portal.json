@@ -51,7 +51,7 @@
                         "mode": "thresholds"
                     },
                     "custom": {
-                        "align": "auto",
+                        "align": "center",
                         "cellOptions": {
                             "type": "auto"
                         },
@@ -73,7 +73,114 @@
                     },
                     "unitScale": true
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "passed"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "percent"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "xpass"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "percent"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "skip"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "percent"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "blocked"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "percent"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "xfailed"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "percent"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "error"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "percent"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "manual"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "percent"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "project"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.align",
+                                "value": "left"
+                            },
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": true,
+                                        "title": "",
+                                        "url": "${REQUIREMENTS_DASHBOARD_HOSTNAME}/$env/${__data.fields.project}/summary"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
             },
             "gridPos": {
                 "h": 21,
@@ -272,7 +379,7 @@
     "timezone": "",
     "title": "Requirements Portal",
     "uid": "oMlYtH_4z",
-    "version": 5,
+    "version": 6,
     "weekStart": "",
     "__inputs": [
         {
@@ -282,6 +389,12 @@
             "type": "datasource",
             "pluginId": "grafana-postgresql-datasource",
             "pluginName": "PostgreSQL"
+        },
+        {
+            "name": "REQUIREMENTS_DASHBOARD_HOSTNAME",
+            "label": "requirements_dashboard_hostname",
+            "description": "requirements_dashboard_hostname",
+            "type": "constant"
         }
     ]
 }

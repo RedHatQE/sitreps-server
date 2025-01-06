@@ -1703,6 +1703,12 @@
     "weekStart": "",
     "__inputs": [
         {
+            "name": "GITLAB_HOSTNAME",
+            "label": "gitlab_hostname",
+            "description": "gitlab_hostname",
+            "type": "constant"
+        },
+        {
             "name": "GITLAB_API",
             "label": "gitlab-api",
             "description": "",
@@ -1714,12 +1720,6 @@
             "name": "REQUIREMENTS_DASHBOARD_HOSTNAME",
             "label": "requirements_dashboard_hostname",
             "description": "requirements_dashboard_hostname",
-            "type": "constant"
-        },
-        {
-            "name": "GITLAB_HOSTNAME",
-            "label": "gitlab_hostname",
-            "description": "gitlab_hostname",
             "type": "constant"
         }
     ]

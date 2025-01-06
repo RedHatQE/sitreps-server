@@ -43,3 +43,6 @@ from .sonarqube import SonarQubeUpdate  # noqa: F401
 from .unittest import UnitTest  # noqa: F401
 from .unittest import UnitTestCreate  # noqa: F401
 from .unittest import UnitTestUpdate  # noqa: F401
+from .unittest_result import UnitTestResult  # noqa: F401
+from .unittest_result import UnitTestResultCreate  # noqa: F401
+from .unittest_result import UnitTestResultUpdate  # noqa: F401

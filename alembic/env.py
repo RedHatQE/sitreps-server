@@ -25,6 +25,7 @@ from sitreps_server.models import (
     Repository,
     SonarQube,
     UnitTest,
+    UnitTestResult,
     RequirementsPortal,
     RequirementsPortalJson,
     Rapidast,
